@@ -1,5 +1,5 @@
 <?php
-/* Thomas Hunziker - www.bakual.ch - Januar 2010 */
+/* Thomas Hunziker - www.bakual.net - Januar 2010 */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -44,7 +44,7 @@ class ActparseViewSearchbydate extends JView
 			return false;
 		}
 
-		// Title aus dem Array rauslöschen, da sowieso obligatorisch angezeigt
+		// Title aus dem Array rauslï¿½schen, da sowieso obligatorisch angezeigt
 		$key	= array_search('title', $cols);
 		if ($key !== FALSE) {
 			unset ($cols[$key]);
@@ -65,7 +65,7 @@ class ActparseViewSearchbydate extends JView
 		$titles = array_merge($t_option, $titles);
 		$this->titlelist	= JHTML::_('select.genericlist', $titles, 'title', 'class="inputbox" size="1"'.$javascript, 'value', 'text', $state->get('title'));
 
-		// Daten für Graph vorbereiten (in Array umfüllen)
+		// Daten fï¿½r Graph vorbereiten (in Array umfï¿½llen)
 		$showgraph		= $params->get('show_graph');
 		if ($showgraph){
 			$graphitems		= NULL;
@@ -82,7 +82,7 @@ class ActparseViewSearchbydate extends JView
 			if ($order == 'starttime' || $order == 'endtime') $showgraph = '0';
 			if ($order == 'healed' || $order == 'exthps') $graphsettings['Heal'] = '1';
 
-			// Daten in Session speichern für Graph
+			// Daten in Session speichern fï¿½r Graph
 			$session	=& JFactory::getSession();
 			$session->set('GraphItems',$graphitems);
 			$session->set('GraphSettings',$graphsettings);

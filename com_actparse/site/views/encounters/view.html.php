@@ -1,5 +1,5 @@
 <?php
-/* Thomas Hunziker - www.bakual.ch - Januar 2010 */
+/* Thomas Hunziker - www.bakual.net - Januar 2010 */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -56,7 +56,7 @@ class ActparseViewEncounters extends JView
 			return false;
 		}
 
-		// Title aus dem Array rauslöschen, da sowieso obligatorisch angezeigt
+		// Title aus dem Array rauslï¿½schen, da sowieso obligatorisch angezeigt
 		$key	= array_search('title', $cols);
 		if ($key !== FALSE) {
 			unset ($cols[$key]);

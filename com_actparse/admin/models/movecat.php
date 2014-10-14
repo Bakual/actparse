@@ -1,5 +1,5 @@
 <?php
-/* Thomas Hunziker - www.bakual.ch - Januar 2010 */
+/* Thomas Hunziker - www.bakual.net - Januar 2010 */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -24,7 +24,7 @@ class ActparseModelMovecat extends JModel
 		$cid 	= JRequest::getVar( 'cid', array(0), '', 'array' );
 		$cids = implode(',', $cid);
 
-		// ausgewählte Encounter auslesen
+		// ausgewï¿½hlte Encounter auslesen
 		$query = 'SELECT et.*, cat.title AS category'
 		. ' FROM encounter_table AS et'
 		. ' LEFT JOIN #__categories AS cat ON cat.id = et.catid'

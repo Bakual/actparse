@@ -1,5 +1,5 @@
 <?php
-/* Thomas Hunziker - www.bakual.ch - Januar 2010 */
+/* Thomas Hunziker - www.bakual.net - Januar 2010 */
 
 defined('_JEXEC') or die('Restricted access');
 JHTML::_('behavior.tooltip');

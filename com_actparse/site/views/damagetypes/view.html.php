@@ -1,5 +1,5 @@
 <?php
-/* Thomas Hunziker - www.bakual.ch - Januar 2010 */
+/* Thomas Hunziker - www.bakual.net - Januar 2010 */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -32,7 +32,7 @@ class ActparseViewDamagetypes extends JView
 			}
 		}
 
-		include ('components'.DS.'com_actparse'.DS.'graphlib'.DS.'phpgraphlib.php');
+		include ('components/com_actparse/graphlib/phpgraphlib.php');
 
 		// Get some data from the models
 		$items		= $this->get('Items');
@@ -45,7 +45,7 @@ class ActparseViewDamagetypes extends JView
 		}
 
 		$cols		= (array) $params->get('damagecolumns');
-		// Type aus dem Array rauslöschen, da sowieso obligatorisch angezeigt
+		// Type aus dem Array rauslï¿½schen, da sowieso obligatorisch angezeigt
 		$key	= array_search('type', $cols);
 		if ($key !== FALSE) {
 			unset ($cols[$key]);

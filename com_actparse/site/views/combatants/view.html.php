@@ -1,5 +1,5 @@
 <?php
-/* Thomas Hunziker - www.bakual.ch - Januar 2010 */
+/* Thomas Hunziker - www.bakual.net - Januar 2010 */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -32,7 +32,7 @@ class ActparseViewCombatants extends JView
 			}
 		}
 
-		include ('components'.DS.'com_actparse'.DS.'graphlib'.DS.'phpgraphlib.php');
+		include ('components/com_actparse/graphlib/phpgraphlib.php');
 
 		// Get some data from the models
 		$items		= $this->get('Items');
@@ -45,7 +45,7 @@ class ActparseViewCombatants extends JView
 		}
 
 		$cols		= (array) $params->get('combatantcolumns');
-		// Name aus dem Array rauslöschen, da sowieso obligatorisch angezeigt
+		// Name aus dem Array rauslï¿½schen, da sowieso obligatorisch angezeigt
 		$key	= array_search('name', $cols);
 		if ($key !== FALSE) {
 			unset ($cols[$key]);
@@ -59,7 +59,7 @@ class ActparseViewCombatants extends JView
 		$npclist[]	= JHTML::_('select.option',  'F', 'NPC');
 		$this->npc	= JHTML::_('select.genericlist',   $npclist, 'show_npc', 'class="inputbox" size="1" style="width:8em;"'.$javascript, 'value', 'text', $show_npc);
 
-		// Daten für Graph vorbereiten (in Array umfüllen)
+		// Daten fï¿½r Graph vorbereiten (in Array umfï¿½llen)
 		$showgraph		= $params->get('show_graph');
 		if ($showgraph){
 			$graphitems		= NULL;
@@ -76,7 +76,7 @@ class ActparseViewCombatants extends JView
 			if ($order == 'starttime' || $order == 'endtime') $showgraph = '0';
 			if ($order == 'healed' || $order == 'exthps') $graphsettings['Heal'] = '1';
 
-			// Daten in Session speichern für Graph
+			// Daten in Session speichern fï¿½r Graph
 			$session	=& JFactory::getSession();
 			$session->set('GraphItems',$graphitems);
 			$session->set('GraphSettings',$graphsettings);

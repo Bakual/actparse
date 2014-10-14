@@ -1,5 +1,5 @@
 <?php
-/* Thomas Hunziker - www.bakual.ch - Januar 2010 */
+/* Thomas Hunziker - www.bakual.net - Januar 2010 */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -88,7 +88,7 @@ class ActparseModelCombatants extends JModelList
 
 		$db->SetQuery($query);
 
-		$crumbs	= $db->loadAssoc();	// Lädt Resultat als Array (_data['id'])
+		$crumbs	= $db->loadAssoc();	// Lï¿½dt Resultat als Array (_data['id'])
 
 		return $crumbs;
 	}

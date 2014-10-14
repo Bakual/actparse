@@ -1,5 +1,5 @@
 <?php
-/* Thomas Hunziker - www.bakual.ch - Januar 2010 */
+/* Thomas Hunziker - www.bakual.net - Januar 2010 */
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die('Restricted access');
@@ -133,7 +133,7 @@ class ActparseModelEncounters extends JModelList
 		. ' ORDER BY zone ASC'
 		;
 		
-		// Query ausführen (mehrzeiliges Resulat als Array)
+		// Query ausfï¿½hren (mehrzeiliges Resulat als Array)
 		$zones	= $this->_getList($query);
 
         return $zones;
