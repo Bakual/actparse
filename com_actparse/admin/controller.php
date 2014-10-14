@@ -12,11 +12,4 @@ defined('_JEXEC') or die;
 class ActparseController extends JControllerLegacy
 {
 	protected $default_view = 'encounters';
-
-	function display()
-	{
-		parent::display();
-
-		return $this;
-	}
 }

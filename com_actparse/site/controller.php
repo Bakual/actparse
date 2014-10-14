@@ -15,13 +15,6 @@ defined('_JEXEC') or die;
  */
 class ActparseController extends JControllerLegacy
 {
-	function display()
-	{
-		// Setzt einen Standard view 
-		if ( ! JRequest::getCmd( 'view' ) ) {
-			JRequest::setVar('view', 'raids' );
-		}
-		parent::display();
-	}
+	protected $default_view = 'raids';
 }
 
