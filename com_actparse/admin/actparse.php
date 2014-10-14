@@ -1,15 +1,11 @@
 <?php
 /* Thomas Hunziker - www.bakual.net - Januar 2010 */
 
-// Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
-// require helper file
-JLoader::register('ActparseHelper', dirname(__FILE__) . '/helpers/actparse.php');
+// Register Helperclass for autoloading
+JLoader::register('SermonspeakerHelper', JPATH_COMPONENT . '/helpers/sermonspeaker.php');
 
-// import joomla controller library
-jimport('joomla.application.component.controller');
-
-$controller	= JController::getInstance('Actparse');
-$controller->execute(JRequest::getCmd('task'));
+$controller = JControllerLegacy::getInstance('Sermonspeaker');
+$controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();
