@@ -1,8 +1,13 @@
 <?php
-/* Thomas Hunziker - www.bakual.net - Januar 2010 */
+/**
+ * @package     ACT Parse
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@bakual.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ **/
 
-// Check to ensure this file is included in Joomla!
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
 
 jimport('joomla.application.component.modellist');
 
