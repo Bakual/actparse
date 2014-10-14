@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<fieldset name="component"
+		addfieldpath="/administrator/components/com_actparse/models/fields">
+		<field name="show_ext_path" type="radio" default="1" label="COM_ACTPARSE_SHOW_PATHWAY" description="COM_ACTPARSE_SHOW_PATHWAY_DESC">
+			<option value="0">Easy</option>
+			<option value="1">Extended</option>
+		</field>
+		<field name="show_all" type="radio" default="1" label="COM_ACTPARSE_SHOW_ALL" description="COM_ACTPARSE_SHOW_ALL_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		<field name="name_all" type="text" 
+			label="COM_ACTPARSE_NAME_ALL" 
+			description="COM_ACTPARSE_NAME_ALL_DESC"
+			default="COM_ACTPARSE_RAIDWIDE" />
+		<field type="radio" name="show_graph" default="1" label="COM_ACTPARSE_SHOW_GRAPH" description="COM_ACTPARSE_SHOW_GRAPH_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		<field type="radio" name="mark_user" default="1" label="COM_ACTPARSE_MARK_USER" description="COM_ACTPARSE_MARK_USER_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		<field type="radio" name="hide_parse" default="0" label="COM_ACTPARSE_HIDE_PARSE" description="COM_ACTPARSE_HIDE_PARSE_DESC">
+			<option value="0">No</option>
+			<option value="1">Yes</option>
+		</field>
+		<field name="spacer1" 
+			type="spacer"
+			hr="true"/>
+		<field name="filter_field"
+			type="radio"
+			default="0"
+			label="JGLOBAL_FILTER_FIELD_LABEL"
+			description="COM_SERMONSPEAKER_FILTER_FIELD_DESC">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+		</field>
+
+		<field name="show_pagination_limit"
+			type="radio" default="1"
+			label="JGLOBAL_DISPLAY_SELECT_LABEL"
+			description="JGLOBAL_DISPLAY_SELECT_DESC">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+		</field>
+
+		<field name="show_pagination"
+			type="list"
+			default="1"
+			label="JGLOBAL_Pagination_Label"
+			description="JGLOBAL_Pagination_Desc">
+				<option value="0">JHIDE</option>
+				<option value="2">JGLOBAL_AUTO</option>
+		</field>
+		<field name="show_pagination_results"
+			type="radio"
+			default="1"
+			label="JGLOBAL_PAGINATION_RESULTS_LABEL"
+			description="JGLOBAL_PAGINATION_RESULTS_DESC">
+				<option value="0">JHIDE</option>
+				<option value="1">JSHOW</option>
+		</field>
+
+	</fieldset>
+	<fieldset name="columns"
+		label="COM_ACTPARSE_FIELDSET_COLUMNS_LABEL">
+		<field name="combatantcolumns" 
+			type="sqlmultilistx" 
+			label="COM_ACTPARSE_SELECT_COLUMNS_COMBATANT" 
+			description="COM_ACTPARSE_COM_ACTPARSE_SELECT_COLUMNS_DESC" 
+			size="5" 
+			multiple="multiple" 
+			sql="SHOW COLUMNS FROM combatant_table" 
+		/>
+		<field name="damagecolumns" 
+			type="sqlmultilistx" 
+			label="COM_ACTPARSE_SELECT_COLUMNS_DAMAGE" 
+			description="COM_ACTPARSE_COM_ACTPARSE_SELECT_COLUMNS_DESC" 
+			size="5" 
+			multiple="multiple" 
+			sql="SHOW COLUMNS FROM damagetype_table" 
+		/>
+		<field name="attackcolumns" 
+			type="sqlmultilistx" 
+			label="COM_ACTPARSE_SELECT_COLUMNS_ATTACK" 
+			description="COM_ACTPARSE_COM_ACTPARSE_SELECT_COLUMNS_DESC" 
+			size="5" 
+			multiple="multiple" 
+			sql="SHOW COLUMNS FROM attacktype_table" 
+		/>
+	</fieldset>
+</config>

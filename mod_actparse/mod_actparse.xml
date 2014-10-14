@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="module" version="1.6" method="upgrade">
+	<name>mod_actparse</name>
+	<author>Thomas Hunziker</author>
+	<authorEmail>werbemails@bakual.ch</authorEmail>
+	<creationDate>Dezember 2009</creationDate>
+	<creationDate>August 2011</creationDate>
+	<copyright>(C) 2011</copyright>
+	<authorUrl>http://act.homeip.net</authorUrl>
+	<version>1.0</version>
+	<description>MOD_ACTPARSE_XML_DESCRIPTION</description>
+	<license>GNU/GPL</license>
+	<files>
+		<filename module="mod_actparse">mod_actparse.php</filename>
+		<filename>mod_actparse.xml</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+		<folder>tmpl</folder>
+		<folder>language</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="actparse_limit" type="text" default="5" label="MOD_ACTPARSE_FIELD_NUMBER_LABEL" description="MOD_ACTPARSE_FIELD_NUMBER_DESC" />
+				<field name="actparse_order" type="list" default="date DESC" label="MOD_ACTPARSE_FIELD_ORDER_LABEL" description="MOD_ACTPARSE_FIELD_ORDER_DESC">
+				  <option value="date ASC">MOD_ACTPARSE_ORDER_OPTION_1</option>
+				  <option value="date DESC">MOD_ACTPARSE_ORDER_OPTION_2</option>
+				  <option value="raidname ASC">MOD_ACTPARSE_ORDER_OPTION_3</option>
+				  <option value="raidname DESC">MOD_ACTPARSE_ORDER_OPTION_4</option>
+				</field>
+				<field name="menuitem" type="menuitem" 
+					default=""
+					label="MOD_ACTPARSE_FIELD_MENUITEM_LABEL" 
+					description="MOD_ACTPARSE_FIELD_MENUITEM_DESC" 
+					state="1"
+				/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="3.3.0" method="upgrade">
+	<name>ACT Parse Package</name>
+	<author>Thomas Hunziker</author>
+	<creationDate>2014-10-14</creationDate>
+	<copyright>(C) 2014</copyright>
+	<authorEmail>admin@bakual.net</authorEmail>
+	<authorUrl>http://www.bakual.net</authorUrl>
+	<version>2.0.0</version>
+	<license>http://www.gnu.org/licenses/gpl.html</license>
+	<packagename>actparse</packagename>
+	<url>http://www.bakual.net</url>
+	<packager>Thomas Hunziker</packager>
+	<packagerurl>http://www.bakual.net</packagerurl>
+	<description>ACT PArse Packages.</description>
+	<files>
+		<file type="component" id="com_actparse" >com_actparse.zip</file>
+		<file type="module" id="mod_actparse" client="site">mod_actparse.zip</file>
+		<file type="plugin" id="plg_search_actparse" client="site">plg_search_actparse.zip</file>
+	</files>
+</extension>

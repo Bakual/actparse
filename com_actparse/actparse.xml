@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="component" version="1.6" method="upgrade">
+	<name>com_actparse</name>
+	<author>Thomas Hunziker</author>
+	<authorEmail>werbemails@bakual.ch</authorEmail>
+	<creationDate>August 2011</creationDate>
+	<copyright>(C) 2011</copyright>
+	<authorUrl>http://act.homeip.net</authorUrl>
+	<version>1.0</version>
+	<description>COM_ACTPARSE_DESCRIPTION</description>
+	<license>GNU/GPL</license>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<files folder="site">
+		<filename>index.html</filename>
+		<filename>actparse.php</filename>
+		<filename>controller.php</filename>
+		<folder>views</folder>
+		<folder>models</folder>
+		<folder>language</folder>
+		<folder>graphlib</folder>
+		<folder>css</folder>
+	</files>
+	<administration>
+		<menu img="class:stats">COM_ACTPARSE</menu>
+		<submenu>
+			<menu img="class:stats" view="encounters">COM_ACTPARSE_MENU_ENCOUNTER</menu>
+			<menu img="class:stats" view="raids">COM_ACTPARSE_MENU_RAID</menu>
+			<menu img="class:category" link="option=com_categories&amp;extension=com_actparse">COM_ACTPARSE_MENU_CATEGORY</menu>
+			<menu img="class:info" view="info">COM_ACTPARSE_MENU_INFO</menu>
+		</submenu>
+		<files folder="admin">
+			<filename>index.html</filename>
+			<filename>config.xml</filename>
+			<filename>actparse.php</filename>
+			<filename>controller.php</filename>
+			<filename>id.sql</filename>
+			<folder>controllers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>language</folder>
+			<folder>helpers</folder>
+			<folder>views</folder>
+		</files>
+	</administration>
+	<tables>
+		<table>#__actparse_raids</table>
+	</tables>
+</extension>
