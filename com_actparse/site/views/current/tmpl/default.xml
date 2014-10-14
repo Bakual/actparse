@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_ACTPARSE_CURRENT_VIEW_DEFAULT_TITLE">
+		<message>COM_ACTPARSE_CURRENT_VIEW_DEFAULT_DESC</message>
+	</layout>
+	<fields name="params">
+		<fieldset name="basic"
+			label="JGLOBAL_FIELDSET_OPTIONS"
+			addfieldpath="/administrator/components/com_actparse/models/fields">
+
+			<field name="refresh" 
+				type="radio" 
+				default="1" 
+				label="COM_ACTPARSE_REFRESH" 
+				description="COM_ACTPARSE_REFRESH_DESC">
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</field>
+
+			<field name="refreshtime" 
+				type="text" 
+				default="10" 
+				label="COM_ACTPARSE_REFRESH_TIME" 
+				description="COM_ACTPARSE_REFRESH_TIME_DESC" />
+
+			<field name="currentcolumns" 
+				type="sqlmultilistx" 
+				label="COM_ACTPARSE_SELECT_COLUMNS" 
+				description="COM_ACTPARSE_COM_ACTPARSE_SELECT_COLUMNS_DESC" 
+				size="10" 
+				multiple="multiple" 
+				sql="SHOW COLUMNS FROM current_table" 
+				key_field="Field" 
+				value_field="Field" />
+		</fieldset>
+	</fields>
+</metadata>

@@ -1,0 +1,13 @@
+.no_entries{
+	background-color: #eeeeee;
+	padding:5px;
+	border:2px dashed #fa8072;
+}
+tr.all, .all td{
+	background-color: #ccccff;
+	border-bottom: 2px double blue;
+}
+tr.user, .user td{
+	background-color: #ff8888;
+	border: 1px dotted red;
+}
