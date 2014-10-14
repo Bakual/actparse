@@ -11,7 +11,7 @@ defined('_JEXEC') or die;
 
 jimport( 'joomla.application.component.view');
 
-class ActparseViewEncounter extends JView
+class ActparseViewEncounter extends JViewLegacy
 {
 	protected $item;
 	protected $form;

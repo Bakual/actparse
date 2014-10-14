@@ -14,7 +14,7 @@ jimport( 'joomla.application.component.view' );
 /**
  * HTML View class for the actparse Admin Component
  */
-class ActparseViewinfo extends JView
+class ActparseViewinfo extends JViewLegacy
 {
 	function display($tpl = null)
 	{

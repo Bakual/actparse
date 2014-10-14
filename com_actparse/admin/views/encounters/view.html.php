@@ -14,7 +14,7 @@ jimport( 'joomla.application.component.view');
 /**
  * HTML View class for the actparse Component
  */
-class ActparseViewEncounters extends JView
+class ActparseViewEncounters extends JViewLegacy
 {
 	protected $items;
 	protected $pagination;

@@ -13,7 +13,7 @@ jimport( 'joomla.application.component.view');
 /**
  * HTML View class for the actparse Component
  */
-class ActparseViewSearchbydate extends JView
+class ActparseViewSearchbydate extends JViewLegacy
 {
 	function display($tpl = null)
 	{
