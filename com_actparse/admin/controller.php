@@ -9,23 +9,13 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.controller');
-
 class ActparseController extends JControllerLegacy
 {
+	protected $default_view = 'encounters';
+
 	function display()
 	{
-		// Setzt einen Standard view 
-		if ( ! JRequest::getCmd( 'view' ) ) {
-			JRequest::setVar('view', 'encounters' );
-		}
-		require_once JPATH_COMPONENT.'/helpers/actparse.php';
-
 		parent::display();
-
-		// Load the submenu.
-		$view = JRequest::getWord('view', 'encounters');
-		ActparseHelper::addSubmenu($view);
 
 		return $this;
 	}

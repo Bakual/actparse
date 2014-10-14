@@ -10,8 +10,8 @@
 defined('_JEXEC') or die;
 
 // Register Helperclass for autoloading
-JLoader::register('SermonspeakerHelper', JPATH_COMPONENT . '/helpers/sermonspeaker.php');
+JLoader::register('ActparseHelper', JPATH_COMPONENT . '/helpers/actparse.php');
 
-$controller = JControllerLegacy::getInstance('Sermonspeaker');
+$controller = JControllerLegacy::getInstance('Actparse');
 $controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();

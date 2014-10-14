@@ -9,12 +9,11 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.controller');
 
 /**
  * Act Parse Component Controller
  */
-class ActparseController extends JController
+class ActparseController extends JControllerLegacy
 {
 	function display()
 	{

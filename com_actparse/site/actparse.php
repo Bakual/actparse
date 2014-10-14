@@ -9,6 +9,6 @@
 
 defined('_JEXEC') or die();
 
-$controller = JControllerLegacy::getInstance('Sermonspeaker');
+$controller = JControllerLegacy::getInstance('Actparse');
 $controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();
