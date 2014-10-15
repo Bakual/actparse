@@ -30,6 +30,7 @@
 		<filename>actparse.php</filename>
 		<filename>controller.php</filename>
 		<folder>views</folder>
+		<folder>helpers</folder>
 		<folder>models</folder>
 		<folder>language</folder>
 		<folder>graphlib</folder>
@@ -49,6 +50,7 @@
 			<filename>actparse.php</filename>
 			<filename>controller.php</filename>
 			<filename>id.sql</filename>
+			<filename>access.xml</filename>
 			<folder>controllers</folder>
 			<folder>models</folder>
 			<folder>sql</folder>

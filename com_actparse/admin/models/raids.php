@@ -55,19 +55,8 @@ class ActparseModelRaids extends JModelList
 	 *
 	 * @since   1.0
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
-		// Initialise variables.
-		$app = JFactory::getApplication();
-
-		// Load the filter state.
-		$search = $app->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
-		$this->setState('filter.search', $search);
-
-		$published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
-		$this->setState('filter.state', $published);
-
-		// List state information.
 		parent::populateState('raids.raidname', 'asc');
 	}
 
@@ -88,7 +77,7 @@ class ActparseModelRaids extends JModelList
 	{
 		// Compile the store id.
 		$id .= ':' . $this->getState('filter.search');
-		$id .= ':' . $this->getState('filter.state');
+		$id .= ':' . $this->getState('filter.published');
 
 		return parent::getStoreId($id);
 	}
@@ -117,7 +106,7 @@ class ActparseModelRaids extends JModelList
 		$query->from('`#__actparse_raids` AS raids');
 
 		// Filter by published state
-		$published = $this->getState('filter.state');
+		$published = $this->getState('filter.published');
 
 		if (is_numeric($published))
 		{

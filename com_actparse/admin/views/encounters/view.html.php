@@ -9,50 +9,100 @@
 
 defined('_JEXEC') or die;
 
-jimport( 'joomla.application.component.view');
-
 /**
- * HTML View class for the actparse Component
+ * HTML View class for the Actparse Component
+ *
+ * @since  1.0
  */
 class ActparseViewEncounters extends JViewLegacy
 {
+	/**
+	 * Array of objects.
+	 *
+	 * @var array
+	 */
 	protected $items;
+
+	/**
+	 * The pagination object.
+	 *
+	 * @var JPagination
+	 */
 	protected $pagination;
+
+	/**
+	 * The state object.
+	 *
+	 * @var object
+	 */
 	protected $state;
 
-	function display( $tpl = null )
+	/**
+	 * The zones.
+	 *
+	 * @var array
+	 */
+	protected $zones;
+
+	/**
+	 * The HTML code for the sidebar.
+	 *
+	 * @var string
+	 */
+	protected $sidebar;
+
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  mixed  A string if successful, otherwise a Error object.
+	 *
+	 * @see     JViewLegacy::loadTemplate()
+	 * @since   1.0
+	 */
+	public function display($tpl = null)
 	{
-		$this->state		= $this->get('State');
-		$this->items		= $this->get('Items');
-		$this->pagination	= $this->get('Pagination');
-		$this->zones		= $this->get('Zones');
+		ActparseHelper::addSubmenu('encounters');
+
+		$this->state         = $this->get('State');
+		$this->items         = $this->get('Items');
+		$this->pagination    = $this->get('Pagination');
+		$this->zones         = $this->get('Zones');
+		$this->filterForm    = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
-			return false;
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		$this->addToolbar();
+		$this->sidebar = JHtmlSidebar::render();
+
 		parent::display($tpl);
 	}
 
 	/**
 	 * Add the page title and toolbar.
+	 *
+	 * @return  void
 	 */
 	protected function addToolbar()
 	{
-		JToolBarHelper::title(JText::_('COM_ACTPARSE_MENU_ENCOUNTER'), 'impressions.png');
+		JToolBarHelper::title(JText::_('COM_ACTPARSE_MENU_ENCOUNTER'), 'users encounters');
+		JToolBarHelper::addNew('encounter.add');
+		JToolBarHelper::editList('encounter.edit');
+		JToolbarHelper::divider();
 		JToolBarHelper::publishList('encounters.publish');
 		JToolBarHelper::unpublishList('encounters.unpublish');
 		JToolbarHelper::divider();
-		JToolbarHelper::custom('move.display', 'move.png', 'move.png', 'COM_ACTPARSE_ASSIGN_RAID');
-		JToolbarHelper::custom('movecat.display', 'move.png', 'move.png', 'COM_ACTPARSE_ASSIGN_CATEGORY');
+		JToolbarHelper::custom('move.display', 'archive', 'archive', 'COM_ACTPARSE_ASSIGN_RAID');
+		JToolbarHelper::custom('movecat.display', 'archive', 'archive', 'COM_ACTPARSE_ASSIGN_CATEGORY');
 		JToolbarHelper::divider();
 		JToolBarHelper::deleteList('', 'encounters.delete');
-		JToolBarHelper::editList('encounter.edit');
-		JToolBarHelper::addNew('encounter.add');
 		JToolbarHelper::divider();
-		JToolBarHelper::preferences('com_actparse',600);
+		JToolBarHelper::preferences('com_actparse');
 	}
 }

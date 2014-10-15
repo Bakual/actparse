@@ -39,6 +39,10 @@ class ActparseModelEncounters extends JModelList
 			);
 		}
 
+		// Searchtools
+		$config['filter_fields'][] = 'category_id';
+		$config['filter_fields'][] = 'level';
+
 		parent::__construct($config);
 	}
 
@@ -60,23 +64,6 @@ class ActparseModelEncounters extends JModelList
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
-		// Initialise variables.
-		$app = JFactory::getApplication();
-
-		// Load the filter state.
-		$search = $app->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
-		$this->setState('filter.search', $search);
-
-		$published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
-		$this->setState('filter.state', $published);
-
-		$zone = $app->getUserStateFromRequest($this->context . '.filter.zone', 'filter_zone', '', 'string');
-		$this->setState('filter.zone', $zone);
-
-		$categoryId = $app->getUserStateFromRequest($this->context . '.filter.category_id', 'filter_category_id', '');
-		$this->setState('filter.category_id', $categoryId);
-
-		// List state information.
 		parent::populateState('encounters.title', 'asc');
 	}
 
@@ -97,8 +84,8 @@ class ActparseModelEncounters extends JModelList
 	{
 		// Compile the store id.
 		$id .= ':' . $this->getState('filter.search');
-		$id .= ':' . $this->getState('filter.state');
-		$id .= ':' . $this->getState('filter.speaker');
+		$id .= ':' . $this->getState('filter.published');
+		$id .= ':' . $this->getState('filter.zone');
 		$id .= ':' . $this->getState('filter.category_id');
 
 		return parent::getStoreId($id);
@@ -137,7 +124,7 @@ class ActparseModelEncounters extends JModelList
 		$query->join('LEFT', '#__actparse_raids AS raids ON raids.id = encounters.rid');
 
 		// Filter by published state
-		$published = $this->getState('filter.state');
+		$published = $this->getState('filter.published');
 
 		if (is_numeric($published))
 		{
@@ -157,11 +144,24 @@ class ActparseModelEncounters extends JModelList
 		}
 
 		// Filter by category.
+		$baselevel  = 1;
 		$categoryId = $this->getState('filter.category_id');
 
 		if (is_numeric($categoryId))
 		{
-			$query->where('encounters.catid = ' . (int) $categoryId);
+			$cat_tbl = JTable::getInstance('Category', 'JTable');
+			$cat_tbl->load($categoryId);
+			$rgt = $cat_tbl->rgt;
+			$lft = $cat_tbl->lft;
+			$baselevel = (int) $cat_tbl->level;
+			$query->where('c.lft >= ' . (int) $lft)
+				->where('c.rgt <= ' . (int) $rgt);
+		}
+
+		// Filter on the level.
+		if ($level = $this->getState('filter.level'))
+		{
+			$query->where('c.level <= ' . ((int) $level + (int) $baselevel - 1));
 		}
 
 		// Filter by search in title
