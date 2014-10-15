@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     ACT Parse
- * @subpackage  Component.Site
+ * @package     ACTParse
+ * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
@@ -21,7 +21,7 @@ class ActparseControllerInfo extends JControllerLegacy
 	{
 		parent::display();
 	}
-	
+
 	function create_fields()
 	{
 		$app = JFactory::getApplication();
@@ -42,7 +42,7 @@ class ActparseControllerInfo extends JControllerLegacy
 		$query_check = "SHOW COLUMNS FROM encounter_table";
 		$db->setQuery($query_check);
 		$check_result = $db->loadAssocList();
-		
+
 		foreach ($check_result as $column) {
 			if (in_array($column['Field'],$fieldlist)) {
 				return JError::raiseWarning( '', JText::_( 'COM_ACTPARSE_FIELDS_EXISTS_ALREADY' ) );

@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     ACT Parse
- * @subpackage  Component.Site
+ * @package     ACTParse
+ * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
@@ -21,7 +21,7 @@ defined('_JEXEC') or die;
 	<strong><?php echo JText::_('COM_ACTPARSE_MOVE_ENCOUNTERS_TO_RAID').": "; ?></strong>
 	<?php $options[] = JHtml::_('select.option', 0, JText::_('COM_ACTPARSE_SELECT_RAID'));
 	$options = array_merge($options, $this->raids);
-	echo JHTML::_('select.genericlist', $options, 'rid'); ?> 
+	echo JHTML::_('select.genericlist', $options, 'rid'); ?>
 </div>
 <table border="0" width="100%" class="adminlist">
 	<tr>

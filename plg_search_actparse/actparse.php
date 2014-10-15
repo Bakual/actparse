@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     ACT Parse
+ * @package     ACTParse
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
@@ -56,7 +56,7 @@ class plgSearchActparse extends JPlugin
 			case 'exact':
 				$text		= $db->Quote('%'.$db->getEscaped($text, true).'%', false);
 				$wheres2 	= array();
-				if ($title) 
+				if ($title)
 					$wheres2[] 	= "LOWER(et.title) LIKE ".$text;
 				if ($zone)
 					$wheres2[] 	= "LOWER(et.zone) LIKE ".$text;
@@ -86,7 +86,7 @@ class plgSearchActparse extends JPlugin
 				break;
 		}
 
-		switch ( $ordering ) 
+		switch ( $ordering )
 		{
 			case 'oldest':
 				$order = 'et.starttime ASC';

@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     ACT Parse
- * @subpackage  Component.Site
+ * @package     ACTParse
+ * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
@@ -20,9 +20,9 @@ class ActparseModelMove extends JModel
 	function __construct()
 	{
 		parent::__construct();
-		
+
 	}
-	
+
 	function getItems()
 	{
 		$db		=& JFactory::getDBO();
@@ -51,7 +51,7 @@ class ActparseModelMove extends JModel
 		foreach ($raids as $row) {
 			$row->text	= $row->raidname.' ('.JHtml::Date($row->date, JText::_('DATE_FORMAT_LC4'), 'UTC') . ')';
 		}
-		
+
         return $raids;
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     ACT Parse
+ * @package     ACTParse
  * @subpackage  Component.Site
  * @author      Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker

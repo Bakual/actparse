@@ -1,7 +1,7 @@
 <?php
 /**
- * @package     ACT Parse
- * @subpackage  Component.Site
+ * @package     ACTParse
+ * @subpackage  Component.Administrator
  * @author      Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
@@ -21,7 +21,7 @@ defined('_JEXEC') or die;
 	<strong><?php echo JText::_('COM_ACTPARSE_MOVE_ENCOUNTERS_TO_CATEGORY').": "; ?></strong>
 	<?php $options[] = JHtml::_('select.option', 0, JText::_('JOPTION_SELECT_CATEGORY'));
 	$options = array_merge($options, JHtml::_('category.options', 'com_actparse'));
-	echo JHTML::_('select.genericlist', $options, 'catid'); ?> 
+	echo JHTML::_('select.genericlist', $options, 'catid'); ?>
 </div>
 <table border="0" width="100%" class="adminlist">
 	<tr>
