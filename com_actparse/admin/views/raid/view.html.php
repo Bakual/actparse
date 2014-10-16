@@ -9,8 +9,6 @@
 
 defined('_JEXEC') or die;
 
-jimport( 'joomla.application.component.view');
-
 class ActparseViewRaid extends JViewLegacy
 {
 	protected $item;
@@ -22,39 +20,38 @@ class ActparseViewRaid extends JViewLegacy
 		$this->form		= $this->get('Form');
 
 		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseError(500, implode("\n", $errors));
-			return false;
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		$this->addToolbar();
+
 		parent::display($tpl);
 	}
 
 	protected function addToolbar()
 	{
-		JRequest::setVar('hidemainmenu', true);
+		JFactory::getApplication()->input->set('hidemainmenu', true);
 
-		$isNew		= ($this->item->id == 0);
+		$isNew = ($this->item->id == 0);
 
-		JToolBarHelper::title(JText::_('COM_ACTPARSE_RAID'), 'impressions');
+		JToolBarHelper::title(JText::_('COM_ACTPARSE_' . $isNew ? 'ADD' : 'EDIT' . 'RAID'), 'drawer');
 
 		// Build the actions for new and existing records.
-		if ($isNew)  {
-			// For new records, check the create permission.
-			JToolBarHelper::apply('raid.apply', 'JTOOLBAR_APPLY');
-			JToolBarHelper::save('raid.save', 'JTOOLBAR_SAVE');
-			JToolBarHelper::custom('raid.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
-
-			JToolBarHelper::cancel('raid.cancel', 'JTOOLBAR_CANCEL');
-		} else {
-			// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
-			JToolBarHelper::apply('raid.apply', 'JTOOLBAR_APPLY');
-			JToolBarHelper::save('raid.save', 'JTOOLBAR_SAVE');
-
-			JToolBarHelper::custom('raid.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
-			JToolBarHelper::custom('raid.save2copy', 'save-copy.png', 'save-copy_f2.png', 'JTOOLBAR_SAVE_AS_COPY', false);
-
+		if ($isNew)
+		{
+			JToolBarHelper::apply('raid.apply');
+			JToolBarHelper::save('raid.save');
+			JToolbarHelper::save2new('raid.save2new');
+			JToolBarHelper::cancel('raid.cancel');
+		}
+		else
+		{
+			JToolBarHelper::apply('raid.apply');
+			JToolBarHelper::save('raid.save');
+			JToolbarHelper::save2new('raid.save2new');
+			JToolbarHelper::save2new('raid.save2copy');
 			JToolBarHelper::cancel('raid.cancel', 'JTOOLBAR_CLOSE');
 		}
 	}

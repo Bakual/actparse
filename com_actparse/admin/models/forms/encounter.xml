@@ -1,57 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset name="general">
-		<field name="title" 
-			type="text" 
-			class="inputbox"
-			size="40" label="JGLOBAL_TITLE"
-			required="true" />
+		<field
+			name="title"
+			type="text"
+			label="JGLOBAL_TITLE"
+			class="advancedSelect"
+			required="true"
+		/>
 
-		<field name="encid" 
-			type="text" 
-			class="inputbox"
-			size="40" 
-			label="COM_ACTPARSE_ENCOUNTERID" />
+		<field
+			name="encid"
+			type="text"
+			label="COM_ACTPARSE_ENCOUNTERID"
+			class="advancedSelect"
+		/>
 
-		<field name="zone" 
-			type="text" 
-			class="inputbox"
-			size="40" 
-			label="COM_ACTPARSE_ZONE" />
+		<field
+			name="zone"
+			type="text"
+			label="COM_ACTPARSE_ZONE"
+			class="advancedSelect"
+		/>
 
-		<field name="catid" 
+		<field
+			name="catid"
 			type="category" 
+			label="JCATEGORY"
+			description="JFIELD_CATEGORY_DESC"
 			extension="com_actparse"
-			label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
-			class="inputbox">
+			class="advancedSelect"
+			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
 
-		<field name="rid" 
-			type="raidlist" 
-			class="inputbox"
-			label="COM_ACTPARSE_RAIDNAME" />
+		<field
+			name="rid"
+			type="raidlist"
+			label="COM_ACTPARSE_RAIDNAME"
+			class="advancedSelect"
+			>
+			<option value="">COM_ACTPARSE_SELECT_RAID</option>
+		</field>
 
 		<field
 			name="published"
 			type="list"
 			label="JPUBLISHED"
-			class="inputbox"
+			class="advancedSelect"
 			size="1"
-			default="1">
-			<option
-				value="1">JPUBLISHED</option>
-			<option
-				value="0">JUNPUBLISHED</option>
-			<option
-				value="2">JARCHIVED</option>
-			<option
-				value="-2">JTRASHED</option>
+			default="1"
+			>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
 		</field>
-		<field name="id"  type="text" class="readonly"
-			label="JGLOBAL_FIELD_ID_LABEL" description ="JGLOBAL_FIELD_ID_DESC"
-			size="10" default="0" required="true"
-			readonly="true" />
 
+		<field
+			name="id"
+			type="text"
+			label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC"
+			class="readonly"
+			size="10"
+			default="0"
+			required="true"
+			readonly="true"
+		/>
 	</fieldset>
 </form>

@@ -12,6 +12,7 @@
 			type="list"
 			label="COM_ACTPARSE_FILTER_PUBLISHED"
 			description="COM_ACTPARSE_FILTER_PUBLISHED_DESC"
+			class="advancedSelect"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_PUBLISHED</option>
@@ -25,6 +26,7 @@
 			type="list"
 			label="COM_ACTPARSE_LIST_FULL_ORDERING"
 			description="COM_ACTPARSE_LIST_FULL_ORDERING_DESC"
+			class="advancedSelect"
 			onchange="this.form.submit();"
 			>
 			<option value="">JGLOBAL_SORT_BY</option>
@@ -38,10 +40,10 @@
 		<field
 			name="limit"
 			type="limitbox"
-			class="input-mini"
-			default="25"
 			label="COM_ACTPARSE_LIST_LIMIT"
 			description="COM_ACTPARSE_LIST_LIMIT_DESC"
+			class="input-mini advancedSelect"
+			default="25"
 			onchange="this.form.submit();"
 		/>
 	</fields>

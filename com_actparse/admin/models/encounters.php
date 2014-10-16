@@ -43,6 +43,7 @@ class ActparseModelEncounters extends JModelList
 		$config['filter_fields'][] = 'category_id';
 		$config['filter_fields'][] = 'level';
 		$config['filter_fields'][] = 'zone';
+		$config['filter_fields'][] = 'raid';
 
 		parent::__construct($config);
 	}
@@ -141,7 +142,15 @@ class ActparseModelEncounters extends JModelList
 
 		if ($zone)
 		{
-			$query->where('encounters.zone = "' . $zone . '"');
+			$query->where('encounters.zone = ' . $db->quote($db->escape($zone)));
+		}
+
+		// Filter by raid
+		$raid = $this->getState('filter.raid');
+
+		if ($raid)
+		{
+			$query->where('encounters.rid = ' . (int) $raid);
 		}
 
 		// Filter by category.
