@@ -26,7 +26,6 @@
 	</update>
 
 	<files folder="site">
-		<filename>index.html</filename>
 		<filename>actparse.php</filename>
 		<filename>controller.php</filename>
 		<folder>views</folder>
@@ -45,7 +44,6 @@
 			<menu img="class:info" view="info">COM_ACTPARSE_MENU_INFO</menu>
 		</submenu>
 		<files folder="admin">
-			<filename>index.html</filename>
 			<filename>config.xml</filename>
 			<filename>actparse.php</filename>
 			<filename>controller.php</filename>

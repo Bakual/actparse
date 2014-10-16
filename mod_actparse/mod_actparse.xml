@@ -13,7 +13,6 @@
 	<files>
 		<filename module="mod_actparse">mod_actparse.php</filename>
 		<filename>mod_actparse.xml</filename>
-		<filename>index.html</filename>
 		<filename>helper.php</filename>
 		<folder>tmpl</folder>
 		<folder>language</folder>
@@ -28,10 +27,10 @@
 				  <option value="raidname ASC">MOD_ACTPARSE_ORDER_OPTION_3</option>
 				  <option value="raidname DESC">MOD_ACTPARSE_ORDER_OPTION_4</option>
 				</field>
-				<field name="menuitem" type="menuitem" 
+				<field name="menuitem" type="menuitem"
 					default=""
-					label="MOD_ACTPARSE_FIELD_MENUITEM_LABEL" 
-					description="MOD_ACTPARSE_FIELD_MENUITEM_DESC" 
+					label="MOD_ACTPARSE_FIELD_MENUITEM_LABEL"
+					description="MOD_ACTPARSE_FIELD_MENUITEM_DESC"
 					state="1"
 				/>
 			</fieldset>
