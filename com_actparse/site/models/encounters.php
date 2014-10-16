@@ -19,12 +19,11 @@ class ActparseModelEncounters extends JModelList
 {
 	protected function getListQuery()
 	{
-		$user	= JFactory::getUser();
-		$groups	= implode(',', $user->authorisedLevels());
+		$groups = implode(',', JFactory::getUser()->getAuthorisedViewLevels());
 
 		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 
 		// Select required fields from the table.
 		$query->select(
@@ -37,32 +36,40 @@ class ActparseModelEncounters extends JModelList
 
 		// Filter by search in title or scripture (with ref:)
 		$search = $this->getState('filter.search');
-		if (!empty($search)) {
-			$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
-			$query->where('(et.title LIKE '.$search.')');
+
+		if (!empty($search))
+		{
+			$search = $db->quote('%' . $db->escape($search, true) . '%');
+			$query->where('(et.title LIKE ' . $search . ')');
 		}
 
 		// Join over et Category.
 		$query->join('LEFT', '#__categories AS c_et ON c_et.id = et.catid');
-		if ($categoryId = $this->getState('category.id')) {
-			$query->where('et.catid = '.(int) $categoryId);
+
+		if ($categoryId = $this->getState('category.id'))
+		{
+			$query->where('et.catid = ' . (int) $categoryId);
 		}
-		$query->where('(et.catid = 0 OR (c_et.access IN ('.$groups.') AND c_et.published = 1))');
+
+		$query->where('(et.catid = 0 OR (c_et.access IN (' . $groups . ') AND c_et.published = 1))');
 
 		// Filter by Raid
-		if ($raidId = $this->getState('raid.id')) {
-			$query->where('et.rid = '.(int) $raidId);
+		if ($raidId = $this->getState('raid.id'))
+		{
+			$query->where('et.rid = ' . (int) $raidId);
 			$query->where('et.title <> "All"');
 		}
 
 		// Filter by state
 		$state = $this->getState('filter.state');
-		if (is_numeric($state)) {
-			$query->where('et.published = '.(int) $state);
+
+		if (is_numeric($state))
+		{
+			$query->where('et.published = ' . (int) $state);
 		}
 
 		// Add the list ordering clause.
-		$query->order($db->getEscaped($this->getState('list.ordering', 'starttime')).' '.$db->getEscaped($this->getState('list.direction', 'DESC')));
+		$query->order($db->escape($this->getState('list.ordering', 'starttime')) . ' ' . $db->escape($this->getState('list.direction', 'DESC')));
 
 		return $query;
 	}
@@ -77,35 +84,45 @@ class ActparseModelEncounters extends JModelList
 	protected function populateState()
 	{
 		// Initialise variables.
-		$app	= JFactory::getApplication();
-		$params	= $app->getParams();
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
+		$jinput = $app->input;
 
-		$limit	= (int)$params->get('limit', '');
 		// List state information
-		$search = JRequest::getString('filter-search', '');
+		$search = $jinput->getString('filter-search', '');
 		$this->setState('filter.search', $search);
 
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('list_limit'));
 		$this->setState('list.limit', $limit);
 
-		$limitstart = JRequest::getInt('limitstart', 0);
+		$limitstart = $jinput->getInt('limitstart', 0);
 		$this->setState('list.start', $limitstart);
 
-		$orderCol	= JRequest::getCmd('filter_order', $params->get('default_order', 'starttime'));
+		$orderCol = $jinput->getCmd('filter_order', $params->get('default_order', 'starttime'));
 		$this->setState('list.ordering', $orderCol);
 
-		$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'DESC'));
+		$listOrder = $jinput->getCmd('filter_order_Dir', $params->get('default_order_dir', 'DESC'));
 		$this->setState('list.direction', $listOrder);
 
-		$id = (int)$params->get('enc_cat', 0);
-		if (!$id){ $id = JRequest::getInt('enc_cat', 0); }
+		$id = (int) $params->get('enc_cat', 0);
+
+		if (!$id)
+		{
+			$id = $jinput->getInt('enc_cat', 0);
+		}
+
 		$this->setState('category.id', $id);
 
-		$id = (int)$params->get('enc_rid', 0);
-		if (!$id){ $id = JRequest::getInt('enc_rid', 0); }
+		$id = (int) $params->get('enc_rid', 0);
+
+		if (!$id)
+		{
+			$id = $jinput->getInt('enc_rid', 0);
+		}
+
 		$this->setState('raid.id', $id);
 
-		$this->setState('filter.state',	1);
+		$this->setState('filter.state', 1);
 
 		// Load the parameters.
 		$this->setState('params', $params);
@@ -113,39 +130,31 @@ class ActparseModelEncounters extends JModelList
 
 	function getAll()
 	{
-		$db		= JFactory::getDBO();
+		$db = JFactory::getDBO();
 
-		$select = 'et.*';
-		$from	= 'encounter_table AS et';
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from('encounter_table');
+		$query->where('rid = ' . (int) $this->getState('raid.id'));
+		$query->where('title = "All"');
+		$query->where('published = 1');
 
-		$wheres[]	= 'et.rid = "' .$this->getState('raid.id'). '"';
-		$wheres[]	= 'et.title = "All"';
+		$db->setQuery($query);
 
-		$query	= "SELECT et.* \n"
-				. "FROM encounter_table AS et \n"
-				. "WHERE et.rid = '".$this->getState('raid.id')."' \n"
-				. "AND et.title = 'All' \n"
-				. "AND et.published = 1";
-
-		$db->SetQuery($query);
-
-		$this->_all	= $db->loadObject();
-
-        return $this->_all;
+		return $db->loadObject();
 	}
 
 	function getCrumbs()
 	{
-		$db		=& JFactory::getDBO();
+		$db = JFactory::getDBO();
 
-		$query	= "SELECT * \n"
-				. "FROM #__actparse_raids \n"
-				. "WHERE id = '".$this->getState('raid.id')."'";
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from('#__actparse_raids');
+		$query->where('id = ' . (int) $this->getState('raid.id'));
 
-		$db->SetQuery($query);
+		$db->setQuery($query);
 
-		$crumbs	= $db->loadAssoc();	// L�dt Resultat als Array (_query['id'])
-
-		return $crumbs;
+		return $db->loadAssoc();
 	}
 }
