@@ -16,9 +16,19 @@ defined('_JEXEC') or die;
  */
 class ActparseControllerEncounters extends JControllerAdmin
 {
-	public function &getModel($name = 'Encounter', $prefix = 'ActparseModel')
+	/**
+	 * Method to get a model object, loading it if required.
+	 *
+	 * @param   string  $name    The model name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  object  The model.
+	 *
+	 * @since   1.0
+	 */
+	public function getModel($name = 'Encounter', $prefix = 'ActparseModel', $config = array())
 	{
-		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
-		return $model;
+		return parent::getModel($name, $prefix);
 	}
 }

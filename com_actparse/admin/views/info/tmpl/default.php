@@ -9,15 +9,11 @@
 
 defined('_JEXEC') or die;
 ?>
-<?php
-	JToolBarHelper::title(JText::_('COM_ACTPARSE_INFO'), 'info');
-	JToolBarHelper::preferences('com_actparse');
-?>
-<?php echo JText::_('COM_ACTPARSE_INFO_PAGETEXT'); ?>
-<form action="index.php?option=com_actparse&task=info.create_fields" method="post" name="adminform" id="adminform">
-	<input type="submit" value="<?php echo JText::_('COM_ACTPARSE_CREATE_FIELDS'); ?>">
-</form>
-<br/>
-<form action="index.php?option=com_actparse&task=info.update_fields" method="post" name="adminform" id="adminform">
-	<input type="submit" value="<?php echo JText::_('COM_ACTPARSE_UPDATE_FIELDS'); ?>">
+<form action="<?php echo JRoute::_('index.php?option=com_actparse&view=info'); ?>" method="post" name="adminForm" id="adminForm">
+	<div id="j-sidebar-container" class="span2">
+		<?php echo $this->sidebar; ?>
+	</div>
+	<div id="j-main-container" class="span10">
+		<?php echo JText::_('COM_ACTPARSE_INFO_PAGETEXT'); ?>
+	</div>
 </form>

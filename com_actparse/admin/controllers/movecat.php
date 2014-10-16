@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die;
 
-
 /**
  * Controller class for the ACT Parse Component
  *
@@ -17,46 +16,65 @@ defined('_JEXEC') or die;
  */
 class ActparseControllerMovecat extends JControllerLegacy
 {
-	function display()
+	/**
+	 * Typical view method for MVC based architecture
+	 *
+	 * This function is provide as a default implementation, in most cases
+	 * you will need to override it in your own controllers.
+	 *
+	 * @param   boolean  $cachable   If true, the view output will be cached
+	 * @param   array    $urlparams  An array of safe url parameters and their variable types, for valid values see {@link JFilterInput::clean()}.
+	 *
+	 * @return  JControllerLegacy  A JControllerLegacy object to support chaining.
+	 *
+	 * @since   12.2
+	 */
+	public function display($cachable = false, $urlparams = array())
 	{
-		JRequest::setVar('view', 'movecat');
-		parent::display();
+		JFactory::getApplication()->input->set('view', 'movecat');
+
+		parent::display($cachable, $urlparams);
 	}
 
-	function cancel()
+	/**
+	 * Cancel
+	 *
+	 * @return void
+	 */
+	public function cancel()
 	{
 		$this->setRedirect('index.php?option=com_actparse&view=encounters', JText::_('COM_ACTPARSE_OPERATION_CANCELED'));
 	}
 
-	function move()
+	/**
+	 * Move to a category
+	 *
+	 * @return void
+	 */
+	public function move()
 	{
-		$app = JFactory::getApplication();
-
 		// Check for request forgeries
-		JRequest::checkToken() or jexit( 'Invalid Token' );
+		JSession::checkToken('get') or die(JText::_('JINVALID_TOKEN'));
 
-		$db 	=& JFactory::getDBO();
-		$user 	=& JFactory::getUser();
+		$db     = JFactory::getDBO();
+		$user   = JFactory::getUser();
+		$app    = JFactory::getApplication();
+		$jinput = $app->input();
 
-		$cid	= JRequest::getVar( 'cid', array(), '', 'array' );
-		$post	= JRequest::get( 'post' );
-		$catid	= JRequest::getInt('catid');
+		$rid  = $jinput->getInt('rid');
+		$cid  = $jinput->getVar('cid', array(), '', 'array');
 		JArrayHelper::toInteger($cid);
+		$cids = implode(',', $cid);
 
-		$cids = implode( ',', $cid );
+		$query = $db->getQuery(true);
+		$query->update('`encounter_table`');
+		$query->set('catid = ' . (int) $catid);
+		$query->where('id IN (' . $cids . ')');
+		$query->where('(checked_out = 0 OR (checked_out = ' . (int) $user->get('id') . '))');
 
-		$query = 'UPDATE encounter_table'
-		. ' SET catid = ' . (int) $catid
-		. ' WHERE id IN ( '. $cids .' )'
-		. ' AND ( checked_out = 0 OR ( checked_out = '.(int) $user->get('id').' ) )'
-		;
+		$db->setQuery($query);
+		$db->execute();
 
-		$db->setQuery( $query );
-		if (!$db->query())
-		{
-			JError::raiseError(500, $db->getErrorMsg() );
-		}
-
-		$app->redirect( 'index.php?option=com_actparse&view=encounters' );
+		$app->redirect('index.php?option=com_actparse&view=encounters');
 	}
 }

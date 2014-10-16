@@ -19,18 +19,6 @@
 			<option value="1">JPUBLISHED</option>
 		</field>
 		<field
-			name="zone"
-			type="sql"
-			label="COM_ACTPARSE_FILTER_ZONE"
-			description="COM_ACTPARSE_FILTER_ZONE_DESC"
-			onchange="this.form.submit();"
-			query="SELECT DISTINCT `zone` FROM `encounter_table` ORDER BY `zone` ASC"
-			key_field="zone"
-			value_field="zone"
-			>
-			<option value="">COM_ACTPARSE_SELECT_ZONE</option>
-		</field>
-		<field
 			name="category_id"
 			type="category"
 			label="JOPTION_FILTER_CATEGORY"
@@ -52,6 +40,18 @@
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_MAX_LEVELS</option>
+		</field>
+		<field
+			name="zone"
+			type="sql"
+			label="COM_ACTPARSE_FILTER_ZONE"
+			description="COM_ACTPARSE_FILTER_ZONE_DESC"
+			onchange="this.form.submit();"
+			query="SELECT DISTINCT `zone` FROM `encounter_table` ORDER BY `zone` ASC"
+			key_field="zone"
+			value_field="zone"
+			>
+			<option value="">COM_ACTPARSE_SELECT_ZONE</option>
 		</field>
 	</fields>
 	<fields name="list">

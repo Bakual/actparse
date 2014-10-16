@@ -60,10 +60,26 @@ class ActparseViewEncounters extends JViewLegacy
 	 *
 	 * @see     JViewLegacy::loadTemplate()
 	 * @since   1.0
+	 * @throws  Exception
 	 */
 	public function display($tpl = null)
 	{
 		ActparseHelper::addSubmenu('encounters');
+
+		// Sanity check
+		if (!$this->get('SanityEncountersTable'))
+		{
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_ACTPARSE_TABLE_DOES_NOT_EXIST'), 'error');
+
+			return;
+		}
+
+		if (!$this->get('SanityEncountersFields'))
+		{
+			JFactory::getApplication()->enqueueMessage(JText::_('COM_ACTPARSE_FAILED_ALTERING_TABLE'), 'errror');
+
+			return;
+		}
 
 		$this->state         = $this->get('State');
 		$this->items         = $this->get('Items');

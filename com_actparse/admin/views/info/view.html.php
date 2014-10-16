@@ -9,15 +9,38 @@
 
 defined('_JEXEC') or die;
 
-jimport( 'joomla.application.component.view' );
-
 /**
- * HTML View class for the actparse Admin Component
+ * HTML View class for the Actparse Component
+ *
+ * @since  1.0
  */
 class ActparseViewinfo extends JViewLegacy
 {
-	function display($tpl = null)
+	/**
+	 * The HTML code for the sidebar.
+	 *
+	 * @var string
+	 */
+	protected $sidebar;
+
+	/**
+	 * Execute and display a template script.
+	 *
+	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
+	 *
+	 * @return  mixed  A string if successful, otherwise a Error object.
+	 *
+	 * @see     JViewLegacy::loadTemplate()
+	 * @since   1.0
+	 * @throws  Exception
+	 */
+	public function display($tpl = null)
 	{
+		ActparseHelper::addSubmenu('info');
+		JToolBarHelper::title(JText::_('COM_ACTPARSE_INFO'), 'info');
+		JToolBarHelper::preferences('com_actparse');
+		$this->sidebar = JHtmlSidebar::render();
+
 		parent::display($tpl);
 	}
 

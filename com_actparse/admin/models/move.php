@@ -9,49 +9,56 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.model');
-
 /**
  *ACT Parser Component Encounter Model
  *
  */
-class ActparseModelMove extends JModel
+class ActparseModelMove extends JModelLegacy
 {
-	function __construct()
+	/**
+	 * Get Items
+	 *
+	 * @return  array
+	 *
+	 * @throws  Exception
+	 */
+	public function getItems()
 	{
-		parent::__construct();
-
-	}
-
-	function getItems()
-	{
-		$db		=& JFactory::getDBO();
-		$cid 	= JRequest::getVar( 'cid', array(0), '', 'array' );
+		$db   = JFactory::getDBO();
+		$app  = JFactory::getApplication();
+		$cid  = $app->input->getVar('cid', array(0), '', 'array');
+		JArrayHelper::toInteger($cid);
 		$cids = implode(',', $cid);
 
-		// ausgew�hlte Encounter auslesen
-		$query = 'SELECT et.*, rt.raidname, rt.date'
-		. ' FROM encounter_table AS et'
-		. ' LEFT JOIN #__actparse_raids AS rt ON rt.id = et.rid'
-		. ' WHERE et.id IN ( '. $cids .' )'
-		;
+		$query = $db->getQuery(true);
+		$query->select('et.*, rt.raidname, rt.date');
+		$query->from('`encounter_table` AS et');
+		$query->join('LEFT', '`#__actparse_raids` AS rt ON rt.id = et.rid');
+		$query->where('et.id IN (' . $cids . ')');
 
-		$items	= $this->_getList($query);
-		return $items;
+		return $this->_getList($query);
 	}
 
-	function getRaids()
+	/**
+	 * Gets Raids
+	 *
+	 * @return  array
+	 */
+	public function getRaids()
 	{
-		$query	= "SELECT raidname, date, id as value \n"
-				. "FROM #__actparse_raids \n"
-				. "ORDER BY raidname ASC";
+		$db    = JFactory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select('raidname, date, id as value');
+		$query->from('`#__actparse_raids`');
+		$query->order('raidname ASC');
 
-		$raids	= $this->_getList($query);
+		$rows = $this->_getList($query);
 
-		foreach ($raids as $row) {
-			$row->text	= $row->raidname.' ('.JHtml::Date($row->date, JText::_('DATE_FORMAT_LC4'), 'UTC') . ')';
+		foreach ($rows as $row)
+		{
+			$row->text = $row->raidname . ' (' . JHtml::date($row->date, JText::_('DATE_FORMAT_LC4'), 'UTC') . ')';
 		}
 
-        return $raids;
+        return $rows;
 	}
 }

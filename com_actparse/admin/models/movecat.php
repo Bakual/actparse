@@ -9,35 +9,33 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.model');
-
 /**
  *ACT Parser Component Encounter Model
  *
  */
-class ActparseModelMovecat extends JModel
+class ActparseModelMovecat extends JModelLegacy
 {
-	function __construct()
+	/**
+	 * Get Items
+	 *
+	 * @return  array
+	 *
+	 * @throws  Exception
+	 */
+	public function getItems()
 	{
-		parent::__construct();
-
-	}
-
-	function getItems()
-	{
-		$db		=& JFactory::getDBO();
-		$cid 	= JRequest::getVar( 'cid', array(0), '', 'array' );
+		$db   = JFactory::getDBO();
+		$app  = JFactory::getApplication();
+		$cid  = $app->input->getVar('cid', array(0), '', 'array');
+		JArrayHelper::toInteger($cid);
 		$cids = implode(',', $cid);
 
-		// ausgew�hlte Encounter auslesen
-		$query = 'SELECT et.*, cat.title AS category'
-		. ' FROM encounter_table AS et'
-		. ' LEFT JOIN #__categories AS cat ON cat.id = et.catid'
-		. ' WHERE et.id IN ( '. $cids .' )'
-		;
+		$query = $db->getQuery(true);
+		$query->select('et.*, cat.title AS category');
+		$query->from('`encounter_table` AS et');
+		$query->join('LEFT', '`#__categories` AS cat ON cat.id = et.catid');
+		$query->where('et.id IN (' . $cids . ')');
 
-		$items	= $this->_getList($query);
-
-	return $items;
+		return $this->_getList($query);
 	}
 }

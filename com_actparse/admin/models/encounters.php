@@ -42,6 +42,7 @@ class ActparseModelEncounters extends JModelList
 		// Searchtools
 		$config['filter_fields'][] = 'category_id';
 		$config['filter_fields'][] = 'level';
+		$config['filter_fields'][] = 'zone';
 
 		parent::__construct($config);
 	}
@@ -204,5 +205,57 @@ class ActparseModelEncounters extends JModelList
 			->order('`zone` ASC');
 
 		return $this->_getList($query);
+	}
+
+	/**
+	 * Check for the presence of encounter_table.
+	 *
+	 * @return  boolean   True if the table exists, false otherwise.
+	 *
+	 * @since   2.0
+	 */
+	public function getSanityEncountersTable()
+	{
+		$db     = JFactory::getDbo();
+		$tables = $db->getTableList();
+
+		return in_array('encounter_table', $tables);
+	}
+
+	/**
+	 * Check for the presence of the additional fields in encounter_table and add if needed.
+	 *
+	 * @return  boolean.
+	 *
+	 * @since   2.0
+	 */
+	public function getSanityEncountersFields()
+	{
+		$db     = JFactory::getDbo();
+		$fields = $db->getTableColumns('encounter_table');
+
+		// Add needed fields to table.
+		if (is_array($fields) && !array_key_exists('catid', $fields))
+		{
+			$fieldlist = array('id', 'catid', 'rid', 'checked_out', 'checked_out_time', 'published');
+
+			$query = "ALTER TABLE `encounter_table` \n"
+				. "CHANGE `starttime` `starttime` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00', \n"
+				. " ADD `id` int(11) NOT NULL AUTO_INCREMENT, \n"
+				. " ADD `catid` int(11) NOT NULL DEFAULT '0', \n"
+				. " ADD `rid` int(11), \n"
+				. " ADD `checked_out` int(11) NOT NULL, \n"
+				. " ADD `checked_out_time` datetime NOT NULL, \n"
+				. " ADD `published` tinyint(1) NOT NULL DEFAULT 1, \n"
+				. " ADD PRIMARY KEY (`id`)";
+			$db->setQuery($query);
+
+			if (!$db->execute())
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
