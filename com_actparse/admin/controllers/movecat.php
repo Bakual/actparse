@@ -10,6 +10,11 @@
 defined('_JEXEC') or die;
 
 
+/**
+ * Controller class for the ACT Parse Component
+ *
+ * @since  1.0
+ */
 class ActparseControllerMovecat extends JControllerLegacy
 {
 	function display()

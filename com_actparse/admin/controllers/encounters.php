@@ -9,8 +9,11 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.controlleradmin');
-
+/**
+ * Controller class for the ACT Parse Component
+ *
+ * @since  1.0
+ */
 class ActparseControllerEncounters extends JControllerAdmin
 {
 	public function &getModel($name = 'Encounter', $prefix = 'ActparseModel')

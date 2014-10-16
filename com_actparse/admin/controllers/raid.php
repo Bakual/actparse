@@ -9,8 +9,11 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.controllerform');
-
+/**
+ * Controller class for the ACT Parse Component
+ *
+ * @since  1.0
+ */
 class ActparseControllerRaid extends JControllerForm
 {
 	protected function allowAdd($data = array())

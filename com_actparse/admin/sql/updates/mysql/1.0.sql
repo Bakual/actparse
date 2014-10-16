@@ -1,1 +1,0 @@
-ALTER TABLE IF EXISTS `encounter_table` CHANGE `catid` `catid`  int(11) NOT NULL DEFAULT '0';

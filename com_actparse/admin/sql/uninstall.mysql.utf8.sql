@@ -1,1 +1,1 @@
-DROP TABLE `#__actparse_raids`;
+DROP TABLE IF EXISTS `#__actparse_raids`;

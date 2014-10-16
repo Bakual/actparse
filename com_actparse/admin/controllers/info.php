@@ -9,98 +9,130 @@
 
 defined('_JEXEC') or die;
 
-
+/**
+ * Controller class for the ACT Parse Component
+ *
+ * @since  1.0
+ */
 class ActparseControllerInfo extends JControllerLegacy
 {
-	function __construct()
-	{
-		parent::__construct();
-	}
-
-	function display()
-	{
-		parent::display();
-	}
-
-	function create_fields()
+	/**
+	 * Creates some needed fields in the encounter table.
+	 *
+	 * @return  void
+	 */
+	public function create_fields()
 	{
 		$app = JFactory::getApplication();
-
-		$db			= &JFactory::getDBO();
-		$fieldlist	= array('id','catid','rid','checked_out','checked_out_time','published');
-
-		$query_check = "SHOW TABLES LIKE 'encounter_table'";
-		$db->setQuery($query_check);
-		$check_result = $db->loadAssoc();
+		$db  = JFactory::getDBO();
 
 		$this->setRedirect('index.php?option=com_actparse&view=info');
 
-		if (is_null($check_result)) {
-			return JError::raiseWarning( '', JText::_( 'COM_ACTPARSE_TABLE_DOES_NOT_EXIST' ) );
+		// Check if encounter table is present.
+		$query = "SHOW TABLES LIKE 'encounter_table'";
+		$db->setQuery($query);
+
+		if (!$db->loadAssoc())
+		{
+			$app->enqueueMessage(JText::_('COM_ACTPARSE_TABLE_DOES_NOT_EXIST'), 'warning');
+
+			return;
 		}
 
-		$query_check = "SHOW COLUMNS FROM encounter_table";
-		$db->setQuery($query_check);
-		$check_result = $db->loadAssocList();
+		// Check if fields already exists.
+		$fieldlist = array('id', 'catid', 'rid', 'checked_out', 'checked_out_time', 'published');
+		$query = "SHOW COLUMNS FROM `encounter_table`";
+		$db->setQuery($query);
+		$columns = $db->loadAssocList();
 
-		foreach ($check_result as $column) {
-			if (in_array($column['Field'],$fieldlist)) {
-				return JError::raiseWarning( '', JText::_( 'COM_ACTPARSE_FIELDS_EXISTS_ALREADY' ) );
+		foreach ($columns as $column)
+		{
+			if (in_array($column['Field'], $fieldlist))
+			{
+				$app->enqueueMessage(JText::_('COM_ACTPARSE_FIELDS_EXISTS_ALREADY'), 'notice');
+
+				return;
 			}
 		}
-		$query	= "ALTER TABLE `encounter_table`" .
-				"\n CHANGE `starttime` `starttime` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00'," .
-				"\n ADD `id` int(11) NOT NULL AUTO_INCREMENT," .
-				"\n ADD `catid` int(11) NOT NULL DEFAULT '0'," .
-				"\n ADD `rid` int(11)," .
-				"\n ADD `checked_out` int(11) NOT NULL," .
-				"\n ADD `checked_out_time` datetime NOT NULL," .
-				"\n ADD `published` tinyint(1) NOT NULL DEFAULT 1," .
-				"\n ADD PRIMARY KEY  (`id`)";
+
+		$query = "ALTER TABLE `encounter_table` \n"
+				. "CHANGE `starttime` `starttime` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00', \n"
+				. " ADD `id` int(11) NOT NULL AUTO_INCREMENT, \n"
+				. " ADD `catid` int(11) NOT NULL DEFAULT '0', \n"
+				. " ADD `rid` int(11), \n"
+				. " ADD `checked_out` int(11) NOT NULL, \n"
+				. " ADD `checked_out_time` datetime NOT NULL, \n"
+				. " ADD `published` tinyint(1) NOT NULL DEFAULT 1, \n"
+				. " ADD PRIMARY KEY (`id`)";
 		$db->setQuery($query);
-		if(!$db->query()) {
-			return JError::raiseWarning( '', JText::_( 'COM_ACTPARSE_FAILED_ALTERING_TABLE' ) );
+
+		if (!$db->execute())
+		{
+			$app->enqueueMessage(JText::_('COM_ACTPARSE_FAILED_ALTERING_TABLE'), 'warning');
+
+			return;
 		}
-		$msg	= JText::_('COM_ACTPARSE_JOB_DONE');
-		$app->redirect('index.php?option=com_actparse&view=info', $msg);
+
+		$app->redirect('index.php?option=com_actparse&view=info', JText::_('COM_ACTPARSE_JOB_DONE'));
 	}
 
-	function update_fields()
+	/**
+	 * Updates the catid field in the encounter table
+	 *
+	 * @return  void
+	 */
+	public function update_fields()
 	{
 		$app = JFactory::getApplication();
-
-		$db			= &JFactory::getDBO();
-
-		$query_check = "SHOW TABLES LIKE 'encounter_table'";
-		$db->setQuery($query_check);
-		$check_result = $db->loadAssoc();
+		$db  = JFactory::getDBO();
 
 		$this->setRedirect('index.php?option=com_actparse&view=info');
 
-		if (is_null($check_result)) {
-			return JError::raiseWarning( '', JText::_( 'COM_ACTPARSE_TABLE_DOES_NOT_EXIST' ) );
+		// Check if encounter table is present.
+		$query = "SHOW TABLES LIKE 'encounter_table'";
+		$db->setQuery($query);
+
+		if (!$db->loadAssoc())
+		{
+			$app->enqueueMessage(JText::_('COM_ACTPARSE_TABLE_DOES_NOT_EXIST'), 'warning');
+
+			return;
 		}
 
-		$query_check = "SHOW COLUMNS FROM encounter_table";
-		$db->setQuery($query_check);
-		$check_result = $db->loadAssocList();
+		// Check if fields already exists.
+		$catid = false;
+		$query = "SHOW COLUMNS FROM `encounter_table`";
+		$db->setQuery($query);
+		$columns = $db->loadAssocList();
 
-		foreach ($check_result as $column) {
-			if ($column['Field'] == 'catid') {
+		foreach ($columns as $column)
+		{
+			if ($column['Field'] == 'catid')
+			{
 				$catid = true;
-				continue;
+
+				break;
 			}
 		}
-		if (!$catid) {
-			return JError::raiseWarning( '', JText::_( 'COM_ACTPARSE_FIELDS_DONT_EXIST' ) );
+
+		if (!$catid)
+		{
+			$app->enqueueMessage(JText::_('COM_ACTPARSE_FIELDS_DONT_EXIST'), 'warning');
+
+			return;
 		}
-		$query	= "ALTER TABLE `encounter_table` \n"
-				. "CHANGE `catid` `catid`  int(11) NOT NULL DEFAULT '0'";
+
+		$query = "ALTER TABLE `encounter_table` \n"
+				. "CHANGE `catid` `catid` int(11) NOT NULL DEFAULT '0'";
 		$db->setQuery($query);
-		if(!$db->query()) {
-			return JError::raiseWarning( '', JText::_( 'COM_ACTPARSE_FAILED_ALTERING_TABLE' ) );
+
+		if (!$db->execute())
+		{
+			$app->enqueueMessage(JText::_('COM_ACTPARSE_FAILED_ALTERING_TABLE'), 'warning');
+
+			return;
 		}
-		$msg	= JText::_('COM_ACTPARSE_JOB_DONE');
-		$app->redirect('index.php?option=com_actparse&view=info', $msg);
+
+		$app->redirect('index.php?option=com_actparse&view=info', JText::_('COM_ACTPARSE_JOB_DONE'));
 	}
 }
