@@ -9,35 +9,29 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.model');
-
 /**
  *ACT Parser Component Raids Model
  *
  */
-class ActparseModelRaids extends JModel
+class ActparseModelRaids extends JModelLegacy
 {
 	function _buildQuery()
 	{
-		// TODO: Cache on the fingerprint of the arguments
-		$db			= JFactory::getDBO();
+		$db = JFactory::getDBO();
 
-		$select = 'rt.*';
-		$from	= '#__actparse_raids AS rt';
-		$orderby = 'raidname ASC';
-
-		$query = "SELECT " . $select .
-				"\n FROM " . $from .
-				"\n WHERE rt.published = 1" .
-				"\n ORDER BY rt." . $orderby;
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from('`#__actparse_raids`');
+		$query->where('published = 1');
+		$query->order('raidname ASC');
 
 		return $query;
 	}
-	function getData( $options=array() )
-	{
-		$query	= $this->_buildQuery( $options );
-		$this->_data = $this->_getList( $query );
 
-		return $this->_data;
+	function getData($options = array())
+	{
+		$query = $this->_buildQuery($options);
+
+		return $this->_getList($query);
 	}
 }

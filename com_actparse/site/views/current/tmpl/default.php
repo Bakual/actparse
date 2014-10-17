@@ -7,17 +7,19 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die();
+
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
-$limit 		= (int)$this->params->get('limit', '');
-$user		= JFactory::getUser();
-$graphlib	= JURI::Root().'components/com_actparse/graphlib/';
-$markuser	= $this->params->get('mark_user');
+
+$listOrder = $this->state->get('list.ordering');
+$listDirn  = $this->state->get('list.direction');
+$limit     = (int)$this->params->get('limit', '');
+$user      = JFactory::getUser();
+$graphlib  = JURI::Root().'components/com_actparse/graphlib/';
+$markuser  = $this->params->get('mark_user');
 ?>
-<div class="actparse-container<?php echo htmlspecialchars($this->params->get('pageclass_sfx')); ?>">
+<div class="category-list<?php echo $this->pageclass_sfx; ?> actparse-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
@@ -39,9 +41,9 @@ $markuser	= $this->params->get('mark_user');
 	<?php endif; ?>
 	</fieldset>
 	<?php if (!count($this->items)) : ?>
-		<div class="no_entries"><?php echo JText::sprintf('COM_ACTPARSE_NO_ENTRIES', JText::_('COM_ACTPARSE_COMBATANTS')); ?></div>
+		<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_ACTPARSE_NO_ENTRIES', JText::_('COM_ACTPARSE_COMBATANTS')); ?></div>
 	<?php else : ?>
-		<table class="category">
+		<table class="table table-striped table-hover table-condensed">
 		<!-- Create the headers with sorting links -->
 			<thead><tr>
 				<th><?php echo JHTML::_('grid.sort', 'COM_ACTPARSE_NAME', 'name', $listDirn, $listOrder); ?></th>

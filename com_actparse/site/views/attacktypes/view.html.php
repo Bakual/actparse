@@ -60,6 +60,7 @@ class ActparseViewAttacktypes extends JViewLegacy
 			unset ($this->cols[$key]);
 		}
 
+		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->_prepareDocument();
 
 		parent::display($tpl);
