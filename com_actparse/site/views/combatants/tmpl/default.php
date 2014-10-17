@@ -48,13 +48,13 @@ $markuser  = $this->params->get('mark_user');
 			<thead><tr>
 				<th><?php echo JHTML::_('grid.sort', 'COM_ACTPARSE_NAME', 'name', $listDirn, $listOrder); ?></th>
 				<?php foreach ($this->cols as $col) { ?>
-					<th align="left"><?php echo JHTML::_('grid.sort', 'COM_ACTPARSE_'.$col, $col, $listDirn, $listOrder); ?></th>
+					<th align="left"><?php echo JHTML::_('grid.sort', 'COM_ACTPARSE_' . $col, $col, $listDirn, $listOrder); ?></th>
 				<?php } ?>
 			</tr></thead>
 		<!-- Begin Data -->
 			<tbody>
 				<?php foreach($this->items as $i => $item) :
-					$class = ($markuser && (strtolower($user->username) == strtolower($item->name))) ? ' user' : ''; ?>
+					$class = ($markuser && (strtolower($user->username) == strtolower($item->name))) ? ' info' : ''; ?>
 					<tr class="cat-list-row<?php echo ($i % 2).$class; ?>">
 						<td align='left'><a href="<?php echo JRoute::_('index.php?view=damagetypes&encid='.$item->encid.'&combatant='.$item->name); ?>" ><?php echo $item->name; ?></a></td>
 						<?php foreach ($this->cols as $col) : ?>

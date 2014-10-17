@@ -16,13 +16,10 @@ class ActparseViewCombatants extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		// Applying CSS file
-		JHTML::stylesheet('actparse.css', 'components/com_actparse/css/');
+		$this->state  = $this->get('State');
+		$this->params = $this->state->get('params');
 
-		$state  = $this->get('State');
-		$params = $state->get('params');
-
-		$hide_parse = $params->get('hide_parse', 0);
+		$hide_parse = $this->params->get('hide_parse', 0);
 
 		// Check if User is logged in if that parameter is set in Backend
 		if ($hide_parse)
@@ -44,8 +41,8 @@ class ActparseViewCombatants extends JViewLegacy
 		include 'components/com_actparse/graphlib/phpgraphlib.php';
 
 		// Get some data from the models
-		$items      = $this->get('Items');
-		$pagination = $this->get('Pagination');
+		$this->items      = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -53,18 +50,18 @@ class ActparseViewCombatants extends JViewLegacy
 			throw new Exception(implode("\n", $errors), 500);
 		}
 
-		$cols = (array) $params->get('combatantcolumns');
+		$this->cols = (array) $this->params->get('combatantcolumns');
 
 		// Name aus dem Array rauslöschen, da sowieso obligatorisch angezeigt
-		$key = array_search('name', $cols);
+		$key = array_search('name', $this->cols);
 
 		if ($key !== false)
 		{
-			unset ($cols[$key]);
+			unset ($this->cols[$key]);
 		}
 
 		// build list show NPC
-		$show_npc   = $state->get('show_npc');
+		$show_npc   = $this->state->get('show_npc');
 		$javascript = 'onchange="document.adminForm.submit();"';
 		$npclist[]  = JHTML::_('select.option', '0', 'PC & NPC');
 		$npclist[]  = JHTML::_('select.option', 'T', 'PC');
@@ -72,15 +69,15 @@ class ActparseViewCombatants extends JViewLegacy
 		$this->npc  = JHTML::_('select.genericlist', $npclist, 'show_npc', 'class="inputbox" size="1" style="width:8em;"' . $javascript, 'value', 'text', $show_npc);
 
 		// Daten für Graph vorbereiten (in Array umfüllen)
-		$showgraph = $params->get('show_graph');
+		$this->showgraph = $this->params->get('show_graph');
 
-		if ($showgraph)
+		if ($this->showgraph)
 		{
 			$graphitems    = null;
 			$graphsettings = null;
-			$order         = $state->get('list.ordering');
+			$order         = $this->state->get('list.ordering');
 
-			foreach ($items as $row)
+			foreach ($this->items as $row)
 			{
 				$combatant              = $row->name;
 				$type                   = $row->$order;
@@ -89,10 +86,10 @@ class ActparseViewCombatants extends JViewLegacy
 
 			if (!count($graphitems) || (!array_sum($graphitems)))
 			{
-				$showgraph = '0';
+				$this->showgraph = '0';
 			}
 
-			if ($order == 'starttime' || $order == 'endtime') $showgraph = '0';
+			if ($order == 'starttime' || $order == 'endtime') $this->showgraph = '0';
 			if ($order == 'healed' || $order == 'exthps') $graphsettings['Heal'] = '1';
 
 			// Daten in Session speichern für Graph
@@ -100,14 +97,6 @@ class ActparseViewCombatants extends JViewLegacy
 			$session->set('GraphItems', $graphitems);
 			$session->set('GraphSettings', $graphsettings);
 		}
-
-		// push data into the template
-		$this->state      = $state;
-		$this->items      = $items;
-		$this->cols       = $cols;
-		$this->pagination = $pagination;
-		$this->params     = $params;
-		$this->showgraph  = $showgraph;
 
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->_prepareDocument();

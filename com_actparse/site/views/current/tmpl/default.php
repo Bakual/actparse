@@ -52,7 +52,7 @@ $markuser	= $this->params->get('mark_user');
 		<!-- Begin Data -->
 			<tbody>
 				<?php foreach($this->items as $i => $item) :
-					$class = ($markuser && (strtolower($user->username) == strtolower($item->name))) ? ' user' : ''; ?>
+					$class = ($markuser && (strtolower($user->username) == strtolower($item->name))) ? ' info' : ''; ?>
 					<tr class="cat-list-row<?php echo ($i % 2).$class; ?>">
 						<td align='left'><?php echo $item->name; ?></td>
 						<?php foreach ($this->cols as $col) : ?>

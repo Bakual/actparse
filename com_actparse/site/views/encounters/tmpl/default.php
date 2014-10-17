@@ -11,6 +11,7 @@ defined('_JEXEC') or die();
 
 JHTML::_('behavior.tooltip');
 JHTML::_('behavior.modal');
+
 $listOrder = $this->state->get('list.ordering');
 $listDirn  = $this->state->get('list.direction');
 $limit     = (int) $this->params->get('limit', '');
@@ -54,7 +55,7 @@ $limit     = (int) $this->params->get('limit', '');
 			<!-- Begin Data -->
 				<tbody>
 					<?php foreach($this->items as $i => $item) : ?>
-						<tr class="cat-list-row<?php echo $i % 2; echo isset($item->all) ? ' all' : ''; ?>">
+						<tr class="cat-list-row<?php echo $i % 2; echo isset($item->all) ? ' success' : ''; ?>">
 							<td align='left'><a href="<?php echo JRoute::_('index.php?view=combatants&encid='.$item->encid); ?>" ><?php echo $item->title; ?></a></td>
 							<?php foreach ($this->cols as $col) : ?>
 								<td align="left">

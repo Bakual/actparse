@@ -33,7 +33,6 @@
 		<folder>models</folder>
 		<folder>language</folder>
 		<folder>graphlib</folder>
-		<folder>css</folder>
 	</files>
 	<administration>
 		<menu img="class:stats">COM_ACTPARSE</menu>

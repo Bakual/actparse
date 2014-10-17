@@ -58,7 +58,7 @@ $graphlib	= JURI::Root().'components/com_actparse/graphlib/';
 		<!-- Begin Data -->
 			<tbody>
 				<?php foreach($this->items as $i => $item) : ?>
-					<tr class="cat-list-row<?php echo $i % 2; echo isset($item->all) ? ' all' : ''; ?>">
+					<tr class="cat-list-row<?php echo $i % 2; echo isset($item->all) ? ' success' : ''; ?>">
 						<td align='left'><a href="<?php echo JRoute::_('index.php?view=combatants&encid='.$item->encid); ?>" ><?php echo $item->title; ?></a></td>
 						<?php foreach ($this->cols as $col) : ?>
 							<td align="left">

@@ -16,9 +16,6 @@ class ActparseViewEncounters extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		// Applying CSS file
-		JHTML::stylesheet('actparse.css', 'components/com_actparse/css/');
-
 		$this->state  = $this->get('State');
 		$this->params = $this->state->get('params');
 		$hide_parse   = $this->params->get('hide_parse', 0);

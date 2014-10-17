@@ -9,15 +9,13 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
-
 class ActparseModelAttacktypes extends JModelList
 {
 	protected function getListQuery()
 	{
 		// Create a new query object.
-		$db		= $this->getDbo();
-		$query	= $db->getQuery(true);
+		$db    = $this->getDbo();
+		$query = $db->getQuery(true);
 
 		// Select required fields from the table.
 		$query->select(
@@ -31,20 +29,26 @@ class ActparseModelAttacktypes extends JModelList
 		// Join over the encounter table
 		$query->join('RIGHT', 'encounter_table AS et ON et.encid = at.encid');
 
-		$query->where('at.encid = "'.$this->getState('encid').'"');
-		if ($this->getState('attacker')){
-			$query->where('at.attacker = "'.$this->getState('attacker').'"');
+		$query->where('at.encid = ' . $db->quote($db->escape($this->getState('encid'))));
+
+		if ($this->getState('attacker'))
+		{
+			$query->where('at.attacker = ' . $db->quote($db->escape($this->getState('attacker'))));
 		}
-		if ($this->getState('victim')){
-			$query->where('at.victim = "'.$this->getState('victim').'"');
+
+		if ($this->getState('victim'))
+		{
+			$query->where('at.victim = ' . $db->quote($db->escape($this->getState('victim'))));
 		}
-		if ($this->getState('swingtype')){
-			$or = $this->getState('swingtype2') ? ' OR at.swingtype = "'.$this->getState('swingtype2').'"' : '';
-			$query->where('at.swingtype = "'.$this->getState('swingtype').'"'.$or);
+
+		if ($this->getState('swingtype'))
+		{
+			$or = $this->getState('swingtype2') ? ' OR at.swingtype = ' . (int) $this->getState('swingtype2') : '';
+			$query->where('at.swingtype = ' . (int) $this->getState('swingtype') . $or);
 		}
 
 		// Add the list ordering clause.
-		$query->order($db->getEscaped($this->getState('list.ordering', 'type')).' '.$db->getEscaped($this->getState('list.direction', 'ASC')));
+		$query->order($db->escape($this->getState('list.ordering', 'type')).' '.$db->escape($this->getState('list.direction', 'ASC')));
 
 		return $query;
 	}
@@ -59,48 +63,48 @@ class ActparseModelAttacktypes extends JModelList
 	protected function populateState()
 	{
 		// Initialise variables.
-		$app	= JFactory::getApplication();
-		$params	= $app->getParams();
+		$app    = JFactory::getApplication();
+		$params = $app->getParams();
+		$jinput = $app->input;
 
-		$limit	= (int)$params->get('limit', '');
 		// List state information
-		$search = JRequest::getString('filter-search', '');
+		$search = $jinput->getString('filter-search', '');
 		$this->setState('filter.search', $search);
 
-		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->getCfg('list_limit'));
+		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('list_limit'));
 		$this->setState('list.limit', $limit);
 
-		$limitstart = JRequest::getInt('limitstart', 0);
+		$limitstart = $jinput->getInt('limitstart', 0);
 		$this->setState('list.start', $limitstart);
 
-		$orderCol	= JRequest::getCmd('filter_order', $params->get('default_order', 'type'));
+		$orderCol = $jinput->getCmd('filter_order', $params->get('default_order', 'type'));
 		$this->setState('list.ordering', $orderCol);
 
-		$listOrder	=  JRequest::getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
+		$listOrder =  $jinput->getCmd('filter_order_Dir', $params->get('default_order_dir', 'ASC'));
 		$this->setState('list.direction', $listOrder);
 
-		$show_npc	= JRequest::getWord('show_npc', 0);
+		$show_npc = $jinput->getWord('show_npc', 0);
 		$this->setState('show_npc', $show_npc);
 
-		$encid		= JRequest::getCmd('encid');
+		$encid = $jinput->getCmd('encid');
 		$this->setState('encid', $encid);
 
-		$attacker		= JRequest::getString('attacker');
+		$attacker = $jinput->getString('attacker');
 		$this->setState('attacker', $attacker);
 
-		$victim			= JRequest::getString('victim');
+		$victim = $jinput->getString('victim');
 		$this->setState('victim', $victim);
 
-		$swingtype		= JRequest::getString('swingtype');
+		$swingtype = $jinput->getString('swingtype');
 		$this->setState('swingtype', $swingtype);
 
-		$swingtype2			= JRequest::getString('swingtype2');
+		$swingtype2 = $jinput->getString('swingtype2');
 		$this->setState('swingtype2', $swingtype2);
 
-		$dmgtype		= JRequest::getString('type');
+		$dmgtype = $jinput->getString('type');
 		$this->setState('dmgtype', $dmgtype);
 
-		$this->setState('filter.state',	1);
+		$this->setState('filter.state', 1);
 
 		// Load the parameters.
 		$this->setState('params', $params);
@@ -108,21 +112,20 @@ class ActparseModelAttacktypes extends JModelList
 
 	function getCrumbs()
 	{
-		$db			=& JFactory::getDBO();
+		$db = JFactory::getDBO();
 
-		$query	= "SELECT rt.raidname, et.rid, et.encid, et.title as encname, ct.name as combatant, dt.type as dmgtype \n"
-				. "FROM encounter_table AS et \n"
-				. "LEFT JOIN #__actparse_raids AS rt ON et.rid = rt.id \n"
-				. "LEFT JOIN combatant_table AS ct ON et.encid = ct.encid \n"
-				. "LEFT JOIN damagetype_table AS dt ON et.encid = dt.encid \n"
-				. "WHERE et.encid = '".$this->getState('encid')."' \n"
-				. "AND ct.name = '".$this->getState('attacker').$this->getState('victim')."' \n"
-				. "AND dt.type = '".$this->getState('dmgtype')."'";
+		$query = $db->getQuery(true);
+		$query->select('rt.raidname, et.rid, et.encid, et.title as encname, ct.name as combatant, dt.type as dmgtype');
+		$query->from('encounter_table as et');
+		$query->join('LEFT', '`#__actparse_raids` AS rt ON et.rid = rt.id');
+		$query->join('LEFT', '`combatant_table` AS ct ON et.encid = ct.encid');
+		$query->join('LEFT', '`damagetype_table` AS dt ON et.encid = dt.encid');
+		$query->where('et.encid = ' . $db->quote($db->escape($this->getState('encid'))));
+		$query->where('ct.name = ' . $db->quote($db->escape($this->getState('attacker') . $this->getState('victim'))));
+		$query->where('dt.type = ' . $db->quote($db->escape($this->getState('dmgtype'))));
 
-		$db->SetQuery($query);
+		$db->setQuery($query);
 
-		$crumbs	= $db->loadAssoc();	// L�dt Resultat als Array (_data['id'])
-
-		return $crumbs;
+		return $db->loadAssoc();
 	}
 }

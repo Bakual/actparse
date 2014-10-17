@@ -9,7 +9,6 @@
 
 defined('_JEXEC') or die;
 
-jimport( 'joomla.application.component.view');
 /**
  * HTML View class for the actparse Component
  */
@@ -17,9 +16,6 @@ class ActparseViewCurrent extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		// Applying CSS file
-		JHTML::stylesheet('actparse.css', 'components/com_actparse/css/');
-
 		$app	= JFactory::getApplication();
 		$state	= $this->get('State');
 		$params	= $state->get('params');
