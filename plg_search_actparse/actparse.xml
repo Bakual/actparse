@@ -16,37 +16,52 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="search_limit" type="text"
-					default="50"
+				<field
+					name="search_limit"
+					type="text"
 					label="PLG_SEARCH_ACTPARSE_FIELD_SEARCHLIMIT_LABEL"
 					description="PLG_SEARCH_ACTPARSE_FIELD_SEARCHLIMIT_DESC"
-					size="5"
+					default="50"
 				/>
-				<field name="actparse_title" type="radio" 
-					default="1" 
-					label="PLG_SEARCH_ACTPARSE_FIELD_TITLE_LABEL" 
-					description="PLG_SEARCH_ACTPARSE_FIELD_TITLE_DESC">
-					<option value="0">JOFF</option>
+				<field
+					name="actparse_title"
+					type="radio"
+					label="PLG_SEARCH_ACTPARSE_FIELD_TITLE_LABEL"
+					description="PLG_SEARCH_ACTPARSE_FIELD_TITLE_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+					>
 					<option value="1">JON</option>
-				</field>
-				<field name="actparse_zone" type="radio" 
-					default="1" 
-					label="PLG_SEARCH_ACTPARSE_FIELD_ZONE_LABEL" 
-					description="PLG_SEARCH_ACTPARSE_FIELD_ZONE_DESC">
 					<option value="0">JOFF</option>
-					<option value="1">JON</option>
 				</field>
-				<field name="actparse_starttime" type="radio" 
-					default="1" 
-					label="PLG_SEARCH_ACTPARSE_FIELD_STARTDATE_LABEL" 
-					description="PLG_SEARCH_ACTPARSE_FIELD_STARTDATE_DESC">
+				<field
+					name="actparse_zone"
+					type="radio"
+					label="PLG_SEARCH_ACTPARSE_FIELD_ZONE_LABEL"
+					description="PLG_SEARCH_ACTPARSE_FIELD_ZONE_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+					>
+					<option value="1">JON</option>
 					<option value="0">JOFF</option>
-					<option value="1">JON</option>
 				</field>
-				<field name="menuitem" type="menuitem" 
+				<field
+					name="actparse_starttime"
+					type="radio"
+					label="PLG_SEARCH_ACTPARSE_FIELD_STARTDATE_LABEL"
+					description="PLG_SEARCH_ACTPARSE_FIELD_STARTDATE_DESC"
+					class="btn-group btn-group-yesno"
+					default="1"
+					>
+					<option value="1">JON</option>
+					<option value="0">JOFF</option>
+				</field>
+				<field
+					name="menuitem"
+					type="menuitem"
+					label="MOD_ACTPARSE_FIELD_MENUITEM_LABEL"
+					description="MOD_ACTPARSE_FIELD_MENUITEM_DESC"
 					default=""
-					label="MOD_ACTPARSE_FIELD_MENUITEM_LABEL" 
-					description="MOD_ACTPARSE_FIELD_MENUITEM_DESC" 
 					state="1"
 				/>
 			</fieldset>

@@ -20,17 +20,31 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="actparse_limit" type="text" default="5" label="MOD_ACTPARSE_FIELD_NUMBER_LABEL" description="MOD_ACTPARSE_FIELD_NUMBER_DESC" />
-				<field name="actparse_order" type="list" default="date DESC" label="MOD_ACTPARSE_FIELD_ORDER_LABEL" description="MOD_ACTPARSE_FIELD_ORDER_DESC">
-				  <option value="date ASC">MOD_ACTPARSE_ORDER_OPTION_1</option>
-				  <option value="date DESC">MOD_ACTPARSE_ORDER_OPTION_2</option>
-				  <option value="raidname ASC">MOD_ACTPARSE_ORDER_OPTION_3</option>
-				  <option value="raidname DESC">MOD_ACTPARSE_ORDER_OPTION_4</option>
+				<field
+					name="actparse_limit"
+					type="text"
+					label="MOD_ACTPARSE_FIELD_NUMBER_LABEL"
+					description="MOD_ACTPARSE_FIELD_NUMBER_DESC"
+					default="5"
+				/>
+				<field
+					name="actparse_order"
+					type="list"
+					label="MOD_ACTPARSE_FIELD_ORDER_LABEL"
+					description="MOD_ACTPARSE_FIELD_ORDER_DESC"
+					default="date DESC"
+					>
+					  <option value="date ASC">MOD_ACTPARSE_ORDER_OPTION_1</option>
+					  <option value="date DESC">MOD_ACTPARSE_ORDER_OPTION_2</option>
+					  <option value="raidname ASC">MOD_ACTPARSE_ORDER_OPTION_3</option>
+					  <option value="raidname DESC">MOD_ACTPARSE_ORDER_OPTION_4</option>
 				</field>
-				<field name="menuitem" type="menuitem"
-					default=""
+				<field
+					name="menuitem"
+					type="menuitem"
 					label="MOD_ACTPARSE_FIELD_MENUITEM_LABEL"
 					description="MOD_ACTPARSE_FIELD_MENUITEM_DESC"
+					default=""
 					state="1"
 				/>
 			</fieldset>

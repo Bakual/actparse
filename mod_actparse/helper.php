@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     ACTParse
- * @subpackage  Component.Site
+ * @subpackage  Module
  * @author      Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
@@ -9,24 +9,23 @@
 
 defined('_JEXEC') or die;
 
-class modactparseHelper
+class modActparseHelper
 {
-	function getactparse(&$params)
+	public static function getActparse(&$params)
 	{
-		$itemid		= (int)$params->get('menuitem');
-		$limit		= $params->get('actparse_limit');
-		$orderby	= $params->get('actparse_order');
+		$limit   = $params->get('actparse_limit');
+		$orderby = $params->get('actparse_order');
 
-		$db			= JFactory::getDBO();
-		$query	= "SELECT * \n"
-				. "FROM #__actparse_raids \n"
-				. "WHERE published = 1 \n"
-				. "ORDER BY ".$orderby." \n"
-				. "LIMIT ".$limit;
+		$db    = JFactory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from('#__actparse_raids');
+		$query->where('published = 1');
+		$query->order($db->escape($orderby));
+		$query->limit((int) $limit);
 
 		$db->setQuery($query);
-		$rows = $db->loadObjectList();
 
-		return $rows;
+		return $db->loadObjectList();
 	}
 }

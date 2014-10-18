@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     ACTParse
- * @subpackage  Component.Site
+ * @subpackage  Plugin.Search
  * @author      Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
@@ -9,15 +9,15 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.plugin.plugin');
-
 class plgSearchActparse extends JPlugin
 {
-	public function __construct(& $subject, $config)
-	{
-		parent::__construct($subject, $config);
-		$this->loadLanguage();
-	}
+	/**
+	 * Load the language file on instantiation.
+	 *
+	 * @var    boolean
+	 * @since  3.1
+	 */
+	protected $autoloadLanguage = true;
 
 	/**
 	 * @return array An array of search areas
@@ -27,108 +27,137 @@ class plgSearchActparse extends JPlugin
 		static $areas = array(
 			'actparse' => 'PLG_SEARCH_ACTPARSE_ENCOUNTERS'
 		);
+
 		return $areas;
 	}
 
-	function onContentSearch($text, $phrase='', $ordering='', $areas=null)
+	function onContentSearch($text, $phrase = '', $ordering = '', $areas = null)
 	{
-		$db		=& JFactory::getDBO();
+		$text = trim($text);
 
-		if (is_array($areas)) {
-			if (!array_intersect($areas, array_keys($this->onActparseSearchAreas()))) {
+		if ($text == '')
+		{
+			return array();
+		}
+
+		if (is_array($areas))
+		{
+			if (!array_intersect($areas, array_keys($this->onContentSearchAreas())))
+			{
 				return array();
 			}
 		}
 
-		$title		= $this->params->get('actparse_title', 1);
-		$zone		= $this->params->get('actparse_zone', 1);
-		$starttime	= $this->params->get('actparse_starttime', 1);
-		$limit		= $this->params->def('actparse_limit', 50);
-		$itemid		= $this->params->def('menuitem', 50);
+		$title     = $this->params->get('actparse_title', 1);
+		$zone      = $this->params->get('actparse_zone', 1);
+		$starttime = $this->params->get('actparse_starttime', 1);
+		$limit     = $this->params->def('actparse_limit', 50);
+		$itemid    = $this->params->def('menuitem', 50);
 
-		$text = trim($text);
-		if ($text == '') {
-			return array();
-		}
+		$db    = JFactory::getDBO();
+		$query = $db->getQuery(true);
+
+		$query->select('et.encid, et.title, et.starttime as created, et.endtime, et.zone as section, et.encdps, "2" AS browsernav');
+		$query->from('encounter_table AS et');
+		$query->where('et.published = 1');
 
 		$wheres = array();
-		switch ($phrase) {
+
+		switch ($phrase)
+		{
 			case 'exact':
-				$text		= $db->Quote('%'.$db->getEscaped($text, true).'%', false);
-				$wheres2 	= array();
+				$text   = $db->quote('%' . $db->escape($text, true) . '%', false);
+
 				if ($title)
-					$wheres2[] 	= "LOWER(et.title) LIKE ".$text;
+				{
+					$wheres[] = "LOWER(et.title) LIKE " . $text;
+				}
+
 				if ($zone)
-					$wheres2[] 	= "LOWER(et.zone) LIKE ".$text;
+				{
+					$wheres[] = "LOWER(et.zone) LIKE " . $text;
+				}
+
 				if ($starttime)
-					$wheres2[] 	= "LOWER(et.starttime) LIKE ".$text;
-				$where		= '(' . implode(') OR (', $wheres2) . ')';
+				{
+					$wheres[] = "LOWER(et.starttime) LIKE " . $text;
+				}
+
+				$query->where('(' . implode(') OR (', $wheres) . ')');
+
 				break;
 
 			case 'all':
 			case 'any':
 			default:
-				$words = explode(' ', $text);
-				$wheres = array();
-				foreach ($words as $word) {
-					$word		= $db->Quote('%'.$db->getEscaped($word, true).'%', false);
-					$wheres2	= array();
-					$wheres2 	= array();
+				$words  = explode(' ', $text);
+
+				foreach ($words as $word)
+				{
+					$word    = $db->quote('%' . $db->escape($word, true) . '%', false);
+					$wheres2 = array();
+
 					if ($title)
-						$wheres2[] 	= "LOWER(et.title) LIKE ".$word;
+					{
+						$wheres2[] = 'LOWER(et.title) LIKE ' . $word;
+					}
+
 					if ($zone)
-						$wheres2[] 	= "LOWER(et.zone) LIKE ".$word;
+					{
+						$wheres2[] = 'LOWER(et.zone) LIKE ' . $word;
+					}
+
 					if ($starttime)
-						$wheres2[] 	= "LOWER(et.starttime) LIKE ".$word;
-					$wheres[]	= implode(' OR ', $wheres2);
+					{
+						$wheres2[] = 'LOWER(et.starttime) LIKE ' . $word;
+					}
+
+					$wheres[] = implode(' OR ', $wheres2);
 				}
-				$where = '(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')';
+
+				$query->where('(' . implode(($phrase == 'all' ? ') AND (' : ') OR ('), $wheres) . ')');
+
 				break;
 		}
 
-		switch ( $ordering )
+		switch ($ordering)
 		{
 			case 'oldest':
-				$order = 'et.starttime ASC';
+				$query->order('et.starttime ASC');
+
 				break;
 
 			case 'newest':
-				$order = 'et.starttime DESC';
+				$query->order('et.starttime DESC');
+
 				break;
 
 			case 'category':
-				$order = 'et.zone ASC';
+				$query->order('et.zone ASC');
+
 				break;
 
 			case 'popular':
-				$order = 'et.encdps DESC';
+				$query->order('et.encdps DESC');
+
 				break;
 
 			case 'alpha':
 			default:
-				$order = 'et.title ASC';
+				$query->order('et.title ASC');
+
 				break;
 		}
 
-		$rows = array();
-		$query	= $db->getQuery(true);
-
-		$query->clear();
-		$query->select('et.encid, et.title, et.starttime as created, et.endtime, et.zone as section, et.encdps, "2" AS browsernav');
-		$query->from('encounter_table AS et');
-		$query->where('('.$where.') AND et.published = 1');
-		$query->order($order);
-
 		$db->setQuery($query, 0, $limit);
 		$list = $db->loadObjectList();
-		$limit -= count($list);
 
 		if (isset($list))
 		{
 			foreach($list as $key => $item)
 			{
-				$list[$key]->href = JRoute::_('index.php?option=com_actparse&view=combatants&encid='.$item->encid.'&Itemid='.$itemid);
-				$list[$key]->text = $item->title.': '.JHtml::_('date', $item->created, 'Y-m-d H:m:s', 'UTC');
+				$list[$key]->href = JRoute::_('index.php?option=com_actparse&view=combatants&encid=' . $item->encid . '&Itemid=' . $itemid);
+				$list[$key]->text = $item->title . ': ' . JHtml::_('date', $item->created, 'Y-m-d H:m:s', 'UTC');
 			}
 		}
 
