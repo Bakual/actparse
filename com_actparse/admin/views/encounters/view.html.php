@@ -85,6 +85,7 @@ class ActparseViewEncounters extends JViewLegacy
 		$this->items         = $this->get('Items');
 		$this->pagination    = $this->get('Pagination');
 		$this->zones         = $this->get('Zones');
+		$this->raids         = $this->get('Raids');
 		$this->filterForm    = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 
@@ -119,6 +120,14 @@ class ActparseViewEncounters extends JViewLegacy
 		JToolbarHelper::divider();
 		JToolBarHelper::deleteList('', 'encounters.delete');
 		JToolbarHelper::divider();
+
+		// Batch Button
+		JHtml::_('bootstrap.modal', 'collapseModal');
+		$bar    = JToolBar::getInstance('toolbar');
+		$layout = new JLayoutFile('joomla.toolbar.batch');
+		$dhtml  = $layout->render(array('title' => JText::_('JTOOLBAR_BATCH')));
+		$bar->appendButton('Custom', $dhtml, 'batch');
+
 		JToolBarHelper::preferences('com_actparse');
 	}
 }

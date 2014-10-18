@@ -100,6 +100,9 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 		<?php endif; ?>
 		<?php echo $this->pagination->getListFooter(); ?>
 
+		<?php //Load the batch processing form. ?>
+		<?php echo $this->loadTemplate('batch'); ?>
+
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
 		<?php echo JHtml::_('form.token'); ?>

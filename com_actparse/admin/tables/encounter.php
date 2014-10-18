@@ -14,14 +14,6 @@ class ActparseTableEncounter extends JTable
 		parent::__construct('encounter_table', 'id', $db);
 	}
 
-	public function store($updateNulls = false)
-	{
-		// Attempt to store the user data.
-		return parent::store($updateNulls);
-		// Attempt to store the user data.
-		return parent::store($updateNulls);
-	}
-
 	/**
 	 * Method to set the publishing state for a row or list of rows in the database
 	 * table.  The method respects checked out rows by other users and will attempt

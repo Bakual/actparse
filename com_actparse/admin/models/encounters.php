@@ -217,6 +217,33 @@ class ActparseModelEncounters extends JModelList
 	}
 
 	/**
+	 * Method to get a list of raids (for the batch modal)
+	 *
+	 * @return  array    An array of results.
+	 *
+	 * @since   1.0
+	 */
+	public function getRaids()
+	{
+		$db    = JFactory::getDbo();
+		$query = $db->getQuery(true);
+
+		$query->select('id AS value, raidname, date');
+		$query->from('#__actparse_raids');
+		$query->order('raidname ASC');
+		$db->setQuery($query);
+
+		$raids = $db->loadObjectList();
+
+		foreach ($raids as $raid)
+		{
+			$raid->text = $raid->raidname . ' (' . JHTML::Date($raid->date, JText::_('DATE_FORMAT_LC4'), 'UTC') . ')';
+		}
+
+		return $raids;
+	}
+
+	/**
 	 * Check for the presence of encounter_table.
 	 *
 	 * @return  boolean   True if the table exists, false otherwise.
