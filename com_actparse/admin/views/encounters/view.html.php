@@ -115,9 +115,6 @@ class ActparseViewEncounters extends JViewLegacy
 		JToolBarHelper::publishList('encounters.publish');
 		JToolBarHelper::unpublishList('encounters.unpublish');
 		JToolbarHelper::divider();
-		JToolbarHelper::custom('move.display', 'archive', 'archive', 'COM_ACTPARSE_ASSIGN_RAID');
-		JToolbarHelper::custom('movecat.display', 'archive', 'archive', 'COM_ACTPARSE_ASSIGN_CATEGORY');
-		JToolbarHelper::divider();
 		JToolBarHelper::deleteList('', 'encounters.delete');
 		JToolbarHelper::divider();
 
