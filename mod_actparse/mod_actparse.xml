@@ -2,12 +2,11 @@
 <extension type="module" version="1.6" method="upgrade">
 	<name>mod_actparse</name>
 	<author>Thomas Hunziker</author>
-	<authorEmail>werbemails@bakual.ch</authorEmail>
-	<creationDate>Dezember 2009</creationDate>
-	<creationDate>August 2011</creationDate>
-	<copyright>(C) 2011</copyright>
-	<authorUrl>http://act.homeip.net</authorUrl>
-	<version>1.0</version>
+	<creationDate>2014-10-18</creationDate>
+	<copyright>(C) 2014</copyright>
+	<authorEmail>admin@bakual.net</authorEmail>
+	<authorUrl>http://www.bakual.net</authorUrl>
+	<version>2.0.0</version>
 	<description>MOD_ACTPARSE_XML_DESCRIPTION</description>
 	<license>GNU/GPL</license>
 	<files>
