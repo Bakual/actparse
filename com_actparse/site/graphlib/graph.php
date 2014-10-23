@@ -1,5 +1,16 @@
 <?php
-	// Joomla Umgebung aufbauen
+/**
+ * @package     ACTParse
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@bakual.net>
+ * @copyright   (C) 2014 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
+ * @license     The library itself is licensed under MIT (https://raw.githubusercontent.com/elliottb/phpgraphlib/master/LICENSE.txt)
+ **/
+
+defined('_JEXEC') or die;
+
+// Joomla Umgebung aufbauen
 	define( '_JEXEC', 1 );
 	// Joomla Basispfad errechnen, /../../.. geht vom aktuellen Filepfad 3 Verzeichnisse zurück
 	define( 'JPATH_BASE', realpath(dirname(__FILE__).'/../../..' ));
