@@ -74,35 +74,13 @@ class ActparseViewCurrent extends JViewLegacy
 		$npclist[]  = JHTML::_('select.option',  'F', 'NPC');
 		$this->npc  = JHTML::_('select.genericlist',   $npclist, 'show_npc', 'class="inputbox" size="1" style="width:8em;"' . $javascript, 'value', 'text', $show_npc);
 
-		// Daten für Graph vorbereiten (in Array umfüllen)
 		$this->showgraph = $this->params->get('show_graph');
 
 		if ($this->showgraph)
 		{
-			$graphitems    = null;
-			$graphsettings = null;
-			$order         = $this->state->get('list.ordering');
-
-			foreach ($this->items as $row)
-			{
-				$combatant              = $row->name;
-				$type                   = $row->$order;
-				$graphitems[$combatant] = $type;
-			}
-
-			if (!count($graphitems) || (!array_sum($graphitems)))
-			{
-				$this->showgraph = '0';
-			}
-
-			if ($order == 'starttime' || $order == 'endtime') $this->showgraph = '0';
-			if ($order == 'healed' || $order == 'exthps') $graphsettings['Heal'] = '1';
+			require_once JPATH_COMPONENT . '/helpers/graph.php';
+			$this->showgraph = ActparseHelperGraph::createGraph($this->items, $this->state->get('list.ordering'));
 		}
-
-		// Daten in Session speichern für Graph
-		$session = JFactory::getSession();
-		$session->set('GraphItems', $graphitems);
-		$session->set('GraphSettings', $graphsettings);
 
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
 		$this->_prepareDocument();

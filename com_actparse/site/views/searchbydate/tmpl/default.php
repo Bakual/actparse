@@ -82,10 +82,7 @@ $graphlib  = JURI::Root().'components/com_actparse/graphlib/';
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 </form>
 <br />
-<?php if ($this->showgraph) { ?>
-<!-- GraphLib Aufruf -->
-<img src="<?php echo $graphlib ; ?>graph.php"><br>
-<!-- GraphLib Werbelink, durch Lizenz benoetigt -->
-<a href="http://www.ebrueggeman.com/phpgraphlib"><img src="<?php echo $graphlib ; ?>phpgraphlib_80x15.png" alt="PHPGraphLib - Click For Official Site" width="80" height="15" align="top" style="margin-right:10px;" /></a>
-<?php } ?>
+<?php if ($this->showgraph) : ?>
+	<img src="data:image/png;base64,<?php echo $this->showgraph; ?>" alt="graph">
+<?php endif; ?>
 </div>
