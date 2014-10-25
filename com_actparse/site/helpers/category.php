@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
  *
  * @since  2.0
  */
-class SermonspeakerCategories extends JCategories
+class ActparseCategories extends JCategories
 {
 	/**
 	 * Constructor
