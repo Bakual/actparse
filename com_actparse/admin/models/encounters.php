@@ -286,8 +286,8 @@ class ActparseModelEncounters extends ListModel
 				. " ADD `id` int(11) NOT NULL AUTO_INCREMENT, \n"
 				. " ADD `catid` int(11) NOT NULL DEFAULT '0', \n"
 				. " ADD `rid` int(11), \n"
-				. " ADD `checked_out` int(11) NOT NULL, \n"
-				. " ADD `checked_out_time` datetime NOT NULL, \n"
+				. " ADD `checked_out` int(11) NULL, \n"
+				. " ADD `checked_out_time` datetime NULL, \n"
 				. " ADD `published` tinyint(1) NOT NULL DEFAULT 1, \n"
 				. " ADD PRIMARY KEY (`id`)";
 			$db->setQuery($query);
