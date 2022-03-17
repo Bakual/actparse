@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+
 class plgSearchActparse extends JPlugin
 {
 	/**
@@ -157,7 +159,7 @@ class plgSearchActparse extends JPlugin
 			foreach($list as $key => $item)
 			{
 				$list[$key]->href = JRoute::_('index.php?option=com_actparse&view=combatants&encid=' . $item->encid . '&Itemid=' . $itemid);
-				$list[$key]->text = $item->title . ': ' . JHtml::_('date', $item->created, 'Y-m-d H:m:s', 'UTC');
+				$list[$key]->text = $item->title . ': ' . HtmlHelper::_('date', $item->created, 'Y-m-d H:m:s', 'UTC');
 			}
 		}
 

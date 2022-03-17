@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
@@ -89,7 +90,7 @@ class ActparseModelEncounter extends AdminModel
 
 		if (empty($pks))
 		{
-			$this->setError(JText::_('JGLOBAL_NO_ITEM_SELECTED'));
+			$this->setError(Text::_('JGLOBAL_NO_ITEM_SELECTED'));
 
 			return false;
 		}
@@ -133,7 +134,7 @@ class ActparseModelEncounter extends AdminModel
 
 		if (!$done)
 		{
-			$this->setError(JText::_('JLIB_APPLICATION_ERROR_INSUFFICIENT_BATCH_INFORMATION'));
+			$this->setError(Text::_('JLIB_APPLICATION_ERROR_INSUFFICIENT_BATCH_INFORMATION'));
 
 			return false;
 		}
@@ -178,7 +179,7 @@ class ActparseModelEncounter extends AdminModel
 			}
 			else
 			{
-				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
+				$this->setError(Text::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
 
 				return false;
 			}

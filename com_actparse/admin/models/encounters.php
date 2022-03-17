@@ -8,6 +8,8 @@
  **/
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\MVC\Model\ListModel;
 
@@ -241,7 +243,7 @@ class ActparseModelEncounters extends ListModel
 
 		foreach ($raids as $raid)
 		{
-			$raid->text = $raid->raidname . ' (' . JHTML::Date($raid->date, JText::_('DATE_FORMAT_LC4'), 'UTC') . ')';
+			$raid->text = $raid->raidname . ' (' . HtmlHelper::_('date', $raid->date, Text::_('DATE_FORMAT_LC4'), 'UTC') . ')';
 		}
 
 		return $raids;

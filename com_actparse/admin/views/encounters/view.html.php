@@ -10,6 +10,8 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Pagination\Pagination;
@@ -67,14 +69,14 @@ class ActparseViewEncounters extends HtmlView
 		// Sanity check
 		if (!$this->get('SanityEncountersTable'))
 		{
-			Factory::getApplication()->enqueueMessage(JText::_('COM_ACTPARSE_TABLE_DOES_NOT_EXIST'), 'error');
+			Factory::getApplication()->enqueueMessage(Text::_('COM_ACTPARSE_TABLE_DOES_NOT_EXIST'), 'error');
 
 			return;
 		}
 
 		if (!$this->get('SanityEncountersFields'))
 		{
-			Factory::getApplication()->enqueueMessage(JText::_('COM_ACTPARSE_FAILED_ALTERING_TABLE'), 'errror');
+			Factory::getApplication()->enqueueMessage(Text::_('COM_ACTPARSE_FAILED_ALTERING_TABLE'), 'errror');
 
 			return;
 		}
@@ -105,7 +107,7 @@ class ActparseViewEncounters extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		ToolbarHelper::title(JText::_('COM_ACTPARSE_MENU_ENCOUNTER'), 'users encounters');
+		ToolbarHelper::title(Text::_('COM_ACTPARSE_MENU_ENCOUNTER'), 'users encounters');
 		ToolbarHelper::addNew('encounter.add');
 		ToolbarHelper::editList('encounter.edit');
 		ToolbarHelper::divider();
@@ -116,10 +118,10 @@ class ActparseViewEncounters extends HtmlView
 		ToolbarHelper::divider();
 
 		// Batch Button
-		JHtml::_('bootstrap.modal', 'collapseModal');
+		HtmlHelper::_('bootstrap.modal', 'collapseModal');
 		$bar    = Toolbar::getInstance('toolbar');
 		$layout = new FileLayout('joomla.toolbar.batch');
-		$dhtml  = $layout->render(array('title' => JText::_('JTOOLBAR_BATCH')));
+		$dhtml  = $layout->render(array('title' => Text::_('JTOOLBAR_BATCH')));
 		$bar->appendButton('Custom', $dhtml, 'batch');
 
 		ToolbarHelper::preferences('com_actparse');

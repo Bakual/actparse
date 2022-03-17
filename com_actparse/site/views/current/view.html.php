@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the actparse Component
  */
@@ -69,10 +72,10 @@ class ActparseViewCurrent extends JViewLegacy
 		// build list show NPC
 		$show_npc   = $this->state->get('show_npc');
 		$javascript = 'onchange="document.adminForm.submit();"';
-		$npclist[]  = JHTML::_('select.option',  '0', 'PC & NPC');
-		$npclist[]  = JHTML::_('select.option',  'T', 'PC');
-		$npclist[]  = JHTML::_('select.option',  'F', 'NPC');
-		$this->npc  = JHTML::_('select.genericlist',   $npclist, 'show_npc', 'class="inputbox" size="1" style="width:8em;"' . $javascript, 'value', 'text', $show_npc);
+		$npclist[]  = HtmlHelper::_('select.option',  '0', 'PC & NPC');
+		$npclist[]  = HtmlHelper::_('select.option',  'T', 'PC');
+		$npclist[]  = HtmlHelper::_('select.option',  'F', 'NPC');
+		$this->npc  = HtmlHelper::_('select.genericlist',   $npclist, 'show_npc', 'class="inputbox" size="1" style="width:8em;"' . $javascript, 'value', 'text', $show_npc);
 
 		$this->showgraph = $this->params->get('show_graph');
 
@@ -105,13 +108,13 @@ class ActparseViewCurrent extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_ACTPARSE_COMBATANTS'));
+			$this->params->def('page_heading', Text::_('COM_ACTPARSE_COMBATANTS'));
 		}
 
 		// Set Pagetitle
 		if (!$menu)
 		{
-			$title = JText::_('COM_ACTPARSE_COMBATANTS');
+			$title = Text::_('COM_ACTPARSE_COMBATANTS');
 		}
 		else
 		{
@@ -120,7 +123,7 @@ class ActparseViewCurrent extends JViewLegacy
 
 		if ($app->get('sitename_pagetitles', 0))
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
 
 		$this->document->setTitle($title);
@@ -137,6 +140,6 @@ class ActparseViewCurrent extends JViewLegacy
 		}
 
 		// Set Enviroment Variables (Breadcrumbs)
-		$this->subtitle = JTEXT::_('COM_ACTPARSE_COMBATANTS_CURRENT_ENCOUNTER');
+		$this->subtitle = Text::_('COM_ACTPARSE_COMBATANTS_CURRENT_ENCOUNTER');
 	}
 }

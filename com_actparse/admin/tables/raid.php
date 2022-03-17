@@ -7,11 +7,12 @@
  * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
+defined('_JEXEC') or die;
+
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Service\Provider\Database;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
-
-defined('_JEXEC') or die;
 
 class ActparseTableRaid extends Table
 {
@@ -58,7 +59,7 @@ class ActparseTableRaid extends Table
 			// Nothing to set publishing state on, return false.
 			else
 			{
-				$this->setError(JText::_('JLIB_DATABASE_ERROR_NO_ROWS_SELECTED'));
+				$this->setError(Text::_('JLIB_DATABASE_ERROR_NO_ROWS_SELECTED'));
 
 				return false;
 			}

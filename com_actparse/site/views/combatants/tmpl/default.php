@@ -9,14 +9,18 @@
 
 defined('_JEXEC') or die();
 
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
+
+HtmlHelper::_('behavior.tooltip');
+HtmlHelper::_('behavior.modal');
 
 $listOrder = $this->state->get('list.ordering');
 $listDirn  = $this->state->get('list.direction');
 $limit     = (int)$this->params->get('limit', '');
 $user      = JFactory::getUser();
-$graphlib  = JURI::Root() . 'components/com_actparse/graphlib/';
+$graphlib  = URI::Root() . 'components/com_actparse/graphlib/';
 $markuser  = $this->params->get('mark_user');
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx; ?> actparse-container<?php echo $this->pageclass_sfx; ?>">
@@ -27,28 +31,28 @@ $markuser  = $this->params->get('mark_user');
 <form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<fieldset class="filters">
 		<legend class="hidelabeltxt">
-			<?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?>
+			<?php echo Text::_('JGLOBAL_FILTER_LABEL'); ?>
 		</legend>
 		<div class="filter-search">
-			<label class="show_npc-lbl" for="show_npc"><?php echo JText::_('JGLOBAL_FILTER_LABEL'); ?></label>
+			<label class="show_npc-lbl" for="show_npc"><?php echo Text::_('JGLOBAL_FILTER_LABEL'); ?></label>
 			<?php echo $this->npc; ?>
 		</div>
 	<?php if ($this->params->get('show_pagination_limit')) : ?>
 			<div class="display-limit">
-				<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&nbsp;
+				<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>&nbsp;
 				<?php echo $this->pagination->getLimitBox(); ?>
 			</div>
 	<?php endif; ?>
 	</fieldset>
 	<?php if (!count($this->items)) : ?>
-		<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_ACTPARSE_NO_ENTRIES', JText::_('COM_ACTPARSE_COMBATANTS')); ?></div>
+		<div class="no_entries alert alert-error"><?php echo Text::sprintf('COM_ACTPARSE_NO_ENTRIES', Text::_('COM_ACTPARSE_COMBATANTS')); ?></div>
 	<?php else : ?>
 		<table class="table table-striped table-hover table-condensed">
 		<!-- Create the headers with sorting links -->
 			<thead><tr>
-				<th><?php echo JHTML::_('grid.sort', 'COM_ACTPARSE_NAME', 'name', $listDirn, $listOrder); ?></th>
+				<th><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_NAME', 'name', $listDirn, $listOrder); ?></th>
 				<?php foreach ($this->cols as $col) { ?>
-					<th align="left"><?php echo JHTML::_('grid.sort', 'COM_ACTPARSE_' . $col, $col, $listDirn, $listOrder); ?></th>
+					<th align="left"><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_' . $col, $col, $listDirn, $listOrder); ?></th>
 				<?php } ?>
 			</tr></thead>
 		<!-- Begin Data -->
@@ -60,7 +64,7 @@ $markuser  = $this->params->get('mark_user');
 						<?php foreach ($this->cols as $col) : ?>
 							<td align="left">
 								<?php if ($col == 'starttime' OR $col == 'endtime') :
-									echo  JHtml::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
+									echo  HtmlHelper::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
 								else :
 									echo $item->$col;
 								endif; ?>

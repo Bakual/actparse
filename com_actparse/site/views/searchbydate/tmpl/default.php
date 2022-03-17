@@ -8,9 +8,13 @@
  **/
 
 defined('_JEXEC') or die('Restricted access');
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
-JHtmlFormbehavior::chosen('select');
+
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
+
+HtmlHelper::_('behavior.tooltip');
+HtmlHelper::_('behavior.modal');
 
 $listOrder = $this->state->get('list.ordering');
 $listDirn  = $this->state->get('list.direction');
@@ -21,40 +25,40 @@ $graphlib  = JURI::Root().'components/com_actparse/graphlib/';
 <?php if ($this->params->get('show_page_heading', 1)) : ?>
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
-<p><?php echo JText::_('COM_ACTPARSE_LIMITED_TO'); ?></p>
+<p><?php echo Text::_('COM_ACTPARSE_LIMITED_TO'); ?></p>
 <!-- Suchformular -->
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<table border='0' cellpadding='0' cellspacing='0'>
 		<tr>
-			<td><?php echo JText::_('COM_ACTPARSE_ZONE'); ?>:&nbsp;</td>
+			<td><?php echo Text::_('COM_ACTPARSE_ZONE'); ?>:&nbsp;</td>
 			<td><?php echo $this->zonelist; ?></td>
 		</tr>
 		<tr>
-			<td><?php echo JText::_('COM_ACTPARSE_ENCOUNTER'); ?>:&nbsp;</td>
+			<td><?php echo Text::_('COM_ACTPARSE_ENCOUNTER'); ?>:&nbsp;</td>
 			<td><?php echo $this->titlelist; ?></td>
-			<td>&nbsp;<?php echo JText::_('COM_ACTPARSE_BASED_ON_ZONECHOICE'); ?></tr>
+			<td>&nbsp;<?php echo Text::_('COM_ACTPARSE_BASED_ON_ZONECHOICE'); ?></tr>
 		<tr>
-			<td><?php echo JText::_('COM_ACTPARSE_STARTDATE'); ?>:&nbsp;</td>
-			<td><?php echo JHTML::Calendar($this->state->get('starttime'), 'starttime', 'starttime', '%Y-%m-%d', 'class="inputbox"'); ?></td>
-			<td>&nbsp;<?php echo JText::_('COM_ACTPARSE_FORMAT_DATE'); ?></td>
+			<td><?php echo Text::_('COM_ACTPARSE_STARTDATE'); ?>:&nbsp;</td>
+			<td><?php echo HtmlHelper::Calendar($this->state->get('starttime'), 'starttime', 'starttime', '%Y-%m-%d', 'class="inputbox"'); ?></td>
+			<td>&nbsp;<?php echo Text::_('COM_ACTPARSE_FORMAT_DATE'); ?></td>
 		</tr>
 		<tr>
-			<td><?php echo JText::_('COM_ACTPARSE_ENDDATE'); ?>:&nbsp;</td>
-			<td><?php echo JHTML::Calendar($this->state->get('endtime'), 'endtime', 'endtime', '%Y-%m-%d', 'class="inputbox"'); ?></td>
-			<td>&nbsp;<?php echo JText::_('COM_ACTPARSE_FORMAT_DATE'); ?></td></tr>
+			<td><?php echo Text::_('COM_ACTPARSE_ENDDATE'); ?>:&nbsp;</td>
+			<td><?php echo HtmlHelper::Calendar($this->state->get('endtime'), 'endtime', 'endtime', '%Y-%m-%d', 'class="inputbox"'); ?></td>
+			<td>&nbsp;<?php echo Text::_('COM_ACTPARSE_FORMAT_DATE'); ?></td></tr>
 		<tr></tr>
-		<tr><td></td><td colspan='2'><input type='submit' value="<?php echo JText::_('JSEARCH_FILTER_SUBMIT'); ?>"></td><tr>
+		<tr><td></td><td colspan='2'><input type='submit' value="<?php echo Text::_('JSEARCH_FILTER_SUBMIT'); ?>"></td><tr>
 	</table>
 	<br>
 	<?php if (!count($this->items)) : ?>
-		<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_ACTPARSE_NO_ENTRIES', JText::_('COM_ACTPARSE_ENCOUNTERS')); ?></div>
+		<div class="no_entries alert alert-error"><?php echo Text::sprintf('COM_ACTPARSE_NO_ENTRIES', Text::_('COM_ACTPARSE_ENCOUNTERS')); ?></div>
 	<?php else : ?>
 		<table class="table table-striped table-hover table-condensed">
 		<!-- Create the headers with sorting links -->
 			<thead><tr>
-				<th><?php echo JHTML::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder); ?></th>
+				<th><?php echo HtmlHelper::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder); ?></th>
 				<?php foreach ($this->cols as $col) { ?>
-					<th align="left"><?php echo JHTML::_('grid.sort', 'COM_ACTPARSE_'.$col, $col, $listDirn, $listOrder); ?></th>
+					<th align="left"><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_'.$col, $col, $listDirn, $listOrder); ?></th>
 				<?php } ?>
 			</tr></thead>
 		<!-- Begin Data -->
@@ -65,7 +69,7 @@ $graphlib  = JURI::Root().'components/com_actparse/graphlib/';
 						<?php foreach ($this->cols as $col) : ?>
 							<td align="left">
 								<?php if ($col == 'starttime' OR $col == 'endtime') :
-									echo  JHtml::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
+									echo  HtmlHelper::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
 								elseif($col == 'zone') :
 									echo $item->$col;
 								else :

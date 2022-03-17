@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Pagination\Pagination;
 use Joomla\CMS\Toolbar\ToolbarHelper;
@@ -85,7 +86,7 @@ class ActparseViewRaids extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		ToolBarHelper::title(JText::_('COM_ACTPARSE_RAIDS_MANAGER'), 'drawer raids');
+		ToolBarHelper::title(Text::_('COM_ACTPARSE_RAIDS_MANAGER'), 'drawer raids');
 		ToolBarHelper::addNew('raid.add');
 		ToolBarHelper::editList('raid.edit');
 		ToolbarHelper::divider();

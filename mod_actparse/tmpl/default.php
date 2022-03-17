@@ -9,12 +9,15 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 $itemid = (int) $params->get('menuitem');
 ?>
 <ul class="raidlist">
 	<?php foreach ($rows as $row) : ?>
 		<li><a href="<?php echo JRoute::_('index.php?option=com_actparse&view=encounters&enc_rid=' . $row->id . '&Itemid=' . $itemid); ?>">
-			<?php echo $row->raidname; ?> (<?php echo JHtml::_('date', $row->date, JText::_('DATE_FORMAT_LC4'), 'UTC'); ?>)</a>
+			<?php echo $row->raidname; ?> (<?php echo HtmlHelper::_('date', $row->date, Text::_('DATE_FORMAT_LC4'), 'UTC'); ?>)</a>
 		</li>
 	<?php endforeach; ?>
 </ul>

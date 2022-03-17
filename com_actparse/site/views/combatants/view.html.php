@@ -9,6 +9,10 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the actparse Component
  */
@@ -24,7 +28,7 @@ class ActparseViewCombatants extends JViewLegacy
 		// Check if User is logged in if that parameter is set in Backend
 		if ($hide_parse)
 		{
-			$user = JFactory::getUser();
+			$user = Factory::getUser();
 
 			if ($user->guest == 1)
 			{
@@ -61,10 +65,10 @@ class ActparseViewCombatants extends JViewLegacy
 		// build list show NPC
 		$show_npc   = $this->state->get('show_npc');
 		$javascript = 'onchange="document.adminForm.submit();"';
-		$npclist[]  = JHTML::_('select.option', '0', 'PC & NPC');
-		$npclist[]  = JHTML::_('select.option', 'T', 'PC');
-		$npclist[]  = JHTML::_('select.option', 'F', 'NPC');
-		$this->npc  = JHTML::_('select.genericlist', $npclist, 'show_npc', 'class="inputbox" size="1" style="width:8em;"' . $javascript, 'value', 'text', $show_npc);
+		$npclist[]  = HtmlHelper::_('select.option', '0', 'PC & NPC');
+		$npclist[]  = HtmlHelper::_('select.option', 'T', 'PC');
+		$npclist[]  = HtmlHelper::_('select.option', 'F', 'NPC');
+		$this->npc  = HtmlHelper::_('select.genericlist', $npclist, 'show_npc', 'class="inputbox" size="1" style="width:8em;"' . $javascript, 'value', 'text', $show_npc);
 
 		$this->showgraph = $this->params->get('show_graph');
 
@@ -85,7 +89,7 @@ class ActparseViewCombatants extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Set Page Header if not already set in the menu entry
 		$menus = $app->getMenu();
@@ -97,13 +101,13 @@ class ActparseViewCombatants extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_ACTPARSE_COMBATANTS'));
+			$this->params->def('page_heading', Text::_('COM_ACTPARSE_COMBATANTS'));
 		}
 
 		// Set Pagetitle
 		if (!$menu)
 		{
-			$title = JText::_('COM_ACTPARSE_COMBATANTS');
+			$title = Text::_('COM_ACTPARSE_COMBATANTS');
 		}
 		else
 		{
@@ -112,7 +116,7 @@ class ActparseViewCombatants extends JViewLegacy
 
 		if ($app->get('sitename_pagetitles', 0))
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 
 		$this->document->setTitle($title);
@@ -134,7 +138,7 @@ class ActparseViewCombatants extends JViewLegacy
 		$activeMenuView = $menu ? $menu->query['view'] : '';
 		$path           = $app->getPathway();
 
-		$this->subtitle = JText::_('COM_ACTPARSE_COMBATANTS_FROM') . ' "' . $crumbs['encname'] . '"';
+		$this->subtitle = Text::_('COM_ACTPARSE_COMBATANTS_FROM') . ' "' . $crumbs['encname'] . '"';
 
 		if ($showpath)
 		{
@@ -149,10 +153,10 @@ class ActparseViewCombatants extends JViewLegacy
 		{
 			if ($activeMenuView == 'raids')
 			{
-				$path->addItem(JText::_('COM_ACTPARSE_RAID'),  JRoute::_('index.php?view=encounters&enc_rid=' . $crumbs['rid']));
+				$path->addItem(Text::_('COM_ACTPARSE_RAID'),  JRoute::_('index.php?view=encounters&enc_rid=' . $crumbs['rid']));
 			}
 
-			$path->addItem(JText::_('COM_ACTPARSE_COMBATANTS'));
+			$path->addItem(Text::_('COM_ACTPARSE_COMBATANTS'));
 		}
 	}
 }

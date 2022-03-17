@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
@@ -40,7 +41,7 @@ class ActparseViewEncounter extends HtmlView
 
 		$isNew = ($this->item->id == 0);
 
-		ToolBarHelper::title(JText::_('COM_ACTPARSE_' . $isNew ? 'ADD' : 'EDIT' . 'ENCOUNTER'), 'user');
+		ToolBarHelper::title(Text::_('COM_ACTPARSE_' . $isNew ? 'ADD' : 'EDIT' . 'ENCOUNTER'), 'user');
 
 		// Build the actions for new and existing records.
 		if ($isNew)

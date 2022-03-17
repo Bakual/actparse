@@ -9,7 +9,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
  * HTML View class for the Actparse Component
@@ -31,7 +33,7 @@ class ActparseViewinfo extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		ToolBarHelper::title(JText::_('COM_ACTPARSE_INFO'), 'info');
+		ToolBarHelper::title(Text::_('COM_ACTPARSE_INFO'), 'info');
 		ToolBarHelper::preferences('com_actparse');
 
 		parent::display($tpl);

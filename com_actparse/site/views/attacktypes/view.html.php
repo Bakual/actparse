@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the actparse Component
  */
@@ -83,13 +85,13 @@ class ActparseViewAttacktypes extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_ACTPARSE_DAMAGETYPES'));
+			$this->params->def('page_heading', Text::_('COM_ACTPARSE_DAMAGETYPES'));
 		}
 
 		// Set Pagetitle
 		if (!$menu)
 		{
-			$title = JText::_('COM_ACTPARSE_DAMAGETYPES');
+			$title = Text::_('COM_ACTPARSE_DAMAGETYPES');
 		}
 		else
 		{
@@ -98,7 +100,7 @@ class ActparseViewAttacktypes extends JViewLegacy
 
 		if ($app->get('sitename_pagetitles', 0))
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->getCfg('sitename'), $title);
 		}
 
 		$this->document->setTitle($title);
@@ -120,7 +122,7 @@ class ActparseViewAttacktypes extends JViewLegacy
 		$activeMenuView = $menu ? $menu->query['view'] : '';
 		$path           = $app->getPathway();
 
-		$this->subtitle = JText::_('COM_ACTPARSE_ATTACKTYPES_FROM') . ' "' . $crumbs['dmgtype'] . '"';
+		$this->subtitle = Text::_('COM_ACTPARSE_ATTACKTYPES_FROM') . ' "' . $crumbs['dmgtype'] . '"';
 
 		if ($showpath)
 		{
@@ -137,12 +139,12 @@ class ActparseViewAttacktypes extends JViewLegacy
 		{
 			if ($activeMenuView == 'raids')
 			{
-				$path->addItem(JText::_('COM_ACTPARSE_RAID'),  JRoute::_('index.php?view=encounters&enc_rid=' . $crumbs['rid']));
+				$path->addItem(Text::_('COM_ACTPARSE_RAID'),  JRoute::_('index.php?view=encounters&enc_rid=' . $crumbs['rid']));
 			}
 
-			$path->addItem(JText::_('COM_ACTPARSE_COMBATANTS'), JRoute::_('index.php?view=combatants&encid=' . $crumbs['encid']));
-			$path->addItem(JText::_('COM_ACTPARSE_DAMAGETYPES'), JRoute::_('index.php?view=damagetypes&encid=' . $crumbs['encid'] . '&combatant=' . $crumbs['combatant']));
-			$path->addItem(JText::_('COM_ACTPARSE_ATTACKTYPES'));
+			$path->addItem(Text::_('COM_ACTPARSE_COMBATANTS'), JRoute::_('index.php?view=combatants&encid=' . $crumbs['encid']));
+			$path->addItem(Text::_('COM_ACTPARSE_DAMAGETYPES'), JRoute::_('index.php?view=damagetypes&encid=' . $crumbs['encid'] . '&combatant=' . $crumbs['combatant']));
+			$path->addItem(Text::_('COM_ACTPARSE_ATTACKTYPES'));
 		}
 	}
 }

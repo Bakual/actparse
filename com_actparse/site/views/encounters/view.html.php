@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the actparse Component
  */
@@ -52,7 +55,7 @@ class ActparseViewEncounters extends JViewLegacy
 
 				if ($item)
 				{
-					$item->title = JText::_($this->params->get('name_all', 'COM_ACTPARSE_SAVE_FIRST'));
+					$item->title = Text::_($this->params->get('name_all', 'COM_ACTPARSE_SAVE_FIRST'));
 					$item->all   = true;
 					array_unshift($this->items, $item);
 				}
@@ -96,13 +99,13 @@ class ActparseViewEncounters extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_ACTPARSE_ALL_ENCOUNTERS'));
+			$this->params->def('page_heading', Text::_('COM_ACTPARSE_ALL_ENCOUNTERS'));
 		}
 
 		// Set Pagetitle
 		if (!$menu)
 		{
-			$title = JText::_('COM_ACTPARSE_ALL_ENCOUNTERS');
+			$title = Text::_('COM_ACTPARSE_ALL_ENCOUNTERS');
 		}
 		else
 		{
@@ -111,7 +114,7 @@ class ActparseViewEncounters extends JViewLegacy
 
 		if ($app->get('sitename_pagetitles', 0))
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 
 		$this->document->setTitle($title);
@@ -135,8 +138,8 @@ class ActparseViewEncounters extends JViewLegacy
 
 		if ($this->state->get('raid.id'))
 		{
-			$this->subtitle = JText::_('COM_ACTPARSE_ENCOUNTERS_FROM_RAID') . ' "' . $crumbs['raidname']
-							. ' (' . JHtml::Date($crumbs['date'], JText::_('DATE_FORMAT_LC4'), 'UTC') . ')"';
+			$this->subtitle = Text::_('COM_ACTPARSE_ENCOUNTERS_FROM_RAID') . ' "' . $crumbs['raidname']
+							. ' (' . HtmlHelper::_('date', $crumbs['date'], Text::_('DATE_FORMAT_LC4'), 'UTC') . ')"';
 
 			if ($showpath)
 			{
@@ -149,13 +152,13 @@ class ActparseViewEncounters extends JViewLegacy
 			{
 				if ($activeMenuView == 'raids')
 				{
-					$path->addItem(JText::_('COM_ACTPARSE_RAID'));
+					$path->addItem(Text::_('COM_ACTPARSE_RAID'));
 				}
 			}
 		}
 		else
 		{
-			$this->subtitle = JText::_('COM_ACTPARSE_ALL_ENCOUNTERS');
+			$this->subtitle = Text::_('COM_ACTPARSE_ALL_ENCOUNTERS');
 		}
 	}
 }

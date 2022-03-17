@@ -9,8 +9,12 @@
 
 defined('_JEXEC') or die();
 
-JHTML::_('behavior.tooltip');
-JHTML::_('behavior.modal');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
+
+HtmlHelper::_('behavior.tooltip');
+HtmlHelper::_('behavior.modal');
 
 $listOrder = $this->state->get('list.ordering');
 $listDirn  = $this->state->get('list.direction');
@@ -21,23 +25,23 @@ $limit     = (int) $this->params->get('limit', '');
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 <h2><span class="subheading-category"><?php echo $this->subtitle; ?></span></h2>
-<form action="<?php echo JFilterOutput::ampReplace(JFactory::getURI()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<?php if ($this->params->get('show_pagination_limit')) : ?>
 			<div class="display-limit">
-				<?php echo JText::_('JGLOBAL_DISPLAY_NUM'); ?>&nbsp;
+				<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>&nbsp;
 				<?php echo $this->pagination->getLimitBox(); ?>
 			</div>
 	<?php endif; ?>
 	<?php if (!count($this->items)) : ?>
-		<div class="no_entries alert alert-error"><?php echo JText::sprintf('COM_ACTPARSE_NO_ENTRIES', JText::_('COM_ACTPARSE_DAMAGETYPES')); ?></div>
+		<div class="no_entries alert alert-error"><?php echo Text::sprintf('COM_ACTPARSE_NO_ENTRIES', Text::_('COM_ACTPARSE_DAMAGETYPES')); ?></div>
 	<?php else : ?>
 		<div id='Layer1' style='overflow:scroll;'>
 		<table class="table table-striped table-hover table-condensed">
 		<!-- Create the headers with sorting links -->
 			<thead><tr>
-				<th><?php echo JHTML::_('grid.sort', 'COM_ACTPARSE_TYPE', 'type', $listDirn, $listOrder); ?></th>
+				<th><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_TYPE', 'type', $listDirn, $listOrder); ?></th>
 				<?php foreach ($this->cols as $col) { ?>
-					<th align="left"><?php echo JHTML::_('grid.sort', 'COM_ACTPARSE_' . $col, $col, $listDirn, $listOrder); ?></th>
+					<th align="left"><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_' . $col, $col, $listDirn, $listOrder); ?></th>
 				<?php } ?>
 			</tr></thead>
 		<!-- Begin Data -->
@@ -52,7 +56,7 @@ $limit     = (int) $this->params->get('limit', '');
 						<?php foreach ($this->cols as $col) : ?>
 							<td align="left">
 								<?php if ($col == 'starttime' OR $col == 'endtime') :
-									echo  JHtml::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
+									echo  HtmlHelper::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
 								else :
 									echo $item->$col;
 								endif; ?>

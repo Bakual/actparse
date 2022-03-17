@@ -7,11 +7,12 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\MVC\View\HtmlView;
-
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
  * HTML View class for the actparse Component
@@ -42,7 +43,7 @@ class ActparseViewMove extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		ToolBarHelper::title(JText::_('COM_ACTPARSE_MOVE_ENCOUNTER'), 'impressions.png');
+		ToolBarHelper::title(Text::_('COM_ACTPARSE_MOVE_ENCOUNTER'), 'impressions.png');
 		ToolBarHelper::save('move.move', 'Move');
 		ToolBarHelper::cancel('move.cancel', 'Close');
 	}

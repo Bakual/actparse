@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
@@ -41,7 +42,7 @@ class ActparseViewMovecat extends HtmlView
 	 */
 	protected function addToolbar()
 	{
-		ToolBarHelper::title(JText::_('COM_ACTPARSE_MOVE_ENCOUNTER'), 'impressions.png');
+		ToolBarHelper::title(Text::_('COM_ACTPARSE_MOVE_ENCOUNTER'), 'impressions.png');
 		ToolbarHelper::save('movecat.move', 'Move');
 		ToolBarHelper::cancel('movecat.cancel', 'Close');
 	}

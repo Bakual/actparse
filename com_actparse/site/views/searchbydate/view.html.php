@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the actparse Component
  */
@@ -60,17 +63,17 @@ class ActparseViewSearchbydate extends JViewLegacy
 		// build Zones list
 		$zones      = $this->get('Zonelist');
 		$javascript = 'onchange="document.adminForm.submit();"';
-		$z_option[] = JHTML::_('select.option',  '', '');
-		$z_option[] = JHTML::_('select.option',  '%', JText::_('COM_ACTPARSE_ALL_ZONES'));
+		$z_option[] = HtmlHelper::_('select.option',  '', '');
+		$z_option[] = HtmlHelper::_('select.option',  '%', Text::_('COM_ACTPARSE_ALL_ZONES'));
 		$zones      = array_merge($z_option, $zones);
-		$this->zonelist = JHTML::_('select.genericlist', $zones, 'zone', 'class="inputbox" size="1"' . $javascript, 'value', 'text', $this->state->get('zone'));
+		$this->zonelist = HtmlHelper::_('select.genericlist', $zones, 'zone', 'class="inputbox" size="1"' . $javascript, 'value', 'text', $this->state->get('zone'));
 
 		// build Titles list
 		$titles     = $this->get('Titlelist');
 		$javascript = 'onchange="document.adminForm.submit();"';
-		$t_option[] = JHTML::_('select.option',  '', '');
+		$t_option[] = HtmlHelper::_('select.option',  '', '');
 		$titles     = array_merge($t_option, $titles);
-		$this->titlelist = JHTML::_('select.genericlist', $titles, 'title', 'class="inputbox" size="1"' . $javascript, 'value', 'text', $this->state->get('title'));
+		$this->titlelist = HtmlHelper::_('select.genericlist', $titles, 'title', 'class="inputbox" size="1"' . $javascript, 'value', 'text', $this->state->get('title'));
 
 		$this->showgraph = $this->params->get('show_graph');
 
@@ -103,13 +106,13 @@ class ActparseViewSearchbydate extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_ACTPARSE_EXT_SEARCH'));
+			$this->params->def('page_heading', Text::_('COM_ACTPARSE_EXT_SEARCH'));
 		}
 
 		// Set Pagetitle
 		if (!$menu)
 		{
-			$title = JText::_('COM_ACTPARSE_EXT_SEARCH');
+			$title = Text::_('COM_ACTPARSE_EXT_SEARCH');
 		}
 		else
 		{
@@ -118,7 +121,7 @@ class ActparseViewSearchbydate extends JViewLegacy
 
 		if ($app->get('sitename_pagetitles', 0))
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 
 		$this->document->setTitle($title);

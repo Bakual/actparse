@@ -23,12 +23,12 @@ $published = $this->state->get('filter.state');
 		<p><?php echo Text::_('COM_ACTPARSE_BATCH_TIP'); ?></p>
 		<div class="control-group">
 			<div class="controls">
-				<label id="batch-raid-lbl" for="batch-raid-id" class="hasTooltip" title="<?php echo JText::_('COM_ACTPARSE_BATCH_RAID_LABEL'); ?>::<?php echo JText::_('COM_ACTPARSE_BATCH_RAID_LABEL_DESC'); ?>">
+				<label id="batch-raid-lbl" for="batch-raid-id" class="hasTooltip" title="<?php echo Text::_('COM_ACTPARSE_BATCH_RAID_LABEL'); ?>::<?php echo Text::_('COM_ACTPARSE_BATCH_RAID_LABEL_DESC'); ?>">
 					<?php echo Text::_('COM_ACTPARSE_BATCH_RAID_LABEL'); ?>
 				</label>
 				<select name="batch[raid_id]" class="inputbox" id="batch-raid-id">
 					<option value=""><?php echo Text::_('COM_ACTPARSE_BATCH_RAID_NOCHANGE'); ?></option>
-					<?php echo JHtml::_('select.options', $this->raids, 'value', 'text'); ?>
+					<?php echo HtmlHelper::_('select.options', $this->raids, 'value', 'text'); ?>
 				</select>
 			</div>
 		</div>

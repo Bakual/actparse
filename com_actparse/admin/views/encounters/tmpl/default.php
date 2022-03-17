@@ -70,16 +70,16 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 							<a href="<?php echo JRoute::_('index.php?option=com_actparse&task=encounter.edit&id=' . (int) $item->id); ?>">
 								<?php echo $this->escape($item->title); ?></a>
 							<div class="small">
-								<?php echo JText::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
+								<?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
 							</div>
 						</td>
 						<td class="center small">
 							<?php if ($item->raidname) : ?>
-								<?php echo $item->raidname . ' (' . HTMLHelper::Date($item->date, JText::_('DATE_FORMAT_LC4'), 'UTC') . ')'; ?>
+								<?php echo $item->raidname . ' (' . HTMLHelper::Date($item->date, Text::_('DATE_FORMAT_LC4'), 'UTC') . ')'; ?>
 							<?php endif; ?>
 						</td>
 						<td class="center hidden-phone">
-							<?php echo HTMLHelper::Date($item->starttime, JText::_('DATE_FORMAT_LC4'), 'UTC'); ?>
+							<?php echo HTMLHelper::Date($item->starttime, Text::_('DATE_FORMAT_LC4'), 'UTC'); ?>
 						</td>
 						<td class="center hidden-phone">
 							<?php echo $this->escape($item->zone); ?>

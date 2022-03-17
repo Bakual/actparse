@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+
 /**
  * HTML View class for the actparse Component
  */
@@ -68,13 +70,13 @@ class ActparseViewRaids extends JViewLegacy
 		}
 		else
 		{
-			$this->params->def('page_heading', JText::_('COM_ACTPARSE_RAIDS'));
+			$this->params->def('page_heading', Text::_('COM_ACTPARSE_RAIDS'));
 		}
 
 		// Set Pagetitle
 		if (!$menu)
 		{
-			$title = JText::_('COM_ACTPARSE_RAIDS');
+			$title = Text::_('COM_ACTPARSE_RAIDS');
 		}
 		else
 		{
@@ -83,7 +85,7 @@ class ActparseViewRaids extends JViewLegacy
 
 		if ($app->get('sitename_pagetitles', 0))
 		{
-			$title = JText::sprintf('JPAGETITLE', $app->get('sitename'), $title);
+			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		}
 
 		$this->document->setTitle($title);

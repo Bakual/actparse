@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\ListField;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 class JFormFieldRaidlist extends ListField
 {
@@ -42,7 +44,7 @@ class JFormFieldRaidlist extends ListField
 
 		foreach ($options as $option)
 		{
-			$option->text = $option->raidname . ' (' . JHTML::Date($option->date, JText::_('DATE_FORMAT_LC4'), 'UTC') . ')';
+			$option->text = $option->raidname . ' (' . HtmlHelper::_('date', $option->date, Text::_('DATE_FORMAT_LC4'), 'UTC') . ')';
 		}
 
 		$options = array_merge(parent::getOptions(), $options);
