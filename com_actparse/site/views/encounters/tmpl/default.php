@@ -12,7 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-HtmlHelper::_('behavior.tooltip');
+HtmlHelper::_('bootstrap.tooltip');
 HtmlHelper::_('behavior.modal');
 
 $listOrder = $this->state->get('list.ordering');

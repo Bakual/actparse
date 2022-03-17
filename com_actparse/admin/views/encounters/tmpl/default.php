@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
@@ -17,6 +18,7 @@ use Joomla\CMS\Router\Route;
 HTMLHelper::_('bootstrap.tooltip');
 HTMLHelper::_('behavior.multiselect');
 
+$user      = Factory::getUser();
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
@@ -98,7 +100,19 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 		<?php echo $this->pagination->getListFooter(); ?>
 
 		<?php //Load the batch processing form. ?>
-		<?php echo $this->loadTemplate('batch'); ?>
+		<?php if ($user->authorise('core.create', 'com_actparse')
+			&& $user->authorise('core.edit', 'com_actparse')
+			&& $user->authorise('core.edit.state', 'com_actparse')) : ?>
+			<?php echo HTMLHelper::_(
+				'bootstrap.renderModal',
+				'collapseModal',
+				array(
+					'title'  => Text::_('COM_ACTPARSE_BATCH_OPTIONS'),
+					'footer' => $this->loadTemplate('batch_footer'),
+				),
+				$this->loadTemplate('batch_body')
+			); ?>
+		<?php endif; ?>
 
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />

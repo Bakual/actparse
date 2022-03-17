@@ -13,7 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
-HtmlHelper::_('behavior.tooltip');
+HtmlHelper::_('bootstrap.tooltip');
 HtmlHelper::_('behavior.modal');
 
 $listOrder = $this->state->get('list.ordering');

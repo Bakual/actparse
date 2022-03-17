@@ -32,21 +32,20 @@ class JFormFieldSQLMultiListX extends ListField
 
 		$db = Factory::getDbo();
 
-		$query = $this->element['sql'];
+		$query = (string)$this->element['sql'];
 
 		// Get the options.
 		$db->setQuery($query);
 
-		$columns = $db->loadObjectList();
+		try {
+			$columns = $db->loadObjectList();
+		} catch (Exception $e) {
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+		}
+
 		foreach ($columns as $column)
 		{
 			$options[$column->Field] = $column->Field;
-		}
-
-		// Check for a database error.
-		if ($db->getErrorNum())
-		{
-			Factory::getApplication()->enqueueMessage($db->getErrorMsg(), 'error');
 		}
 
 		return $options;

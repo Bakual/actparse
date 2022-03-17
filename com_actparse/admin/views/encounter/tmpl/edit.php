@@ -16,9 +16,7 @@ use Joomla\CMS\Router\Route;
 // Include the component HTML helpers.
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 
-HTMLHelper::_('behavior.tooltip');
-HTMLHelper::_('behavior.formvalidation');
-HTMLHelper::_('behavior.keepalive');
+HTMLHelper::_('bootstrap.tooltip');
 ?>
 <script type="text/javascript">
 	function Joomla.submitbutton(task)
