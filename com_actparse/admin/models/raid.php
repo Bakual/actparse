@@ -1,17 +1,19 @@
 <?php
 /**
- * @package     ACTParse
- * @subpackage  Component.Administrator
- * @author      Thomas Hunziker <admin@bakual.net>
+ * @package         ACTParse
+ * @subpackage      Component.Administrator
+ * @author          Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
- * @license     http://www.gnu.org/licenses/gpl.html
+ * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modeladmin');
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\Table\Table;
 
-class ActparseModelRaid extends JModelAdmin
+class ActparseModelRaid extends AdminModel
 {
 	protected $text_prefix = 'COM_ACTPARSE';
 
@@ -27,17 +29,16 @@ class ActparseModelRaid extends JModelAdmin
 
 	public function getTable($type = 'Raid', $prefix = 'ActparseTable', $config = array())
 	{
-		return JTable::getInstance($type, $prefix, $config);
+		return Table::getInstance($type, $prefix, $config);
 	}
 
 	public function getForm($data = array(), $loadData = true)
 	{
-		// Initialise variables.
-		$app	= JFactory::getApplication();
-
 		// Get the form.
 		$form = $this->loadForm('com_actparse.raid', 'raid', array('control' => 'jform', 'load_data' => $loadData));
-		if (empty($form)) {
+
+		if (empty($form))
+		{
 			return false;
 		}
 
@@ -47,19 +48,13 @@ class ActparseModelRaid extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_actparse.edit.raid.data', array());
+		$data = Factory::getApplication()->getUserState('com_actparse.edit.raid.data', array());
 
-		if (empty($data)) {
+		if (empty($data))
+		{
 			$data = $this->getItem();
 		}
 
 		return $data;
-	}
-
-	public function getItem($pk = null)
-	{
-		$item = parent::getItem($pk);
-
-		return $item;
 	}
 }

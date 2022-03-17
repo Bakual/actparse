@@ -9,12 +9,10 @@
 
 defined('_JEXEC') or die;
 
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('list');
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Field\ListField;
 
-class JFormFieldRaidlist extends JFormFieldList
+class JFormFieldRaidlist extends ListField
 {
 	/**
 	 * The form field type.
@@ -32,7 +30,7 @@ class JFormFieldRaidlist extends JFormFieldList
 	 */
 	public function getOptions()
 	{
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 
 		$query->select('id AS value, raidname, date');

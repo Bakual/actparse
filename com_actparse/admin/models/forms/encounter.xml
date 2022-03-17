@@ -5,7 +5,6 @@
 			name="title"
 			type="text"
 			label="JGLOBAL_TITLE"
-			class="advancedSelect"
 			required="true"
 		/>
 
@@ -13,14 +12,12 @@
 			name="encid"
 			type="text"
 			label="COM_ACTPARSE_ENCOUNTERID"
-			class="advancedSelect"
 		/>
 
 		<field
 			name="zone"
 			type="text"
 			label="COM_ACTPARSE_ZONE"
-			class="advancedSelect"
 		/>
 
 		<field
@@ -29,7 +26,6 @@
 			label="JCATEGORY"
 			description="JFIELD_CATEGORY_DESC"
 			extension="com_actparse"
-			class="advancedSelect"
 			>
 			<option value="">JOPTION_SELECT_CATEGORY</option>
 		</field>
@@ -38,7 +34,6 @@
 			name="rid"
 			type="raidlist"
 			label="COM_ACTPARSE_RAIDNAME"
-			class="advancedSelect"
 			>
 			<option value="">COM_ACTPARSE_SELECT_RAID</option>
 		</field>
@@ -47,7 +42,6 @@
 			name="published"
 			type="list"
 			label="JPUBLISHED"
-			class="advancedSelect"
 			size="1"
 			default="1"
 			>

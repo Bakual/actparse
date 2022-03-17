@@ -5,7 +5,6 @@
 			name="raidname" 
 			type="text"
 			label="JGLOBAL_TITLE"
-			class="advancedSelect"
 			required="true"
 		/>
 
@@ -14,15 +13,13 @@
 			type="calendar"
 			label="JDATE"
 			description="COM_ACTPARSE_FIELD_DATE_DESC"
-			class="advancedSelect"
-			format="%Y-%m-%d"
+			translateformat="true"
 		/>
 
 		<field
 			name="published"
 			type="list"
 			label="JPUBLISHED"
-			class="advancedSelect"
 			size="1"
 			default="1">
 			<option value="1">JPUBLISHED</option>

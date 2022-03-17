@@ -9,12 +9,14 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\MVC\Controller\FormController;
+
 /**
  * Controller class for the ACT Parse Component
  *
  * @since  1.0
  */
-class ActparseControllerRaid extends JControllerForm
+class ActparseControllerRaid extends FormController
 {
 	protected function allowAdd($data = array())
 	{

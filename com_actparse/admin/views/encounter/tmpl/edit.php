@@ -9,13 +9,16 @@
 
 defined('_JEXEC') or die;
 
-// Include the component HTML helpers.
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 
-JHtml::_('behavior.tooltip');
-JHtml::_('behavior.formvalidation');
-JHtml::_('behavior.keepalive');
-JHtmlFormbehavior::chosen('select');
+// Include the component HTML helpers.
+HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
+HTMLHelper::_('behavior.tooltip');
+HTMLHelper::_('behavior.formvalidation');
+HTMLHelper::_('behavior.keepalive');
 ?>
 <script type="text/javascript">
 	function Joomla.submitbutton(task)
@@ -24,18 +27,18 @@ JHtmlFormbehavior::chosen('select');
 			Joomla.submitform(task);
 		}
 		else {
-			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+			alert('<?php echo $this->escape(Text::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
 		}
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_actparse&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
+<form action="<?php echo Route::_('index.php?option=com_actparse&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 	<div class="form-horizontal">
 		<?php foreach($this->form->getFieldset('general') as $field): ?>
 			<?php echo $field->getControlGroup(); ?>
 		<?php endforeach; ?>
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="return" value="<?php echo JFactory::getApplication()->input->getCmd('return'); ?>" />
-		<?php echo JHtml::_('form.token'); ?>
+		<?php echo HTMLHelper::_('form.token'); ?>
 	</div>
 </form>

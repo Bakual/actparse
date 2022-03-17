@@ -7,6 +7,10 @@
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\MVC\Model\ListModel;
+
 defined('_JEXEC') or die;
 
 /**
@@ -14,14 +18,14 @@ defined('_JEXEC') or die;
  *
  * @since  1.0
  */
-class ActparseModelEncounters extends JModelList
+class ActparseModelEncounters extends ListModel
 {
 	/**
 	 * Constructor.
 	 *
 	 * @param   array  $config  An optional associative array of configuration settings.
 	 *
-	 * @see     JModelLegacy
+	 * @see     BaseDatabaseModel
 	 * @since   1.0
 	 */
 	public function __construct($config = array())
@@ -96,7 +100,7 @@ class ActparseModelEncounters extends JModelList
 	/**
 	 * Method to get a JDatabaseQuery object for retrieving the data set from a database.
 	 *
-	 * @return  JDatabaseQuery   A JDatabaseQuery object to retrieve the data set.
+	 * @return  \Joomla\Database\QueryInterface   A JDatabaseQuery object to retrieve the data set.
 	 *
 	 * @since   1.0
 	 */
@@ -159,7 +163,7 @@ class ActparseModelEncounters extends JModelList
 
 		if (is_numeric($categoryId))
 		{
-			$cat_tbl = JTable::getInstance('Category', 'JTable');
+			$cat_tbl = Table::getInstance('Category', 'JTable');
 			$cat_tbl->load($categoryId);
 			$rgt = $cat_tbl->rgt;
 			$lft = $cat_tbl->lft;
@@ -207,7 +211,7 @@ class ActparseModelEncounters extends JModelList
 	 */
 	public function getZones()
 	{
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT `zone`')
 			->from('`encounter_table`')
@@ -225,7 +229,7 @@ class ActparseModelEncounters extends JModelList
 	 */
 	public function getRaids()
 	{
-		$db    = JFactory::getDbo();
+		$db    = Factory::getDbo();
 		$query = $db->getQuery(true);
 
 		$query->select('id AS value, raidname, date');
@@ -252,7 +256,7 @@ class ActparseModelEncounters extends JModelList
 	 */
 	public function getSanityEncountersTable()
 	{
-		$db     = JFactory::getDbo();
+		$db     = Factory::getDbo();
 		$tables = $db->getTableList();
 
 		return in_array('encounter_table', $tables);
@@ -267,7 +271,7 @@ class ActparseModelEncounters extends JModelList
 	 */
 	public function getSanityEncountersFields()
 	{
-		$db     = JFactory::getDbo();
+		$db     = Factory::getDbo();
 		$fields = $db->getTableColumns('encounter_table');
 
 		// Add needed fields to table.

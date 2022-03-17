@@ -9,12 +9,14 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\MVC\Controller\AdminController;
+
 /**
  * Controller class for the ACT Parse Component
  *
  * @since  1.0
  */
-class ActparseControllerRaids extends JControllerAdmin
+class ActparseControllerRaids extends AdminController
 {
 	/**
 	 * Method to get a model object, loading it if required.

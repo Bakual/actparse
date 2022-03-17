@@ -8,28 +8,32 @@
  **/
 
 defined('_JEXEC') or die;
-?>
 
-<?php
-	$cid = JRequest::getVar( 'cid', array(0), '', 'array' );
-	JArrayHelper::toInteger($cid, array(0));
-	JFilterOutput::objectHTMLSafe( $this->items, ENT_QUOTES );
-?>
+use Joomla\CMS\Factory;
+use Joomla\CMS\Filter\OutputFilter;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
+use Joomla\Utilities\ArrayHelper;
 
-<form action="<?php echo JRoute::_('index.php?option=com_actparse'); ?>" method="post" name="adminForm" id="adminForm">
+$cid = Factory::getApplication()->input->get( 'cid', array(0), '', 'array' );
+ArrayHelper::toInteger($cid, array(0));
+OutputFilter::objectHTMLSafe( $this->items, ENT_QUOTES );
+?>
+<form action="<?php echo Route::_('index.php?option=com_actparse'); ?>" method="post" name="adminForm" id="adminForm">
 <div align="center">
-	<strong><?php echo JText::_('COM_ACTPARSE_MOVE_ENCOUNTERS_TO_CATEGORY').": "; ?></strong>
-	<?php $options[] = JHtml::_('select.option', 0, JText::_('JOPTION_SELECT_CATEGORY'));
-	$options = array_merge($options, JHtml::_('category.options', 'com_actparse'));
-	echo JHTML::_('select.genericlist', $options, 'catid'); ?>
+	<strong><?php echo Text::_('COM_ACTPARSE_MOVE_ENCOUNTERS_TO_CATEGORY').": "; ?></strong>
+	<?php $options[] = HtmlHelper::_('select.option', 0, Text::_('JOPTION_SELECT_CATEGORY'));
+	$options = array_merge($options, HtmlHelper::_('category.options', 'com_actparse'));
+	echo HtmlHelper::_('select.genericlist', $options, 'catid'); ?>
 </div>
 <table border="0" width="100%" class="adminlist">
 	<tr>
-		<th align="left" colspan="2"><?php echo JText::_('COM_ACTPARSE_ENCOUNTERS_TO_MOVE'); ?></td>
+		<th align="left" colspan="2"><?php echo Text::_('COM_ACTPARSE_ENCOUNTERS_TO_MOVE'); ?></th>
 	</tr>
 	<tr>
-		<th class="title" width="40%"><?php echo JText::_('JGLOBAL_TITLE'); ?></th>
-		<th align="left"><?php echo JText::_('COM_ACTPARSE_OLD_CAT'); ?></th>
+		<th class="title" width="40%"><?php echo Text::_('JGLOBAL_TITLE'); ?></th>
+		<th align="left"><?php echo Text::_('COM_ACTPARSE_OLD_CAT'); ?></th>
 	</tr>
 	<?php foreach($this->items as $row) { ?>
 		<tr>
@@ -42,5 +46,5 @@ defined('_JEXEC') or die;
 	<?php } ?>
 </table>
 	<input type="hidden" name="task" value="" />
-	<?php echo JHTML::_( 'form.token' ); ?>
+	<?php echo HtmlHelper::_( 'form.token' ); ?>
 </form>

@@ -9,54 +9,51 @@
 
 defined('_JEXEC') or die;
 
-JHtml::_('bootstrap.tooltip');
-JHtml::_('behavior.multiselect');
-JHtmlFormbehavior::chosen();
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
+
+HTMLHelper::_('bootstrap.tooltip');
+HTMLHelper::_('behavior.multiselect');
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
-<form action="<?php echo JRoute::_('index.php?option=com_actparse&view=encounters'); ?>" method="post" name="adminForm" id="adminForm">
-<?php if(!empty($this->sidebar)): ?>
-	<div id="j-sidebar-container" class="span2">
-		<?php echo $this->sidebar; ?>
-	</div>
-	<div id="j-main-container" class="span10">
-<?php else : ?>
+<form action="<?php echo Route::_('index.php?option=com_actparse&view=encounters'); ?>" method="post" name="adminForm" id="adminForm">
 	<div id="j-main-container">
-<?php endif; ?>
-		<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
+		<?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 		<?php if (empty($this->items)) : ?>
 			<div class="alert alert-no-items">
-				<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
+				<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 			</div>
 		<?php else : ?>
 			<table class="table table-striped" id="encounterList">
 				<thead>
 					<tr>
 						<th width="1%" class="hidden-phone">
-							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
+							<input type="checkbox" name="checkall-toggle" value="" title="<?php echo Text::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)" />
 						</th>
 						<th width="1%" style="min-width:40px" class="nowrap center">
-							<?php echo JHtml::_('searchtools.sort', 'JPUBLISHED', 'encounters.published', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort', 'JPUBLISHED', 'encounters.published', $listDirn, $listOrder); ?>
 						</th>
 						<th>
-							<?php echo JHtml::_('searchtools.sort', 'JGLOBAL_TITLE', 'encounters.title', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'encounters.title', $listDirn, $listOrder); ?>
 						</th>
 						<th width="20%">
-							<?php echo JHtml::_('searchtools.sort',  'Raid', 'raidname', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort',  'Raid', 'raidname', $listDirn, $listOrder); ?>
 						</th>
 						<th width="5%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('searchtools.sort',  'Start', 'encounters.starttime', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort',  'Start', 'encounters.starttime', $listDirn, $listOrder); ?>
 						</th>
 						<th width="5%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('searchtools.sort',  'Zone', 'encounters.zone', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort',  'Zone', 'encounters.zone', $listDirn, $listOrder); ?>
 						</th>
 						<th width="5%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('searchtools.sort',  'EncounterID', 'encounters.encid', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort',  'EncounterID', 'encounters.encid', $listDirn, $listOrder); ?>
 						</th>
 						<th width="1%" class="nowrap hidden-phone">
-							<?php echo JHtml::_('searchtools.sort',  'JGRID_HEADING_ID', 'encounters.id', $listDirn, $listOrder); ?>
+							<?php echo HTMLHelper::_('searchtools.sort',  'JGRID_HEADING_ID', 'encounters.id', $listDirn, $listOrder); ?>
 						</th>
 					</tr>
 				</thead>
@@ -64,10 +61,10 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 				<?php foreach ($this->items as $i => $item) : ?>
 					<tr class="row<?php echo $i % 2; ?>">
 						<td class="center hidden-phone">
-							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
+							<?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
 						</td>
 						<td class="center">
-							<?php echo JHtml::_('jgrid.published', $item->published, $i, 'encounters.', true); ?>
+							<?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'encounters.', true); ?>
 						</td>
 						<td>
 							<a href="<?php echo JRoute::_('index.php?option=com_actparse&task=encounter.edit&id=' . (int) $item->id); ?>">
@@ -78,11 +75,11 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						</td>
 						<td class="center small">
 							<?php if ($item->raidname) : ?>
-								<?php echo $item->raidname . ' (' . JHtml::Date($item->date, JText::_('DATE_FORMAT_LC4'), 'UTC') . ')'; ?>
+								<?php echo $item->raidname . ' (' . HTMLHelper::Date($item->date, JText::_('DATE_FORMAT_LC4'), 'UTC') . ')'; ?>
 							<?php endif; ?>
 						</td>
 						<td class="center hidden-phone">
-							<?php echo JHTML::Date($item->starttime, JText::_('DATE_FORMAT_LC4'), 'UTC'); ?>
+							<?php echo HTMLHelper::Date($item->starttime, JText::_('DATE_FORMAT_LC4'), 'UTC'); ?>
 						</td>
 						<td class="center hidden-phone">
 							<?php echo $this->escape($item->zone); ?>
@@ -105,6 +102,6 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 
 		<input type="hidden" name="task" value="" />
 		<input type="hidden" name="boxchecked" value="0" />
-		<?php echo JHtml::_('form.token'); ?>
+		<?php echo HTMLHelper::_('form.token'); ?>
 	</div>
 </form>

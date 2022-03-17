@@ -1,38 +1,36 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2010 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @copyright      Copyright (C) 2005 - 2010 Open Source Matters, Inc. All rights reserved.
+ * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('JPATH_BASE') or die;
 
-jimport('joomla.html.html');
-jimport('joomla.form.formfield');
-jimport('joomla.form.helper');
-JFormHelper::loadFieldClass('list');
+use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Field\ListField;
 
-class JFormFieldSQLMultiListX extends JFormFieldList
+class JFormFieldSQLMultiListX extends ListField
 {
 	/**
 	 * The form field type.
 	 *
-	 * @var		string
-	 * @since	1.6
+	 * @var        string
+	 * @since    1.6
 	 */
 	protected $type = 'SQLMultiListX';
 
 	/**
 	 * Method to get the field options.
 	 *
-	 * @return	array	The field option objects.
-	 * @since	1.6
+	 * @return    array    The field option objects.
+	 * @since    1.6
 	 */
 	public function getOptions()
 	{
 		// Initialize variables.
 		$options = array();
 
-		$db		= JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$query = $this->element['sql'];
 
@@ -40,13 +38,15 @@ class JFormFieldSQLMultiListX extends JFormFieldList
 		$db->setQuery($query);
 
 		$columns = $db->loadObjectList();
-		foreach ($columns as $column){
+		foreach ($columns as $column)
+		{
 			$options[$column->Field] = $column->Field;
 		}
 
 		// Check for a database error.
-		if ($db->getErrorNum()) {
-			JError::raiseWarning(500, $db->getErrorMsg());
+		if ($db->getErrorNum())
+		{
+			Factory::getApplication()->enqueueMessage($db->getErrorMsg(), 'error');
 		}
 
 		return $options;

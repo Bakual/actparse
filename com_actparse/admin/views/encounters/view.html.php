@@ -9,12 +9,19 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Layout\FileLayout;
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Pagination\Pagination;
+use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 /**
  * HTML View class for the Actparse Component
  *
  * @since  1.0
  */
-class ActparseViewEncounters extends JViewLegacy
+class ActparseViewEncounters extends HtmlView
 {
 	/**
 	 * Array of objects.
@@ -26,7 +33,7 @@ class ActparseViewEncounters extends JViewLegacy
 	/**
 	 * The pagination object.
 	 *
-	 * @var JPagination
+	 * @var Pagination
 	 */
 	protected $pagination;
 
@@ -45,13 +52,6 @@ class ActparseViewEncounters extends JViewLegacy
 	protected $zones;
 
 	/**
-	 * The HTML code for the sidebar.
-	 *
-	 * @var string
-	 */
-	protected $sidebar;
-
-	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
@@ -64,19 +64,17 @@ class ActparseViewEncounters extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		ActparseHelper::addSubmenu('encounters');
-
 		// Sanity check
 		if (!$this->get('SanityEncountersTable'))
 		{
-			JFactory::getApplication()->enqueueMessage(JText::_('COM_ACTPARSE_TABLE_DOES_NOT_EXIST'), 'error');
+			Factory::getApplication()->enqueueMessage(JText::_('COM_ACTPARSE_TABLE_DOES_NOT_EXIST'), 'error');
 
 			return;
 		}
 
 		if (!$this->get('SanityEncountersFields'))
 		{
-			JFactory::getApplication()->enqueueMessage(JText::_('COM_ACTPARSE_FAILED_ALTERING_TABLE'), 'errror');
+			Factory::getApplication()->enqueueMessage(JText::_('COM_ACTPARSE_FAILED_ALTERING_TABLE'), 'errror');
 
 			return;
 		}
@@ -96,7 +94,6 @@ class ActparseViewEncounters extends JViewLegacy
 		}
 
 		$this->addToolbar();
-		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
 	}
@@ -108,23 +105,23 @@ class ActparseViewEncounters extends JViewLegacy
 	 */
 	protected function addToolbar()
 	{
-		JToolBarHelper::title(JText::_('COM_ACTPARSE_MENU_ENCOUNTER'), 'users encounters');
-		JToolBarHelper::addNew('encounter.add');
-		JToolBarHelper::editList('encounter.edit');
-		JToolbarHelper::divider();
-		JToolBarHelper::publishList('encounters.publish');
-		JToolBarHelper::unpublishList('encounters.unpublish');
-		JToolbarHelper::divider();
-		JToolBarHelper::deleteList('', 'encounters.delete');
-		JToolbarHelper::divider();
+		ToolbarHelper::title(JText::_('COM_ACTPARSE_MENU_ENCOUNTER'), 'users encounters');
+		ToolbarHelper::addNew('encounter.add');
+		ToolbarHelper::editList('encounter.edit');
+		ToolbarHelper::divider();
+		ToolbarHelper::publishList('encounters.publish');
+		ToolbarHelper::unpublishList('encounters.unpublish');
+		ToolbarHelper::divider();
+		ToolbarHelper::deleteList('', 'encounters.delete');
+		ToolbarHelper::divider();
 
 		// Batch Button
 		JHtml::_('bootstrap.modal', 'collapseModal');
-		$bar    = JToolBar::getInstance('toolbar');
-		$layout = new JLayoutFile('joomla.toolbar.batch');
+		$bar    = Toolbar::getInstance('toolbar');
+		$layout = new FileLayout('joomla.toolbar.batch');
 		$dhtml  = $layout->render(array('title' => JText::_('JTOOLBAR_BATCH')));
 		$bar->appendButton('Custom', $dhtml, 'batch');
 
-		JToolBarHelper::preferences('com_actparse');
+		ToolbarHelper::preferences('com_actparse');
 	}
 }

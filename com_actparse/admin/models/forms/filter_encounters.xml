@@ -12,7 +12,6 @@
 			type="list"
 			label="COM_ACTPARSE_FILTER_PUBLISHED"
 			description="COM_ACTPARSE_FILTER_PUBLISHED_DESC"
-			class="advancedSelect"
 			onchange="this.form.submit();"
 			>
 			<option value="">JOPTION_SELECT_PUBLISHED</option>
@@ -24,7 +23,6 @@
 			type="category"
 			label="JOPTION_FILTER_CATEGORY"
 			description="JOPTION_FILTER_CATEGORY_DESC"
-			class="advancedSelect"
 			extension="com_actparse"
 			onchange="this.form.submit();"
 			>
@@ -35,7 +33,6 @@
 			type="integer"
 			label="JOPTION_FILTER_LEVEL"
 			description="JOPTION_FILTER_LEVEL_DESC"
-			class="advancedSelect"
 			first="1"
 			last="10"
 			step="1"
@@ -49,7 +46,6 @@
 			type="raidlist"
 			label="COM_ACTPARSE_FILTER_RAID"
 			description="COM_ACTPARSE_FILTER_RAID_DESC"
-			class="advancedSelect"
 			onchange="this.form.submit();"
 			>
 			<option value="">COM_ACTPARSE_SELECT_RAID</option>
@@ -59,9 +55,10 @@
 			type="sql"
 			label="COM_ACTPARSE_FILTER_ZONE"
 			description="COM_ACTPARSE_FILTER_ZONE_DESC"
-			class="advancedSelect"
 			onchange="this.form.submit();"
-			query="SELECT DISTINCT `zone` FROM `encounter_table` ORDER BY `zone` ASC"
+			sql_select="DISTINCT `zone`"
+			sql_from="`encounter_table`"
+			sql_order="`zone` ASC"
 			key_field="zone"
 			value_field="zone"
 			>
@@ -74,7 +71,6 @@
 			type="list"
 			label="COM_ACTPARSE_LIST_FULL_ORDERING"
 			description="COM_ACTPARSE_LIST_FULL_ORDERING_DESC"
-			class="advancedSelect"
 			onchange="this.form.submit();"
 			>
 			<option value="">JGLOBAL_SORT_BY</option>
@@ -92,7 +88,7 @@
 			type="limitbox"
 			label="COM_ACTPARSE_LIST_LIMIT"
 			description="COM_ACTPARSE_LIST_LIMIT_DESC"
-			class="input-mini advancedSelect"
+			class="input-mini"
 			default="25"
 			onchange="this.form.submit();"
 		/>

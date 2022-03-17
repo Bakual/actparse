@@ -9,12 +9,17 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
+
 /**
  * Controller class for the ACT Parse Component
  *
  * @since  1.0
  */
-class ActparseControllerEncounter extends JControllerForm
+class ActparseControllerEncounter extends FormController
 {
 	protected function allowAdd($data = array())
 	{
@@ -37,13 +42,13 @@ class ActparseControllerEncounter extends JControllerForm
 	 */
 	public function batch($model = null)
 	{
-		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		Session::checkToken() or jexit(Text::_('JINVALID_TOKEN'));
 
 		// Set the model
 		$model = $this->getModel('Encounter', '', array());
 
 		// Preset the redirect
-		$this->setRedirect(JRoute::_('index.php?option=com_actparse&view=encounters' . $this->getRedirectToListAppend(), false));
+		$this->setRedirect(Route::_('index.php?option=com_actparse&view=encounters' . $this->getRedirectToListAppend(), false));
 
 		return parent::batch($model);
 	}

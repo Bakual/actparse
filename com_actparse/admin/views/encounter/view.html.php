@@ -9,7 +9,11 @@
 
 defined('_JEXEC') or die;
 
-class ActparseViewEncounter extends JViewLegacy
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
+class ActparseViewEncounter extends HtmlView
 {
 	protected $item;
 	protected $form;
@@ -27,32 +31,32 @@ class ActparseViewEncounter extends JViewLegacy
 
 		$this->addToolbar();
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 
 	protected function addToolbar()
 	{
-		JFactory::getApplication()->input->set('hidemainmenu', true);
+		Factory::getApplication()->input->set('hidemainmenu', true);
 
 		$isNew = ($this->item->id == 0);
 
-		JToolBarHelper::title(JText::_('COM_ACTPARSE_' . $isNew ? 'ADD' : 'EDIT' . 'ENCOUNTER'), 'user');
+		ToolBarHelper::title(JText::_('COM_ACTPARSE_' . $isNew ? 'ADD' : 'EDIT' . 'ENCOUNTER'), 'user');
 
 		// Build the actions for new and existing records.
 		if ($isNew)
 		{
-			JToolBarHelper::apply('encounter.apply');
-			JToolBarHelper::save('encounter.save');
-			JToolbarHelper::save2new('encounter.save2new');
-			JToolBarHelper::cancel('encounter.cancel');
+			ToolBarHelper::apply('encounter.apply');
+			ToolBarHelper::save('encounter.save');
+			ToolBarHelper::save2new('encounter.save2new');
+			ToolBarHelper::cancel('encounter.cancel');
 		}
 		else
 		{
-			JToolBarHelper::apply('encounter.apply');
-			JToolBarHelper::save('encounter.save');
-			JToolbarHelper::save2new('encounter.save2new');
-			JToolbarHelper::save2new('encounter.save2copy');
-			JToolBarHelper::cancel('encounter.cancel', 'JTOOLBAR_CLOSE');
+			ToolBarHelper::apply('encounter.apply');
+			ToolBarHelper::save('encounter.save');
+			ToolBarHelper::save2new('encounter.save2new');
+			ToolBarHelper::save2new('encounter.save2copy');
+			ToolBarHelper::cancel('encounter.cancel', 'JTOOLBAR_CLOSE');
 		}
 	}
 }

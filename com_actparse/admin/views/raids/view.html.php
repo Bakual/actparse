@@ -9,12 +9,16 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\MVC\View\HtmlView;
+use Joomla\CMS\Pagination\Pagination;
+use Joomla\CMS\Toolbar\ToolbarHelper;
+
 /**
  * HTML View class for the Actparse Component
  *
  * @since  1.0
  */
-class ActparseViewRaids extends JViewLegacy
+class ActparseViewRaids extends HtmlView
 {
 	/**
 	 * Array of objects.
@@ -26,7 +30,7 @@ class ActparseViewRaids extends JViewLegacy
 	/**
 	 * The pagination object.
 	 *
-	 * @var JPagination
+	 * @var Pagination
 	 */
 	protected $pagination;
 
@@ -45,26 +49,17 @@ class ActparseViewRaids extends JViewLegacy
 	protected $zones;
 
 	/**
-	 * The HTML code for the sidebar.
-	 *
-	 * @var string
-	 */
-	protected $sidebar;
-
-	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
-	 * @see     JViewLegacy::loadTemplate()
+	 * @see     HtmlView::loadTemplate()
 	 * @since   1.0
 	 */
 	public function display($tpl = null)
 	{
-		ActparseHelper::addSubmenu('raids');
-
 		$this->state         = $this->get('State');
 		$this->items         = $this->get('Items');
 		$this->pagination    = $this->get('Pagination');
@@ -79,7 +74,6 @@ class ActparseViewRaids extends JViewLegacy
 		}
 
 		$this->addToolbar();
-		$this->sidebar = JHtmlSidebar::render();
 
 		parent::display($tpl);
 	}
@@ -91,14 +85,14 @@ class ActparseViewRaids extends JViewLegacy
 	 */
 	protected function addToolbar()
 	{
-		JToolBarHelper::title(JText::_('COM_ACTPARSE_RAIDS_MANAGER'), 'drawer raids');
-		JToolBarHelper::addNew('raid.add');
-		JToolBarHelper::editList('raid.edit');
-		JToolbarHelper::divider();
-		JToolBarHelper::publishList('raids.publish');
-		JToolBarHelper::unpublishList('raids.unpublish');
-		JToolbarHelper::divider();
-		JToolBarHelper::deleteList('', 'raids.delete');
-		JToolBarHelper::preferences('com_actparse');
+		ToolBarHelper::title(JText::_('COM_ACTPARSE_RAIDS_MANAGER'), 'drawer raids');
+		ToolBarHelper::addNew('raid.add');
+		ToolBarHelper::editList('raid.edit');
+		ToolbarHelper::divider();
+		ToolBarHelper::publishList('raids.publish');
+		ToolBarHelper::unpublishList('raids.unpublish');
+		ToolbarHelper::divider();
+		ToolBarHelper::deleteList('', 'raids.delete');
+		ToolBarHelper::preferences('com_actparse');
 	}
 }

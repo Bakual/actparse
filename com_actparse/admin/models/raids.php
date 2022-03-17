@@ -9,12 +9,14 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\MVC\Model\ListModel;
+
 /**
  * Model class for handling lists of raids.
  *
  * @since  1.0
  */
-class ActparseModelRaids extends JModelList
+class ActparseModelRaids extends ListModel
 {
 	/**
 	 * Constructor.

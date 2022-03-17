@@ -1,21 +1,24 @@
 <?php
 /**
- * @package     ACTParse
- * @subpackage  Component.Administrator
- * @author      Thomas Hunziker <admin@bakual.net>
+ * @package         ACTParse
+ * @subpackage      Component.Administrator
+ * @author          Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
- * @license     http://www.gnu.org/licenses/gpl.html
+ * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modeladmin');
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\CMS\Table\Table;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  *ACT Parser Component Encounter Model
  *
  */
-class ActparseModelEncounter extends JModelAdmin
+class ActparseModelEncounter extends AdminModel
 {
 	protected $text_prefix = 'COM_ACTPARSE';
 
@@ -31,17 +34,16 @@ class ActparseModelEncounter extends JModelAdmin
 
 	public function getTable($type = 'Encounter', $prefix = 'ActparseTable', $config = array())
 	{
-		return JTable::getInstance($type, $prefix, $config);
+		return Table::getInstance($type, $prefix, $config);
 	}
 
 	public function getForm($data = array(), $loadData = true)
 	{
-		// Initialise variables.
-		$app	= JFactory::getApplication();
-
 		// Get the form.
 		$form = $this->loadForm('com_actparse.encounter', 'encounter', array('control' => 'jform', 'load_data' => $loadData));
-		if (empty($form)) {
+
+		if (empty($form))
+		{
 			return false;
 		}
 
@@ -51,20 +53,14 @@ class ActparseModelEncounter extends JModelAdmin
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = JFactory::getApplication()->getUserState('com_actparse.edit.encounter.data', array());
+		$data = Factory::getApplication()->getUserState('com_actparse.edit.encounter.data', array());
 
-		if (empty($data)) {
+		if (empty($data))
+		{
 			$data = $this->getItem();
 		}
 
 		return $data;
-	}
-
-	public function getItem($pk = null)
-	{
-		$item = parent::getItem($pk);
-
-		return $item;
 	}
 
 	/**
@@ -83,7 +79,7 @@ class ActparseModelEncounter extends JModelAdmin
 	{
 		// Sanitize user ids.
 		$pks = array_unique($pks);
-		JArrayHelper::toInteger($pks);
+		ArrayHelper::toInteger($pks);
 
 		// Remove any values of zero.
 		if (array_search(0, $pks, true))
@@ -102,7 +98,7 @@ class ActparseModelEncounter extends JModelAdmin
 
 		if (!empty($commands['category_id']))
 		{
-			$cmd = JArrayHelper::getValue($commands, 'move_copy', 'c');
+			$cmd = ArrayHelper::getValue($commands, 'move_copy', 'c');
 
 			if ($cmd == 'c')
 			{
@@ -162,7 +158,7 @@ class ActparseModelEncounter extends JModelAdmin
 	protected function batchRaid($value, $pks, $contexts)
 	{
 		// Set the variables
-		$user  = JFactory::getUser();
+		$user  = Factory::getUser();
 		$table = $this->getTable();
 
 		foreach ($pks as $pk)

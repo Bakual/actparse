@@ -9,20 +9,15 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\MVC\View\HtmlView;
+
 /**
  * HTML View class for the Actparse Component
  *
  * @since  1.0
  */
-class ActparseViewinfo extends JViewLegacy
+class ActparseViewinfo extends HtmlView
 {
-	/**
-	 * The HTML code for the sidebar.
-	 *
-	 * @var string
-	 */
-	protected $sidebar;
-
 	/**
 	 * Execute and display a template script.
 	 *
@@ -30,16 +25,14 @@ class ActparseViewinfo extends JViewLegacy
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
-	 * @see     JViewLegacy::loadTemplate()
+	 * @see     HtmlView::loadTemplate()
 	 * @since   1.0
 	 * @throws  Exception
 	 */
 	public function display($tpl = null)
 	{
-		ActparseHelper::addSubmenu('info');
-		JToolBarHelper::title(JText::_('COM_ACTPARSE_INFO'), 'info');
-		JToolBarHelper::preferences('com_actparse');
-		$this->sidebar = JHtmlSidebar::render();
+		ToolBarHelper::title(JText::_('COM_ACTPARSE_INFO'), 'info');
+		ToolBarHelper::preferences('com_actparse');
 
 		parent::display($tpl);
 	}
