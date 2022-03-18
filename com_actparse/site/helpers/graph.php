@@ -74,7 +74,7 @@ echo '<pre>' . print_r($graphitems) . '</pre>';
 		$graph->drawRectangle(0,0,699,229,["Color"=>new pColor(0,0,0)]);
 
 /* Set the default font */
-		$graph->setFontProperties(array("FontName"=>"pChart/fonts/pf_arma_five.ttf","FontSize"=>6));
+//		$graph->setFontProperties(array("FontName"=>"pChart/fonts/pf_arma_five.ttf","FontSize"=>6));
 
 /* Define the chart area */
 		$graph->setGraphArea(60,40,650,200);
