@@ -34,6 +34,9 @@
 		<folder>models</folder>
 		<folder>language</folder>
 	</files>
+	<media destination="com_actparse" folder="media">
+		<folder>js</folder>
+	</media>
 	<administration>
 		<menu img="class:stats">COM_ACTPARSE</menu>
 		<submenu>

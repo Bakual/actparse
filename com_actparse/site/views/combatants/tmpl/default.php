@@ -12,6 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::_('bootstrap.tooltip');
@@ -21,7 +22,6 @@ $listOrder = $this->state->get('list.ordering');
 $listDirn  = $this->state->get('list.direction');
 $limit     = (int)$this->params->get('limit', '');
 $user      = Factory::getUser();
-$graphlib  = URI::Root() . 'components/com_actparse/graphlib/';
 $markuser  = $this->params->get('mark_user');
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx; ?> actparse-container<?php echo $this->pageclass_sfx; ?>">
@@ -61,7 +61,7 @@ $markuser  = $this->params->get('mark_user');
 				<?php foreach($this->items as $i => $item) :
 					$class = ($markuser && (strtolower($user->username) == strtolower($item->name))) ? ' info' : ''; ?>
 					<tr class="cat-list-row<?php echo ($i % 2).$class; ?>">
-						<td align='left'><a href="<?php echo JRoute::_('index.php?view=damagetypes&encid='.$item->encid.'&combatant='.$item->name); ?>" ><?php echo $item->name; ?></a></td>
+						<td align='left'><a href="<?php echo Route::_('index.php?view=damagetypes&encid='.$item->encid.'&combatant='.$item->name); ?>" ><?php echo $item->name; ?></a></td>
 						<?php foreach ($this->cols as $col) : ?>
 							<td align="left">
 								<?php if ($col == 'starttime' OR $col == 'endtime') :
@@ -90,7 +90,7 @@ $markuser  = $this->params->get('mark_user');
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
 </form>
 <br />
-<?php if ($this->showgraph) : ?>
-	<img src="data:image/png;base64,<?php echo $this->showgraph; ?>" alt="graph">
-<?php endif; ?>
+	<div id="actChart-container">
+		<canvas id="actChart"></canvas>
+	</div>
 </div>
