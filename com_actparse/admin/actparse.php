@@ -15,9 +15,6 @@ use Joomla\CMS\MVC\Controller\BaseController;
 // Register Helperclass for autoloading
 JLoader::register('ActparseHelper', JPATH_COMPONENT . '/helpers/actparse.php');
 
-// Load Composer Autoloader
-require_once(JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
-
 $controller = BaseController::getInstance('Actparse');
 $controller->execute(Factory::getApplication()->input->get('task'));
 $controller->redirect();

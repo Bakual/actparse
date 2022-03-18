@@ -52,7 +52,6 @@
 			<folder>sql</folder>
 			<folder>tables</folder>
 			<folder>language</folder>
-			<folder>vendor</folder>
 			<folder>views</folder>
 		</files>
 	</administration>
