@@ -3,36 +3,46 @@
 	<layout title="COM_ACTPARSE_ENCOUNTERS_VIEW_DEFAULT_TITLE">
 		<message>COM_ACTPARSE_ENCOUNTERS_VIEW_DEFAULT_DESC</message>
 	</layout>
-	<fields name="params">
-		<fieldset name="basic"
+	<fields
+		name="params"
+	>
+		<fieldset
+			name="basic"
 			label="JGLOBAL_FIELDSET_OPTIONS"
-			addfieldpath="/administrator/components/com_actparse/models/fields">
+			addfieldpath="/administrator/components/com_actparse/models/fields"
+		>
 
-			<field name="enc_cat" 
-				type="category" 
-				label="JCATEGORY" description="JFIELD_CATEGORY_DESC"
-				extension="com_actparse">
+			<field
+				name="enc_cat"
+				type="category"
+				label="JCATEGORY"
+				extension="com_actparse"
+			>
 				<option value="">JOPTION_SELECT_CATEGORY</option>
 			</field>
 
-			<field name="enc_rid" 
-				type="raidlist" 
-				label="COM_ACTPARSE_ENC_RAID" 
-				description="COM_ACTPARSE_ENC_RAID_DESC" 
-				size="1" 
-				sql="SELECT * FROM #__actparse_raids" 
-				key_field="id" 
-				value_field="raidname">
+			<field
+				name="enc_rid"
+				type="raidlist"
+				label="COM_ACTPARSE_ENC_RAID"
+				sql_select="*"
+				sql_from="#__actparse_raids"
+				sql_order="`raidname` ASC"
+				key_field="id"
+				value_field="raidname"
+			>
 				<option value="">COM_ACTPARSE_SELECT_RAID</option>
 			</field>
-			<field name="enccolumns" 
-				type="sqlmultilistx" 
-				label="COM_ACTPARSE_SELECT_COLUMNS" 
-				description="COM_ACTPARSE_COM_ACTPARSE_SELECT_COLUMNS_DESC" 
-				size="10" 
-				multiple="multiple" 
-				sql="SHOW COLUMNS FROM encounter_table" 
-				key_field="Field" 
+
+			<field
+				name="enccolumns"
+				type="sqlmultilistx"
+				label="COM_ACTPARSE_SELECT_COLUMNS"
+				description="COM_ACTPARSE_COM_ACTPARSE_SELECT_COLUMNS_DESC"
+				size="10"
+				multiple="multiple"
+				sql="SHOW COLUMNS FROM encounter_table"
+				key_field="Field"
 				value_field="Field">
 			</field>
 		</fieldset>

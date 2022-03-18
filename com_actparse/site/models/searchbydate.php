@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 /**
  *ACT Parser Component Encounters Model
  *
@@ -73,10 +75,10 @@ class ActparseModelSearchbydate extends JModelList
 	 *
 	 * @since 1.0
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
 
@@ -121,7 +123,7 @@ class ActparseModelSearchbydate extends JModelList
 
 	function getZonelist()
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT zone as value, zone as text');
@@ -136,7 +138,7 @@ class ActparseModelSearchbydate extends JModelList
 
 	function getTitlelist()
 	{
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
 		$query = $db->getQuery(true);
 		$query->select('DISTINCT title as value, title as text');

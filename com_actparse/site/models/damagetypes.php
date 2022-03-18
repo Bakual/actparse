@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 /**
  *ACT Parser Component Damagetypes Model
  *
@@ -45,10 +47,10 @@ class ActparseModelDamagetypes extends JModelList
 	 *
 	 * @since	1.6
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
 
@@ -85,7 +87,7 @@ class ActparseModelDamagetypes extends JModelList
 
 	function getCrumbs()
 	{
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
 		$query = $db->getQuery(true);
 		$query->select('rt.raidname, et.rid, et.encid, et.title as encname, ct.name as combatant');

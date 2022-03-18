@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 class modActparseHelper
 {
 	public static function getActparse(&$params)
@@ -16,7 +18,7 @@ class modActparseHelper
 		$limit   = $params->get('actparse_limit');
 		$orderby = $params->get('actparse_order');
 
-		$db    = JFactory::getDBO();
+		$db    = Factory::getDBO();
 		$query = $db->getQuery(true);
 		$query->select('*');
 		$query->from('#__actparse_raids');

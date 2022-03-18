@@ -47,7 +47,6 @@
 			<filename>config.xml</filename>
 			<filename>actparse.php</filename>
 			<filename>controller.php</filename>
-			<filename>id.sql</filename>
 			<filename>access.xml</filename>
 			<folder>controllers</folder>
 			<folder>models</folder>

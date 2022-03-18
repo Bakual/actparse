@@ -9,7 +9,9 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * HTML View class for the actparse Component
@@ -18,7 +20,7 @@ class ActparseViewAttacktypes extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$this->state  = $this->get('State');
 		$this->params = $this->state->get('params');
 
@@ -27,11 +29,11 @@ class ActparseViewAttacktypes extends JViewLegacy
 		// Check if User is logged in if that parameter is set in Backend
 		if ($hide_parse)
 		{
-			$user = JFactory::getUser();
+			$user = Factory::getUser();
 
 			if ($user->guest == 1)
 			{
-				$uri    = JUri::getInstance();
+				$uri    = Uri::getInstance();
 				$return = $uri->toString();
 				$url    = 'index.php?option=com_user&view=login&return=' . base64_encode($return);
 
@@ -73,7 +75,7 @@ class ActparseViewAttacktypes extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Set Page Header if not already set in the menu entry
 		$menus = $app->getMenu();

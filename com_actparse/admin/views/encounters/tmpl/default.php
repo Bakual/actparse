@@ -16,7 +16,6 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('bootstrap.tooltip');
-HTMLHelper::_('behavior.multiselect');
 
 $user      = Factory::getUser();
 $listOrder = $this->escape($this->state->get('list.ordering'));

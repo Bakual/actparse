@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 /**
  *ACT Parser Component Raids Model
  *
@@ -17,7 +19,7 @@ class ActparseModelRaids extends JModelLegacy
 {
 	function _buildQuery()
 	{
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
 		$query = $db->getQuery(true);
 		$query->select('*');

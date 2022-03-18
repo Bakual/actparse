@@ -1,15 +1,17 @@
 <?php
 /**
- * @package     ACTParse
- * @subpackage  Component.Site
- * @author      Thomas Hunziker <admin@bakual.net>
+ * @package         ACTParse
+ * @subpackage      Component.Site
+ * @author          Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
- * @license     http://www.gnu.org/licenses/gpl.html
+ * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * HTML View class for the actparse Component
@@ -18,20 +20,20 @@ class ActparseViewRaids extends JViewLegacy
 {
 	function display($tpl = null)
 	{
-		$app          = JFactory::getApplication();
+		$app          = Factory::getApplication();
 		$this->params = $app->getParams();
 		$hide_parse   = $this->params->get('hide_parse', 0);
 
 		// Check if User is logged in if that parameter is set in Backend
 		if ($hide_parse)
 		{
-			$user = JFactory::getUser();
+			$user = Factory::getUser();
 
 			if ($user->guest == 1)
 			{
-				$uri    = JUri::getInstance();
+				$uri    = Uri::getInstance();
 				$return = $uri->toString();
-				$url	= 'index.php?option=com_user&view=login&return=' . base64_encode($return);
+				$url    = 'index.php?option=com_user&view=login&return=' . base64_encode($return);
 
 				$app->enqueueMessage('You must login first');
 				$app->redirect($url);
@@ -58,7 +60,7 @@ class ActparseViewRaids extends JViewLegacy
 	 */
 	protected function _prepareDocument()
 	{
-		$app = JFactory::getApplication();
+		$app = Factory::getApplication();
 
 		// Set Page Header if not already set in the menu entry
 		$menus = $app->getMenu();

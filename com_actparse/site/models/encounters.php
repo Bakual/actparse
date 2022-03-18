@@ -1,25 +1,26 @@
 <?php
 /**
- * @package     ACTParse
- * @subpackage  Component.Site
- * @author      Thomas Hunziker <admin@bakual.net>
+ * @package         ACTParse
+ * @subpackage      Component.Site
+ * @author          Thomas Hunziker <admin@bakual.net>
  * @copyright   (C) 2014 - Thomas Hunziker
- * @license     http://www.gnu.org/licenses/gpl.html
+ * @license         http://www.gnu.org/licenses/gpl.html
  **/
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\ListModel;
 
 /**
  *ACT Parser Component Encounters Model
  *
  */
-class ActparseModelEncounters extends JModelList
+class ActparseModelEncounters extends ListModel
 {
 	protected function getListQuery()
 	{
-		$groups = implode(',', JFactory::getUser()->getAuthorisedViewLevels());
+		$groups = implode(',', Factory::getUser()->getAuthorisedViewLevels());
 
 		// Create a new query object.
 		$db    = $this->getDbo();
@@ -79,12 +80,12 @@ class ActparseModelEncounters extends JModelList
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @since	1.6
+	 * @since    1.6
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
 
@@ -130,7 +131,7 @@ class ActparseModelEncounters extends JModelList
 
 	function getAll()
 	{
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
 		$query = $db->getQuery(true);
 		$query->select('*');
@@ -146,7 +147,7 @@ class ActparseModelEncounters extends JModelList
 
 	function getCrumbs()
 	{
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
 		$query = $db->getQuery(true);
 		$query->select('*');

@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
 class plgSearchActparse extends JPlugin
@@ -56,7 +57,7 @@ class plgSearchActparse extends JPlugin
 		$limit     = $this->params->def('actparse_limit', 50);
 		$itemid    = $this->params->def('menuitem', 50);
 
-		$db    = JFactory::getDBO();
+		$db    = Factory::getDBO();
 		$query = $db->getQuery(true);
 
 		$query->select('et.encid, et.title, et.starttime as created, et.endtime, et.zone as section, et.encdps, "2" AS browsernav');

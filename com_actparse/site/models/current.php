@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 class ActparseModelCurrent extends JModelList
 {
 
@@ -46,10 +48,10 @@ class ActparseModelCurrent extends JModelList
 	 *
 	 * @since 1.0
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
 

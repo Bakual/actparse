@@ -9,6 +9,7 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -36,7 +37,7 @@ HTMLHelper::_('bootstrap.tooltip');
 			<?php echo $field->getControlGroup(); ?>
 		<?php endforeach; ?>
 		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="return" value="<?php echo JFactory::getApplication()->input->getCmd('return'); ?>" />
+		<input type="hidden" name="return" value="<?php echo Factory::getApplication()->input->getCmd('return'); ?>" />
 		<?php echo HTMLHelper::_('form.token'); ?>
 	</div>
 </form>

@@ -14,12 +14,12 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::_('bootstrap.tooltip');
-HtmlHelper::_('behavior.modal');
+HtmlHelper::_('bootstrap.modal');
 
 $listOrder = $this->state->get('list.ordering');
 $listDirn  = $this->state->get('list.direction');
 $limit     = (int)$this->params->get('limit', '');
-$graphlib  = JURI::Root().'components/com_actparse/graphlib/';
+$graphlib  = URI::Root().'components/com_actparse/graphlib/';
 ?>
 <div class="category-list<?php echo $this->pageclass_sfx; ?> actparse-container<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading', 1)) : ?>

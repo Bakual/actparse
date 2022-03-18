@@ -9,9 +9,12 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Controller\BaseController;
+
 // Register Helperclass for autoloading
 JLoader::register('ActparseHelper', JPATH_COMPONENT . '/helpers/actparse.php');
 
-$controller = JControllerLegacy::getInstance('Actparse');
-$controller->execute(JFactory::getApplication()->input->get('task'));
+$controller = BaseController::getInstance('Actparse');
+$controller->execute(Factory::getApplication()->input->get('task'));
 $controller->redirect();

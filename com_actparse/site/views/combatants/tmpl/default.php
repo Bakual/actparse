@@ -9,17 +9,18 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::_('bootstrap.tooltip');
-HtmlHelper::_('behavior.modal');
+HtmlHelper::_('bootstrap.modal');
 
 $listOrder = $this->state->get('list.ordering');
 $listDirn  = $this->state->get('list.direction');
 $limit     = (int)$this->params->get('limit', '');
-$user      = JFactory::getUser();
+$user      = Factory::getUser();
 $graphlib  = URI::Root() . 'components/com_actparse/graphlib/';
 $markuser  = $this->params->get('mark_user');
 ?>
@@ -28,7 +29,7 @@ $markuser  = $this->params->get('mark_user');
 	<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 <?php endif; ?>
 <h2><span class="subheading-category"><?php echo $this->subtitle; ?></span></h2>
-<form action="<?php echo htmlspecialchars(JUri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
+<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
 	<fieldset class="filters">
 		<legend class="hidelabeltxt">
 			<?php echo Text::_('JGLOBAL_FILTER_LABEL'); ?>

@@ -9,6 +9,8 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+
 class ActparseModelCombatants extends JModelList
 {
 	protected function getListQuery()
@@ -46,10 +48,10 @@ class ActparseModelCombatants extends JModelList
 	 *
 	 * @since	1.6
 	 */
-	protected function populateState()
+	protected function populateState($ordering = null, $direction = null)
 	{
 		// Initialise variables.
-		$app    = JFactory::getApplication();
+		$app    = Factory::getApplication();
 		$params = $app->getParams();
 		$jinput = $app->input;
 
@@ -83,7 +85,7 @@ class ActparseModelCombatants extends JModelList
 
 	function getCrumbs()
 	{
-		$db = JFactory::getDBO();
+		$db = Factory::getDBO();
 
 		$query = $db->getQuery(true);
 		$query->select('rt.raidname, et.rid, et.title as encname');

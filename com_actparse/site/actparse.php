@@ -9,6 +9,9 @@
 
 defined('_JEXEC') or die();
 
-$controller = JControllerLegacy::getInstance('Actparse');
-$controller->execute(JFactory::getApplication()->input->get('task'));
+use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Controller\BaseController;
+
+$controller = BaseController::getInstance('Actparse');
+$controller->execute(Factory::getApplication()->input->get('task'));
 $controller->redirect();

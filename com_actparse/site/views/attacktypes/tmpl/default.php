@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
 HtmlHelper::_('bootstrap.tooltip');
-HtmlHelper::_('behavior.modal');
+HtmlHelper::_('bootstrap.modal');
 
 $listOrder = $this->state->get('list.ordering');
 $listDirn  = $this->state->get('list.direction');
