@@ -54,7 +54,7 @@ class ActparseHelperGraph
 		{
 			return false;
 		}
-echo '<pre>' . print_r($graphitems) . '</pre>';
+
 		// Set up Graph
 		$graph = new pDraw(700, 230);
 
@@ -62,7 +62,7 @@ echo '<pre>' . print_r($graphitems) . '</pre>';
 /* Populate the pData object */
 		$graph->myData->addPoints([150,220,300,-250,-420,-200,300,200,100],"Server A");
 		$graph->myData->addPoints([140,0,340,-300,-320,-300,200,100,50],"Server B");
-		$graph->myData->setAxisName(0,"Hits");
+		$graph->myData->setAxisName(0,"Schaden");
 		$graph->myData->addPoints(["January","February","March","April","May","June","July","August","September"],"Months");
 		$graph->myData->setSerieDescription("Months","Month");
 		$graph->myData->setAbscissa("Months");
