@@ -68,7 +68,7 @@ $limit     = (int) $this->params->get('limit', '');
 									elseif($col == 'zone') :
 										echo $item->$col;
 									else :
-										echo (int)$item->$col;
+										echo number_format((int) $item->$col, 0, Text::_('DECIMALS_SEPARATOR'), Text::_('THOUSANDS_SEPARATOR'));
 									endif; ?>
 								</td>
 							<?php endforeach; ?>

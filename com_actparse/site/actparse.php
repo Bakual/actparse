@@ -12,6 +12,9 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
 
+// Load Composer Autoloader
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/vendor/autoload.php');
+
 $controller = BaseController::getInstance('Actparse');
 $controller->execute(Factory::getApplication()->input->get('task'));
 $controller->redirect();

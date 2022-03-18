@@ -33,7 +33,6 @@
 		<folder>helpers</folder>
 		<folder>models</folder>
 		<folder>language</folder>
-		<folder>graphlib</folder>
 	</files>
 	<administration>
 		<menu img="class:stats">COM_ACTPARSE</menu>
@@ -53,6 +52,7 @@
 			<folder>sql</folder>
 			<folder>tables</folder>
 			<folder>language</folder>
+			<folder>vendor</folder>
 			<folder>views</folder>
 		</files>
 	</administration>
