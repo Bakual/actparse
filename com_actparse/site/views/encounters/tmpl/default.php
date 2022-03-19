@@ -1,16 +1,17 @@
 <?php
 /**
- * @package         ACTParse
- * @subpackage      Component.Site
- * @author          Thomas Hunziker <admin@bakual.net>
- * @copyright   (C) 2014 - Thomas Hunziker
- * @license         http://www.gnu.org/licenses/gpl.html
+ * @package     ACTParse
+ * @subpackage  Component.Site
+ * @author      Thomas Hunziker <admin@bakual.net>
+ * @copyright   © 2022 - Thomas Hunziker
+ * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
 defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Uri\Uri;
 
 $listOrder = $this->state->get('list.ordering');
@@ -88,21 +89,9 @@ $limit     = (int) $this->params->get('limit', '');
 				<?php endforeach; ?>
 				</tbody>
 			</table>
-		<?php endif;
-		if ($this->params->get('show_pagination') && ($this->pagination->get('pages.total') > 1)) : ?>
-			<div class="pagination">
-				<?php if ($this->params->get('show_pagination_results', 1)) : ?>
-					<p class="counter">
-						<?php echo $this->pagination->getPagesCounter(); ?>
-					</p>
-				<?php endif;
-				echo $this->pagination->getPagesLinks(); ?>
-			</div>
 		<?php endif; ?>
-		<input type="hidden" name="task" value=""/>
+		<?php echo LayoutHelper::render('blocks.pagination', array('view' => 'encounters', 'pagination' => $this->pagination, 'params' => $this->params)); ?>
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>"/>
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>"/>
-		<input type="hidden" name="limitstart" value=""/>
-
 	</form>
 </div>

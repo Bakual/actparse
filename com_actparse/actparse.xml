@@ -29,6 +29,7 @@
 	<files folder="site">
 		<filename>actparse.php</filename>
 		<filename>controller.php</filename>
+		<folder>layouts</folder>
 		<folder>views</folder>
 		<folder>helpers</folder>
 		<folder>models</folder>
