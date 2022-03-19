@@ -44,8 +44,6 @@ class ActparseViewCurrent extends HtmlView
 			}
 		}
 
-		include 'components/com_actparse/graphlib/phpgraphlib.php';
-
 		// Get some data from the models
 		$this->items      = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
