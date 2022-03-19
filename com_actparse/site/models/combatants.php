@@ -23,7 +23,7 @@ class ActparseModelCombatants extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'ct.*, ROUND(`encdps`) AS `encdps`, ROUND(`enchps`) AS `enchps`, ROUND(`dps`) AS `dps`'
+				'ct.*'
 			)
 		);
 		$query->from('`combatant_table` AS ct');

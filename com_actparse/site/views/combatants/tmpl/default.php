@@ -68,12 +68,12 @@ $markuser  = $this->params->get('mark_user');
 							<td>
 								<?php if ($col == 'starttime' or $col == 'endtime') : ?>
 									<?php if ($item->$col !== '0000-00-00 00:00:00') : ?>
-										<?php echo HtmlHelper::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC'); ?>
+										<?php echo HtmlHelper::_('date', $item->$col, Text::_('DATE_FORMAT_LC6'), 'UTC'); ?>
 									<?php else : ?>
 										---
 									<?php endif; ?>
 								<?php else : ?>
-									<?php echo is_int($item->$col) ? number_format((int) $item->$col, 0, Text::_('DECIMALS_SEPARATOR'), Text::_('THOUSANDS_SEPARATOR')) : $item->$col; ?>
+									<?php echo is_numeric($item->$col) ? number_format((int) $item->$col, 0, Text::_('DECIMALS_SEPARATOR'), Text::_('THOUSANDS_SEPARATOR')) : $item->$col; ?>
 								<?php endif; ?>
 							</td>
 						<?php endforeach; ?>

@@ -60,7 +60,7 @@ class ActparseViewEncounters extends HtmlView
 	 *
 	 * @return  mixed  A string if successful, otherwise a Error object.
 	 *
-	 * @see     JViewLegacy::loadTemplate()
+	 * @see     HtmlView::loadTemplate()
 	 * @since   1.0
 	 * @throws  Exception
 	 */

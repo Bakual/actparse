@@ -23,7 +23,7 @@ class ActparseModelAttacktypes extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'at.*, et.rid, ROUND(at.`encdps`) AS `encdps`, ROUND(at.`chardps`) AS `chardps`, ROUND(at.`dps`) AS `dps`'
+				'at.*, et.rid'
 			)
 		);
 		$query->from('`attacktype_table` AS at');

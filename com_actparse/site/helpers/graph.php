@@ -25,11 +25,12 @@ class ActparseHelperGraph
 	 *
 	 * @param   array   $items  Array ob objects
 	 * @param   string  $order  The current ordering
-	 * @param   string  $alt    USe enc/title instead of name
+	 * @param   string  $alt    Use enc/title instead of name
+	 * @param   string  $label  Specify the label
 	 *
 	 * @return  boolean
 	 */
-	public static function createGraph($items, $order, $alt = false)
+	public static function createGraph($items, $order, $alt = false, $label = null)
 	{
 		if ($order == 'starttime' || $order == 'endtime')
 		{
@@ -43,6 +44,10 @@ class ActparseHelperGraph
 			if ($alt)
 			{
 				$graphitems['(' . $row->encid . ') ' . $row->title] = (int) $row->$order;
+			}
+			elseif ($label)
+			{
+				$graphitems[$row->$label] = (int) $row->$order;
 			}
 			else
 			{

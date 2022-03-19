@@ -27,7 +27,7 @@ class ActparseModelDamagetypes extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'dt.*, ROUND(`encdps`) AS `encdps`, ROUND(`chardps`) AS `chardps`, ROUND(`dps`) AS `dps`'
+				'dt.*'
 			)
 		);
 		$query->from('`damagetype_table` AS dt');

@@ -11,12 +11,13 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Uri\Uri;
 
 /**
  * HTML View class for the actparse Component
  */
-class ActparseViewDamagetypes extends JViewLegacy
+class ActparseViewDamagetypes extends HtmlView
 {
 	function display($tpl = null)
 	{
@@ -67,7 +68,7 @@ class ActparseViewDamagetypes extends JViewLegacy
 		if ($this->showgraph)
 		{
 			require_once JPATH_COMPONENT . '/helpers/graph.php';
-			$this->showgraph = ActparseHelperGraph::createGraph($this->items, $this->state->get('list.ordering'));
+			$this->showgraph = ActparseHelperGraph::createGraph($this->items, $this->state->get('list.ordering'), false, 'type');
 		}
 
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));

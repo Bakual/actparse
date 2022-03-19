@@ -12,12 +12,13 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Uri\Uri;
 
 /**
  * HTML View class for the actparse Component
  */
-class ActparseViewCurrent extends JViewLegacy
+class ActparseViewCurrent extends HtmlView
 {
 	function display($tpl = null)
 	{

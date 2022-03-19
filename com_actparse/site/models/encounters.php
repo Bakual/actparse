@@ -79,7 +79,7 @@ class ActparseModelEncounters extends ListModel
 		$query->select(
 			$this->getState(
 				'list.select',
-				'et.*, ROUND(`encdps`) AS `encdps`'
+				'et.*'
 			)
 		);
 		$query->from('`encounter_table` AS et');
