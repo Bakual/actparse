@@ -24,7 +24,7 @@ class ActparseModelCurrent extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'cut.*, ROUND(`encdps`) AS `encdps`, ROUND(`enchps`) AS `enchps`, ROUND(`dps`) AS `dps`'
+				'cut.*'
 			)
 		);
 		$query->from('`current_table` AS cut');
