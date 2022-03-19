@@ -29,19 +29,19 @@ OutputFilter::objectHTMLSafe( $this->items, ENT_QUOTES );
 </div>
 <table border="0" width="100%" class="adminlist">
 	<tr>
-		<th align="left" colspan="2"><?php echo Text::_('COM_ACTPARSE_ENCOUNTERS_TO_MOVE'); ?></th>
+		<th colspan="2"><?php echo Text::_('COM_ACTPARSE_ENCOUNTERS_TO_MOVE'); ?></th>
 	</tr>
 	<tr>
 		<th class="title" width="40%"><?php echo Text::_('JGLOBAL_TITLE'); ?></th>
-		<th align="left"><?php echo Text::_('COM_ACTPARSE_OLD_CAT'); ?></th>
+		<th><?php echo Text::_('COM_ACTPARSE_OLD_CAT'); ?></th>
 	</tr>
 	<?php foreach($this->items as $row) { ?>
 		<tr>
-			<td align="left">
+			<td>
 				<?php echo $row->title; ?>
 				<input type="hidden" name="cid[]" value="<?php echo $row->id; ?>" />
 			</td>
-			<td align="left"><?php echo $row->category ?></td>
+			<td><?php echo $row->category ?></td>
 		</tr>
 	<?php } ?>
 </table>

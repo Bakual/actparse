@@ -42,7 +42,7 @@ $limit     = (int)$this->params->get('limit', '');
 			<thead><tr>
 				<th><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_TYPE', 'type', $listDirn, $listOrder); ?></th>
 				<?php foreach ($this->cols as $col) { ?>
-					<th align="left"><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_'.$col, $col, $listDirn, $listOrder); ?></th>
+					<th><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_'.$col, $col, $listDirn, $listOrder); ?></th>
 				<?php } ?>
 			</tr></thead>
 		<!-- Begin Data -->
@@ -51,7 +51,7 @@ $limit     = (int)$this->params->get('limit', '');
 					<tr class="cat-list-row<?php echo $i % 2; ?>">
 						<td><?php echo $item->type; ?></td>
 						<?php foreach ($this->cols as $col) : ?>
-							<td align="left">
+							<td>
 								<?php if ($col == 'starttime' OR $col == 'endtime') :
 									echo  HtmlHelper::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
 								else :

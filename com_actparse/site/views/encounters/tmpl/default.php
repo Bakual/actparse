@@ -25,22 +25,28 @@ $limit     = (int) $this->params->get('limit', '');
 		<h1><?php echo $this->escape($this->params->get('page_heading')); ?></h1>
 	<?php endif; ?>
 	<h2><span class="subheading-category"><?php echo $this->subtitle; ?></span></h2>
-	<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm">
-		<?php if ($this->params->get('filter_field')) :?>
-			<fieldset class="filters">
-				<legend class="hidelabeltxt">
+	<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" id="adminForm" name="adminForm"  class="com-actparse-encounters__encounters">
+		<div class="com-actparse__filter btn-group">
+			<?php if ($this->params->get('filter_field')) :?>
+				<label class="filter-search-lbl visually-hidden" for="filter-search">
 					<?php echo Text::_('JGLOBAL_FILTER_LABEL'); ?>
-				</legend>
-				<div class="filter-search">
-					<label class="filter-search-lbl" for="filter-search"><?php echo Text::_('JGLOBAL_FILTER_LABEL').'&nbsp;'; ?></label>
-					<input type="text" name="filter-search" id="filter-search" value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox" onchange="document.adminForm.submit();" title="<?php echo Text::_('COM_ACTPARSE_FILTER_SEARCH_DESC'); ?>" />
-				</div>
-		<?php endif;
-		if ($this->params->get('show_pagination_limit')) : ?>
-				<div class="display-limit">
-					<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>&nbsp;
-					<?php echo $this->pagination->getLimitBox(); ?>
-				</div>
+				</label>
+				<input type="text" name="filter[search]" id="filter-search"
+					   value="<?php echo $this->escape($this->state->get('filter.search')); ?>" class="inputbox"
+					   onchange="document.adminForm.submit();">
+			<?php endif; ?>
+			<label class="filter-show_npc-lbl visually-hidden" for="show_npc">
+				<?php echo Text::_('JGLOBAL_FILTER_LABEL'); ?>
+			</label>
+			<?php echo $this->npc; ?>
+		</div>
+		<?php if ($this->params->get('show_pagination_limit')) : ?>
+			<div class="com-actparse-encounters__pagination btn-group float-end">
+				<label for="limit" class="visually-hidden">
+					<?php echo Text::_('JGLOBAL_DISPLAY_NUM'); ?>
+				</label>
+				<?php echo $this->pagination->getLimitBox(); ?>
+			</div>
 		<?php endif;
 		if ($this->params->get('filter_field')) : ?>
 			</fieldset>
@@ -53,16 +59,16 @@ $limit     = (int) $this->params->get('limit', '');
 				<thead><tr>
 					<th><?php echo HtmlHelper::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder); ?></th>
 					<?php foreach ($this->cols as $col) { ?>
-						<th align="left"><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_'.$col, $col, $listDirn, $listOrder); ?></th>
+						<th><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_'.$col, $col, $listDirn, $listOrder); ?></th>
 					<?php } ?>
 				</tr></thead>
 			<!-- Begin Data -->
 				<tbody>
 					<?php foreach($this->items as $i => $item) : ?>
 						<tr class="cat-list-row<?php echo $i % 2; echo isset($item->all) ? ' success' : ''; ?>">
-							<td align='left'><a href="<?php echo JRoute::_('index.php?view=combatants&encid='.$item->encid); ?>" ><?php echo $item->title; ?></a></td>
+							<td><a href="<?php echo JRoute::_('index.php?view=combatants&encid='.$item->encid); ?>" ><?php echo $item->title; ?></a></td>
 							<?php foreach ($this->cols as $col) : ?>
-								<td align="left">
+								<td>
 									<?php if ($col == 'starttime' OR $col == 'endtime') :
 										echo  HtmlHelper::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
 									elseif($col == 'zone') :
@@ -87,7 +93,10 @@ $limit     = (int) $this->params->get('limit', '');
 				echo $this->pagination->getPagesLinks(); ?>
 			</div>
 		<?php endif; ?>
+		<input type="hidden" name="task" value=""/>
 		<input type="hidden" name="filter_order" value="<?php echo $listOrder; ?>" />
 		<input type="hidden" name="filter_order_Dir" value="<?php echo $listDirn; ?>" />
+		<input type="hidden" name="limitstart" value=""/>
+
 	</form>
 </div>

@@ -42,11 +42,11 @@ class ActparseHelperGraph
 		{
 			if ($alt)
 			{
-				$graphitems['(' . $row->encid . ') ' . $row->title] = $row->$order;
+				$graphitems['(' . $row->encid . ') ' . $row->title] = (int) $row->$order;
 			}
 			else
 			{
-				$graphitems[$row->name] = $row->$order;
+				$graphitems[$row->name] = (int) $row->$order;
 			}
 		}
 

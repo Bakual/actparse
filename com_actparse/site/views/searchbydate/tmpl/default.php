@@ -58,16 +58,16 @@ $graphlib  = URI::Root().'components/com_actparse/graphlib/';
 			<thead><tr>
 				<th><?php echo HtmlHelper::_('grid.sort', 'JGLOBAL_TITLE', 'title', $listDirn, $listOrder); ?></th>
 				<?php foreach ($this->cols as $col) { ?>
-					<th align="left"><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_'.$col, $col, $listDirn, $listOrder); ?></th>
+					<th><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_'.$col, $col, $listDirn, $listOrder); ?></th>
 				<?php } ?>
 			</tr></thead>
 		<!-- Begin Data -->
 			<tbody>
 				<?php foreach($this->items as $i => $item) : ?>
 					<tr class="cat-list-row<?php echo $i % 2; echo isset($item->all) ? ' success' : ''; ?>">
-						<td align='left'><a href="<?php echo JRoute::_('index.php?view=combatants&encid='.$item->encid); ?>" ><?php echo $item->title; ?></a></td>
+						<td><a href="<?php echo JRoute::_('index.php?view=combatants&encid='.$item->encid); ?>" ><?php echo $item->title; ?></a></td>
 						<?php foreach ($this->cols as $col) : ?>
-							<td align="left">
+							<td>
 								<?php if ($col == 'starttime' OR $col == 'endtime') :
 									echo  HtmlHelper::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
 								elseif($col == 'zone') :

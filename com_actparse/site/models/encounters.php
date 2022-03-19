@@ -18,6 +18,55 @@ use Joomla\CMS\MVC\Model\ListModel;
  */
 class ActparseModelEncounters extends ListModel
 {
+	/**
+	 * Constructor
+	 *
+	 * @param   array  $config  An optional associative array of configuration settings
+	 *
+	 * @since ?
+	 */
+	public function __construct($config = array())
+	{
+		if (empty($config['filter_fields']))
+		{
+			$app    = Factory::getApplication();
+			$params = (array) $app->getParams()->get('enccolumns');
+			$config['filter_fields'] = $params;
+		}
+
+		parent::__construct($config);
+	}
+
+	function getAll()
+	{
+		$db = Factory::getDBO();
+
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from('encounter_table');
+		$query->where('rid = ' . (int) $this->getState('raid.id'));
+		$query->where('title = "All"');
+		$query->where('published = 1');
+
+		$db->setQuery($query);
+
+		return $db->loadObject();
+	}
+
+	function getCrumbs()
+	{
+		$db = Factory::getDBO();
+
+		$query = $db->getQuery(true);
+		$query->select('*');
+		$query->from('#__actparse_raids');
+		$query->where('id = ' . (int) $this->getState('raid.id'));
+
+		$db->setQuery($query);
+
+		return $db->loadAssoc();
+	}
+
 	protected function getListQuery()
 	{
 		$groups = implode(',', Factory::getUser()->getAuthorisedViewLevels());
@@ -87,23 +136,20 @@ class ActparseModelEncounters extends ListModel
 		// Initialise variables.
 		$app    = Factory::getApplication();
 		$params = $app->getParams();
+		$this->setState('params', $params);
 		$jinput = $app->input;
 
 		// List state information
-		$search = $jinput->getString('filter-search', '');
-		$this->setState('filter.search', $search);
-
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('list_limit'));
 		$this->setState('list.limit', $limit);
 
 		$limitstart = $jinput->getInt('limitstart', 0);
 		$this->setState('list.start', $limitstart);
 
-		$orderCol = $jinput->getCmd('filter_order', $params->get('default_order', 'starttime'));
-		$this->setState('list.ordering', $orderCol);
+		$order = $params->get('default_order', 'starttime');
+		$dir   = $params->get('default_order_dir', 'DESC');
 
-		$listOrder = $jinput->getCmd('filter_order_Dir', $params->get('default_order_dir', 'DESC'));
-		$this->setState('list.direction', $listOrder);
+		parent::populateState($order, $dir);
 
 		$id = (int) $params->get('enc_cat', 0);
 
@@ -124,38 +170,5 @@ class ActparseModelEncounters extends ListModel
 		$this->setState('raid.id', $id);
 
 		$this->setState('filter.state', 1);
-
-		// Load the parameters.
-		$this->setState('params', $params);
-	}
-
-	function getAll()
-	{
-		$db = Factory::getDBO();
-
-		$query = $db->getQuery(true);
-		$query->select('*');
-		$query->from('encounter_table');
-		$query->where('rid = ' . (int) $this->getState('raid.id'));
-		$query->where('title = "All"');
-		$query->where('published = 1');
-
-		$db->setQuery($query);
-
-		return $db->loadObject();
-	}
-
-	function getCrumbs()
-	{
-		$db = Factory::getDBO();
-
-		$query = $db->getQuery(true);
-		$query->select('*');
-		$query->from('#__actparse_raids');
-		$query->where('id = ' . (int) $this->getState('raid.id'));
-
-		$db->setQuery($query);
-
-		return $db->loadAssoc();
 	}
 }

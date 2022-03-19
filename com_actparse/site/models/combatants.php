@@ -56,9 +56,6 @@ class ActparseModelCombatants extends JModelList
 		$jinput = $app->input;
 
 		// List state information
-		$search = $jinput->getString('filter-search', '');
-		$this->setState('filter.search', $search);
-
 		$limit = $app->getUserStateFromRequest('global.list.limit', 'limit', $app->get('list_limit'));
 		$this->setState('list.limit', $limit);
 

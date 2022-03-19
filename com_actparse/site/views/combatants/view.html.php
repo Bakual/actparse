@@ -69,7 +69,7 @@ class ActparseViewCombatants extends JViewLegacy
 		$npclist[]  = HtmlHelper::_('select.option', '0', 'PC & NPC');
 		$npclist[]  = HtmlHelper::_('select.option', 'T', 'PC');
 		$npclist[]  = HtmlHelper::_('select.option', 'F', 'NPC');
-		$this->npc  = HtmlHelper::_('select.genericlist', $npclist, 'show_npc', 'class="inputbox" size="1" style="width:8em;"' . $javascript, 'value', 'text', $show_npc);
+		$this->npc  = HtmlHelper::_('select.genericlist', $npclist, 'show_npc', 'class="form-select"' . $javascript, 'value', 'text', $show_npc);
 
 		$this->showgraph = $this->params->get('show_graph');
 

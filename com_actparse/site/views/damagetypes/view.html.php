@@ -42,8 +42,6 @@ class ActparseViewDamagetypes extends JViewLegacy
 			}
 		}
 
-		include 'components/com_actparse/graphlib/phpgraphlib.php';
-
 		// Get some data from the models
 		$this->items      = $this->get('Items');
 		$this->pagination = $this->get('Pagination');
@@ -62,6 +60,14 @@ class ActparseViewDamagetypes extends JViewLegacy
 		if ($key !== false)
 		{
 			unset ($this->cols[$key]);
+		}
+
+		$this->showgraph = $this->params->get('show_graph');
+
+		if ($this->showgraph)
+		{
+			require_once JPATH_COMPONENT . '/helpers/graph.php';
+			$this->showgraph = ActparseHelperGraph::createGraph($this->items, $this->state->get('list.ordering'));
 		}
 
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));

@@ -55,7 +55,7 @@ $markuser  = $this->params->get('mark_user');
 				<tr>
 					<th><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_NAME', 'name', $listDirn, $listOrder); ?></th>
 					<?php foreach ($this->cols as $col) { ?>
-						<th align="left"><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_' . $col, $col, $listDirn, $listOrder); ?></th>
+						<th><?php echo HtmlHelper::_('grid.sort', 'COM_ACTPARSE_' . $col, $col, $listDirn, $listOrder); ?></th>
 					<?php } ?>
 				</tr>
 				</thead>
@@ -64,9 +64,9 @@ $markuser  = $this->params->get('mark_user');
 				<?php foreach ($this->items as $i => $item) :
 					$class = ($markuser && (strtolower($user->username) == strtolower($item->name))) ? ' info' : ''; ?>
 					<tr class="cat-list-row<?php echo ($i % 2) . $class; ?>">
-						<td align='left'><?php echo $item->name; ?></td>
+						<td><?php echo $item->name; ?></td>
 						<?php foreach ($this->cols as $col) : ?>
-							<td align="left">
+							<td>
 								<?php if ($col == 'starttime' or $col == 'endtime') :
 									echo HtmlHelper::_('date', $item->$col, 'Y-m-d H:m:s', 'UTC');
 								else :
