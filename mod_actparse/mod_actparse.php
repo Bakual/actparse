@@ -3,7 +3,7 @@
  * @package     ACTParse
  * @subpackage  Module
  * @author      Thomas Hunziker <admin@bakual.net>
- * @copyright   © 2022 - Thomas Hunziker
+ * @copyright   © 2023 - Thomas Hunziker
  * @license     http://www.gnu.org/licenses/gpl.html
  **/
 
